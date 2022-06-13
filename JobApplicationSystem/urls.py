@@ -28,9 +28,9 @@ admin.site.index_title = 'GeeksForGeeks Administration'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('job/', include('job.urls')),
+    path('jobs/', include('job.urls')),
     path('application/', include('application.urls')),
-    path('', RedirectView.as_view(url='job/', permanent=True)),
+    path('', RedirectView.as_view(url='jobs/', permanent=True)),
     path('editor/', include('django_summernote.urls')),
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
