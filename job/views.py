@@ -14,6 +14,6 @@ class JobsListView(ListView):
 
 
 class JobDetailView(DetailView):
-    model = Job
-    context_object_name = 'job'
-    template_name = 'job_detail.html'
+        model = Job
+        context_object_name = 'job'
+        template_name = 'job_detail.html'

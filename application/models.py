@@ -1,3 +1,62 @@
 from django.db import models
+from job.models import Job
 
 # Create your models here.
+
+class Application(models.Model):
+    Application_NID = models.CharField(max_length=10)
+    Application_Email = models.EmailField(max_length=100)
+    Application_Birth_Date = models.DateField()
+    Application_Name = models.CharField(max_length=100)
+    Application_Create_Date = models.DateField(auto_now_add=True)
+    Application_City = models.CharField(max_length=100)
+    Application_Location = models.CharField(max_length=100,blank=True)
+    Application_Phone_Num = models.IntegerField()
+    Application_Nationality = models.CharField(max_length=100)
+    Application_Car_License = models.CharField(choices=[('Y', 'Yes'),('N', 'No')],default='N',max_length=2)
+    Application_Job = models.ForeignKey(Job, on_delete=models.SET_NULL, null=True)
+    Application_Last_Job_Desc = models.TextField(max_length=5000)
+    Application_Current_Salary = models.IntegerField(default=0, null=True,blank=True)
+    Application_Expected_Salary = models.IntegerField(default=0, null=True,blank=True)
+    Application_Available_Date = models.DateField(default=0, null=True,blank=True)
+    Application_Relative_Frinds = models.BooleanField(default=False)
+    Application_Relative_Frinds_Job = models.CharField(max_length=100)
+    Application_Diseases = models.CharField(max_length=100)
+    Application_Q_Degree = models.CharField(max_length=100)
+    Application_Q_University = models.CharField(max_length=100)
+    Application_Q_Graduation_Date = models.DateField(default=0, null=True,blank=True)
+    Application_Q_Major = models.CharField(max_length=100)
+    Application_L_Language = models.CharField(max_length=100)
+    Application_L_Level = models.CharField(max_length=100)
+    Application_L_Type = models.CharField(max_length=100)
+    Application_C_Computer_Skill = models.CharField(max_length=100)
+    Application_C_Computer_Level = models.CharField(max_length=100)
+    Application_Company_Prev_Name = models.CharField(max_length=100)
+    Application_Company_Prev_Address = models.CharField(max_length=100)
+    Application_Company_Prev_Phone = models.IntegerField(default=0, null=True,blank=True)
+    Application_Company_Prev_Duration_From = models.DateField(default=0, null=True,blank=True)
+    Application_Company_Prev_Duration_To = models.DateField(default=0, null=True,blank=True)
+    Application_Company_Prev_Position = models.CharField(max_length=100)
+    Application_Company_Prev_Start_Salary = models.IntegerField(default=0, null=True,blank=True)
+    Application_Company_Prev_Last_Salary = models.IntegerField(default=0, null=True,blank=True)
+    Application_Company_Prev_Reason = models.TextField(max_length=5000)
+    Application_Company_Prev_Maneger = models.CharField(max_length=100)
+    Application_T_Training_Name = models.CharField(max_length=100)
+    Application_T_Training_Duration = models.CharField(max_length=100)
+    Application_T_Training_Location = models.DateField(default=0, null=True,blank=True)
+    Application_T_Training_Institute = models.TextField(max_length=100)
+    Application_Prev_Coworker_Name = models.CharField(max_length=100)
+    Application_Prev_Coworker_Address = models.CharField(max_length=100)
+    Application_Prev_Coworker_Phone = models.IntegerField(default=0, null=True,blank=True)
+    Application_Prev_Coworker_Position = models.CharField(max_length=100)
+    Application_Coworker_Ask = models.BooleanField(default=False)
+    Application_Black_List = models.BooleanField(default=False)
+    Application_First_Approval = models.BooleanField(default=False)
+    Application_First_Approval_Note = models.TextField(max_length=5000)
+    Application_Second_Approval = models.BooleanField(default=False)
+    Application_Second_Approval_Note = models.TextField(max_length=5000)
+
+
+
+
+
