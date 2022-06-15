@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% load static %}
 {% block title %}
 Apply
@@ -7,23 +8,102 @@ Apply
 {% block content %}
 <div class="job_details_area">
     <div class="container">
-        <div class="row">
+        <!--  <div class="row">
             <div class="col-lg-12">
 <div class="apply_job_form white-bg">
-
+    <h4 >Apply for the job </h4>
 <form method="POST" enctype="multipart/form-data">
+    <div class="row" dir="rtl">
+       
  
-    <!-- Security token -->
-    {% csrf_token %}
+
+        {% csrf_token %}
+
+         <div class="col-md-4">
+                <div class="input_field" >
+                    {{ form.Application_Name }}
+                </div>
+         </div>
+
+         <div class="col-md-4">
+                <div class="input_field" >
+                    {{ form.Application_Email }}
+                </div>
+         </div>
+
+         <div class="col-md-4">
+                <div class="input_field" >
+                    {{ form.Application_Phone_Num }}
+                </div>
+         </div>
+
+         <div class="col-md-4">
+                <div class="input_field" >
+                    {{ form.Application_NID }}
+                </div>
+         </div>
+
+
+
+         <div class="col-md-4">
+                <div class="input_field" >
+                    {{ form.Application_Nationality }}
+                </div>
+         </div>
+
+
+
+         <div class="col-md-4">
+            <div class="input_field" >
+                {{ form.Application_City }}
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="input_field" >
+               {{ form.Application_Location }}
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="input_field" >
+               {{ form.Application_Birth_Location }}
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="input_field" >
+                {{ form.Application_Socility_Status }}
+            </div>
+        </div>
+
+         <div class="col-md-4">
+            <div class="input_field" >
+                <label>{{ form.Application_Have_Car}}  لديك رخصة سواقة؟</label> 
+            </div>
+         </div>
+
+         <div class="col-md-4">
+            <div class="input_field" >
+               {{ form.Application_Car_License }}  هل لديك رخصة سواقة؟
+            </div>
+        </div>
+
+         
+         
+         
  
-    <!-- Using the formset -->
-    {{ form.as_p }}
-    {{  form.errors }}
+
+
+                     {{  form.errors }}
    
-     
-    <input type="submit" value="Submit">
+      </div>
+    <input class="boxed-btn3 w-100"  type="submit" value="Submit">
+
 </form>
-    <h4>Apply for the job </h4>
+
+
     <form action="#">
         <div class="row">
             <div class="col-md-6">
@@ -67,7 +147,217 @@ Apply
     </form>
 </div>
 </div>
+</div>-->
+
+<div class="col-sm-12" dir="rtl">
+
+    <!--      Wizard container        -->
+    <div class="wizard-container">
+
+        <div class="card wizard-card" data-color="orange" id="wizardProfile">
+            <form action="" method="">
+        <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
+
+                <div class="wizard-header text-center">
+                    <h3 class="wizard-title">Create your profile</h3>
+                    <p class="category">This information will let us know more about you.</p>
+                </div>
+
+                <div class="wizard-navigation">
+                    <div class="progress-with-circle" dir="rtl">
+                         <div  dir="rtl" class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 21%;"></div>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="#about" data-toggle="tab">
+                                <div class="icon-circle">
+                                    <i class="ti-user"></i>
+                                </div>
+                                About
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#account" data-toggle="tab">
+                                <div class="icon-circle">
+                                    <i class="ti-settings"></i>
+                                </div>
+                                Work
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#address" data-toggle="tab">
+                                <div class="icon-circle">
+                                    <i class="ti-map"></i>
+                                </div>
+                                Address
+                            </a>
+                        </li>
+
+                                                <li>
+                        <a href="#address2" data-toggle="tab">
+                            <div class="icon-circle">
+                                <i class="ti-map"></i>
+                            </div>
+                            Address
+                        </a>
+                    </li>
+
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane" id="about">
+                        <form method="POST" enctype="multipart/form-data">
+                        <div class="row">
+      
+      
+    
+                                   
+                             
+                            
+                                    {% csrf_token %}
+                            
+                                     <div class="col-md-4">
+                                            <div class="input_field" >
+                                                {{ form.Application_Name }}
+                                            </div>
+                                     </div>
+
+                                     <div class="col-sm-10 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <label>Email <small>(required)</small></label>
+                                            <input name="email" type="email" class="form-control" placeholder="andrew@creative-tim.com">
+                                        </div>
+                                    </div>
+                            
+                                     <div class="col-md-4">
+                                            <div class="input_field" >
+                                                {{ form.Application_Email }}
+                                            </div>
+                                     </div>
+                            
+                                     <div class="col-md-4">
+                                            <div class="input_field" >
+                                                {{ form.Application_Phone_Num }}
+                                            </div>
+                                     </div>
+                            
+                                     <div class="col-md-4">
+                                            <div class="input_field" >
+                                                {{ form.Application_NID }}
+                                            </div>
+                                     </div>
+                            
+                            
+                            
+                                     <div class="col-md-4">
+                                            <div class="input_field" >
+                                                {{ form.Application_Nationality }}
+                                            </div>
+                                     </div>
+                            
+                            
+                            
+                                     <div class="col-md-4">
+                                        <div class="input_field" >
+                                            {{ form.Application_City }}
+                                        </div>
+                                    </div>
+                            
+                                    <div class="col-md-4">
+                                        <div class="input_field" >
+                                           {{ form.Application_Location }}
+                                        </div>
+                                    </div>
+                            
+                            
+                                    <div class="col-md-4">
+                                        <div class="input_field" >
+                                           {{ form.Application_Birth_Location }}
+                                        </div>
+                                    </div>
+                            
+                                    <div class="col-md-4">
+                                        <div class="input_field" >
+                                            {{ form.Application_Socility_Status }}
+                                        </div>
+                                    </div>
+                            
+                                     <div class="col-md-4">
+                                        <div class="input_field" >
+                                            <label>{{ form.Application_Have_Car}}  لديك رخصة سواقة؟</label> 
+                                        </div>
+                                     </div>
+                            
+                                     <div class="col-md-4">
+                                        <div class="input_field" >
+                                           {{ form.Application_Car_License }}  هل لديك رخصة سواقة؟
+                                        </div>
+                                    </div>
+                            
+                                     
+                                     
+                                     
+                             
+                            
+                            
+                                                 {{  form.errors }}
+                               
+                           
+                                <input class="boxed-btn3 w-100"  type="submit" value="Submit">
+                            </div>
+                            </form>
+
+
+
+
+                            
+                            <div class="col-sm-10 col-sm-offset-1">
+                                <div class="form-group">
+                                    <label>Email <small>(required)</small></label>
+                                    <input name="email" type="email" class="form-control" placeholder="andrew@creative-tim.com">
+                                </div>
+                            </div>
+
+
+
+
+                       
+                    </div>
+                    <div class="tab-pane" id="account">
+                        <h5 class="info-text"> What are you doing? (checkboxes) </h5>
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                                                        <<!secound tab >>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="address">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h5 class="info-text"> Are you living in a nice area? </h5>
+                            </div>
+
+                                                                                        <<!secound tab >>
+                        </div>
+                    </div>
+                </div>
+                <div class="wizard-footer">
+                    <div class="pull-right">
+                        <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='Next' />
+                        <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Finish' />
+                    </div>
+
+                    <div class="pull-left">
+                        <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Previous' />
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </div>
+    </div> <!-- wizard container -->
 </div>
+</div><!-- end row -->
 </div>
 </div>
 

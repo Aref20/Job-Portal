@@ -4,16 +4,19 @@ from job.models import Job
 # Create your models here.
 
 class Application(models.Model):
-    Application_NID = models.CharField(max_length=10)
+    Application_NID = models.CharField(max_length=10,verbose_name='الرقم الوطني')
     Application_Email = models.EmailField(max_length=100)
     Application_Birth_Date = models.DateField()
     Application_Name = models.CharField(max_length=100)
     Application_Create_Date = models.DateField(auto_now_add=True)
+    Application_Socility_Status = models.CharField(choices=[('Married', 'متزوج'),('Single', 'أعزب')],default='Single',max_length=10)
+    Application_Birth_Location = models.CharField(max_length=100,blank=True)
     Application_City = models.CharField(max_length=100)
     Application_Location = models.CharField(max_length=100,blank=True)
     Application_Phone_Num = models.IntegerField()
     Application_Nationality = models.CharField(max_length=100)
-    Application_Car_License = models.CharField(choices=[('Y', 'Yes'),('N', 'No')],default='N',max_length=2)
+    Application_Car_License = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
+    Application_Have_Car = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
     Application_Job = models.ForeignKey(Job, on_delete=models.SET_NULL, null=True)
     Application_Last_Job_Desc = models.TextField(max_length=5000)
     Application_Current_Salary = models.IntegerField(default=0, null=True,blank=True)
