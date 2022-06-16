@@ -1381,6 +1381,7 @@ input[type="button"]:focus {
   top: 40px;
   z-index: 50;
   height: 4px;
+      margin-bottom: 50px;
 }
 .wizard-card .wizard-navigation .progress-with-circle .progress-bar {
   box-shadow: none;

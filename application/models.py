@@ -4,7 +4,7 @@ from job.models import Job
 # Create your models here.
 
 class Application(models.Model):
-    Application_NID = models.CharField(max_length=10,verbose_name='الرقم الوطني')
+    Application_NID = models.CharField(max_length=10,verbose_name='الرقم الوطني',error_messages={'required': 'Please let us know what to call you!'})
     Application_Email = models.EmailField(max_length=100)
     Application_Birth_Date = models.DateField()
     Application_Name = models.CharField(max_length=100)
@@ -25,10 +25,7 @@ class Application(models.Model):
     Application_Relative_Frinds = models.BooleanField(default=False)
     Application_Relative_Frinds_Job = models.CharField(max_length=100)
     Application_Diseases = models.CharField(max_length=100)
-    Application_Q_Degree = models.CharField(max_length=100)
-    Application_Q_University = models.CharField(max_length=100)
-    Application_Q_Graduation_Date = models.DateField(default=0, null=True,blank=True)
-    Application_Q_Major = models.CharField(max_length=100)
+    
     Application_L_Language = models.CharField(max_length=100)
     Application_L_Level = models.CharField(max_length=100)
     Application_L_Type = models.CharField(max_length=100)
@@ -58,6 +55,17 @@ class Application(models.Model):
     Application_First_Approval_Note = models.TextField(max_length=5000)
     Application_Second_Approval = models.BooleanField(default=False)
     Application_Second_Approval_Note = models.TextField(max_length=5000)
+
+
+class Qualification(models.Model):
+    Qualification_Application= models.ForeignKey(Application, on_delete=models.SET_NULL, null=True,related_name='Application_Qualification')
+    Qualification_Degree = models.CharField(max_length=100)
+    Qualification_University = models.CharField(max_length=100)
+    Qualification_Graduation_Date = models.DateField(default=0, null=True,blank=True)
+    Qualification_Major = models.CharField(max_length=100)
+
+
+
 
 
 

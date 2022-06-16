@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{{ form.media }}
 {% block title %}
+
 Apply
 {% endblock title %}
 
@@ -155,12 +161,12 @@ Apply
     <div class="wizard-container">
 
         <div class="card wizard-card" data-color="orange" id="wizardProfile">
-            <form action="" method="">
+   
         <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
 
                 <div class="wizard-header text-center">
-                    <h3 class="wizard-title">Create your profile</h3>
-                    <p class="category">This information will let us know more about you.</p>
+                    <h3 class="wizard-title">طلب توظيف</h3>
+                    <p class="category"></p>
                 </div>
 
                 <div class="wizard-navigation">
@@ -173,15 +179,15 @@ Apply
                                 <div class="icon-circle">
                                     <i class="ti-user"></i>
                                 </div>
-                                About
+                                البيانات الشخصية
                             </a>
                         </li>
                         <li>
-                            <a href="#account" data-toggle="tab">
+                            <a href="#qualifications" data-toggle="tab">
                                 <div class="icon-circle">
                                     <i class="ti-settings"></i>
                                 </div>
-                                Work
+                                المؤهلات ألأكاديمية
                             </a>
                         </li>
                         <li>
@@ -204,45 +210,39 @@ Apply
 
                     </ul>
                 </div>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
                 <div class="tab-content">
                     <div class="tab-pane" id="about">
-                        <form method="POST" enctype="multipart/form-data">
-                        <div class="row">
-      
-      
-    
-                                   
-                             
-                            
-                                    {% csrf_token %}
+                            <div class="row">
+                               
                             
                                      <div class="col-md-4">
                                             <div class="input_field" >
+                                                <label >ألإسم <small>(مطلوب)</small></label>
                                                 {{ form.Application_Name }}
                                             </div>
                                      </div>
 
-                                     <div class="col-sm-10 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <label>Email <small>(required)</small></label>
-                                            <input name="email" type="email" class="form-control" placeholder="andrew@creative-tim.com">
-                                        </div>
-                                    </div>
+
                             
                                      <div class="col-md-4">
                                             <div class="input_field" >
+                                                <label >ألإيميل <small>(مطلوب)</small></label>
                                                 {{ form.Application_Email }}
                                             </div>
                                      </div>
                             
                                      <div class="col-md-4">
                                             <div class="input_field" >
+                                                <label >رقم الهاتف <small>(مطلوب)</small></label>
                                                 {{ form.Application_Phone_Num }}
                                             </div>
                                      </div>
                             
                                      <div class="col-md-4">
                                             <div class="input_field" >
+                                                <label >الرقم الوطني <small>(مطلوب)</small></label>
                                                 {{ form.Application_NID }}
                                             </div>
                                      </div>
@@ -251,6 +251,7 @@ Apply
                             
                                      <div class="col-md-4">
                                             <div class="input_field" >
+                                                <label >الجنسية <small>(مطلوب)</small></label>
                                                 {{ form.Application_Nationality }}
                                             </div>
                                      </div>
@@ -259,12 +260,14 @@ Apply
                             
                                      <div class="col-md-4">
                                         <div class="input_field" >
+                                            <label >المحافظة <small>(مطلوب)</small></label>
                                             {{ form.Application_City }}
                                         </div>
                                     </div>
                             
                                     <div class="col-md-4">
                                         <div class="input_field" >
+                                            <label >الموقع </label>
                                            {{ form.Application_Location }}
                                         </div>
                                     </div>
@@ -272,64 +275,74 @@ Apply
                             
                                     <div class="col-md-4">
                                         <div class="input_field" >
+                                            <label >مكان الولادة <small>(مطلوب)</small></label>
                                            {{ form.Application_Birth_Location }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="input_field" >
+                                            <label >تاريخ الولادة <small>(مطلوب)</small></label>
+                                           {{ bootstrap_form.Application_Birth_Date }}
+                                           
                                         </div>
                                     </div>
                             
                                     <div class="col-md-4">
                                         <div class="input_field" >
+                                            <label >الحالة ألإجتماعية </label>
                                             {{ form.Application_Socility_Status }}
                                         </div>
                                     </div>
                             
                                      <div class="col-md-4">
                                         <div class="input_field" >
-                                            <label>{{ form.Application_Have_Car}}  لديك رخصة سواقة؟</label> 
+                                            <label >هل تملك سيارة ؟ </label>
+                                           {{ form.Application_Have_Car}} 
                                         </div>
                                      </div>
                             
                                      <div class="col-md-4">
                                         <div class="input_field" >
-                                           {{ form.Application_Car_License }}  هل لديك رخصة سواقة؟
+                                            <label >هل تمتلك رخصة سواقة ؟ </label>
+                                           {{ form.Application_Car_License }}  
                                         </div>
                                     </div>
                             
                                      
-                                     
-                                     
-                             
-                            
-                            
-                                                 {{  form.errors }}
-                               
-                           
-                                <input class="boxed-btn3 w-100"  type="submit" value="Submit">
                             </div>
-                            </form>
-
-
-
-
-                            
-                            <div class="col-sm-10 col-sm-offset-1">
-                                <div class="form-group">
-                                    <label>Email <small>(required)</small></label>
-                                    <input name="email" type="email" class="form-control" placeholder="andrew@creative-tim.com">
-                                </div>
-                            </div>
-
-
-
-
                        
                     </div>
-                    <div class="tab-pane" id="account">
-                        <h5 class="info-text"> What are you doing? (checkboxes) </h5>
+                    <div class="tab-pane" id="qualifications">
                         <div class="row">
-                            <div class="col-sm-8 col-sm-offset-2">
-                                                                        <<!secound tab >>
 
-                            </div>
+                            <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >المؤهل العلمي </label>
+                                   {{ form.Application_Qualification.Qualification_Degree}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >التخصص</label>
+                                   {{ form.Application_Q_Major}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >اسم الجامعة/الكلية/المدرسة </label>
+                                   {{ form.Application_Q_University}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >تاريخ التخرج </label>
+                                   {{ form.Application_Q_Graduation_Date}} 
+                                </div>
+                             </div>
                         </div>
                     </div>
                     <div class="tab-pane" id="address">
@@ -338,22 +351,27 @@ Apply
                                 <h5 class="info-text"> Are you living in a nice area? </h5>
                             </div>
 
-                                                                                        <<!secound tab >>
+                            {{  form.errors }}
+                               
+                           
+                            <input  type="submit" value="Submit">                                                          <<!secound tab >>
                         </div>
                     </div>
                 </div>
+
+                </form>
                 <div class="wizard-footer">
                     <div class="pull-right">
-                        <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='Next' />
+                        <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='التالي' />
                         <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Finish' />
                     </div>
 
                     <div class="pull-left">
-                        <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Previous' />
+                        <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='السابق' />
                     </div>
                     <div class="clearfix"></div>
                 </div>
-            </form>
+          
         </div>
     </div> <!-- wizard container -->
 </div>
