@@ -4,156 +4,15 @@
 {% load bootstrap4 %}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
-
 {{ form.media }}
 {% block title %}
-
 Apply
 {% endblock title %}
 
 {% block content %}
 <div class="job_details_area">
     <div class="container">
-        <!--  <div class="row">
-            <div class="col-lg-12">
-<div class="apply_job_form white-bg">
-    <h4 >Apply for the job </h4>
-<form method="POST" enctype="multipart/form-data">
-    <div class="row" dir="rtl">
-       
- 
 
-        {% csrf_token %}
-
-         <div class="col-md-4">
-                <div class="input_field" >
-                    {{ form.Application_Name }}
-                </div>
-         </div>
-
-         <div class="col-md-4">
-                <div class="input_field" >
-                    {{ form.Application_Email }}
-                </div>
-         </div>
-
-         <div class="col-md-4">
-                <div class="input_field" >
-                    {{ form.Application_Phone_Num }}
-                </div>
-         </div>
-
-         <div class="col-md-4">
-                <div class="input_field" >
-                    {{ form.Application_NID }}
-                </div>
-         </div>
-
-
-
-         <div class="col-md-4">
-                <div class="input_field" >
-                    {{ form.Application_Nationality }}
-                </div>
-         </div>
-
-
-
-         <div class="col-md-4">
-            <div class="input_field" >
-                {{ form.Application_City }}
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="input_field" >
-               {{ form.Application_Location }}
-            </div>
-        </div>
-
-
-        <div class="col-md-4">
-            <div class="input_field" >
-               {{ form.Application_Birth_Location }}
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="input_field" >
-                {{ form.Application_Socility_Status }}
-            </div>
-        </div>
-
-         <div class="col-md-4">
-            <div class="input_field" >
-                <label>{{ form.Application_Have_Car}}  لديك رخصة سواقة؟</label> 
-            </div>
-         </div>
-
-         <div class="col-md-4">
-            <div class="input_field" >
-               {{ form.Application_Car_License }}  هل لديك رخصة سواقة؟
-            </div>
-        </div>
-
-         
-         
-         
- 
-
-
-                     {{  form.errors }}
-   
-      </div>
-    <input class="boxed-btn3 w-100"  type="submit" value="Submit">
-
-</form>
-
-
-    <form action="#">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="input_field">
-                    <input type="text" placeholder="Your name">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="input_field">
-                    <input type="text" placeholder="Email">
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="input_field">
-                    <input type="text" placeholder="Website/Portfolio link">
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                      <button type="button" id="inputGroupFileAddon03"><i class="fa fa-cloud-upload" aria-hidden="true"></i>
-                      </button>
-                    </div>
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
-                      <label class="custom-file-label" for="inputGroupFile03">Upload CV</label>
-                    </div>
-                  </div>
-            </div>
-            <div class="col-md-12">
-                <div class="input_field">
-                    <textarea name="#" id="" cols="30" rows="10" placeholder="Coverletter"></textarea>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="submit_btn">
-                    <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-</div>
-</div>-->
 
 <div class="col-sm-12" dir="rtl">
 
@@ -185,26 +44,26 @@ Apply
                         <li>
                             <a href="#qualifications" data-toggle="tab">
                                 <div class="icon-circle">
-                                    <i class="ti-settings"></i>
+                                    <i class="ti-pencil-alt"></i>
                                 </div>
                                 المؤهلات ألأكاديمية
                             </a>
                         </li>
                         <li>
-                            <a href="#address" data-toggle="tab">
+                            <a href="#profile" data-toggle="tab">
                                 <div class="icon-circle">
-                                    <i class="ti-map"></i>
+                                    <i class="ti-book"></i>
                                 </div>
-                                Address
+                                السجل الوظيفي
                             </a>
                         </li>
 
-                                                <li>
-                        <a href="#address2" data-toggle="tab">
+                    <li>
+                        <a href="#GQ" data-toggle="tab">
                             <div class="icon-circle">
                                 <i class="ti-map"></i>
                             </div>
-                            Address
+                            أسئلة الوضيفة
                         </a>
                     </li>
 
@@ -215,6 +74,9 @@ Apply
                 <div class="tab-content">
                     <div class="tab-pane" id="about">
                             <div class="row">
+
+
+
                                
                             
                                      <div class="col-md-4">
@@ -277,16 +139,22 @@ Apply
                                         <div class="input_field" >
                                             <label >مكان الولادة <small>(مطلوب)</small></label>
                                            {{ form.Application_Birth_Location }}
+
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <div class="input_field" >
+
+
+
+                                    <div class="col-md-4" >
+                                        <div class="input_field">
                                             <label >تاريخ الولادة <small>(مطلوب)</small></label>
-                                           {{ bootstrap_form.Application_Birth_Date }}
-                                           
+                                           {{ form.Application_Birth_Date }}
+       
                                         </div>
                                     </div>
+
+
                             
                                     <div class="col-md-4">
                                         <div class="input_field" >
@@ -343,22 +211,288 @@ Apply
                                    {{ form.Application_Q_Graduation_Date}} 
                                 </div>
                              </div>
+
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >اللغة </label>
+                                   {{ form.Application_L_Language}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >محادثة</label>
+                                   {{ form.Application_L_Type_Conversation}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >كتابة </label>
+                                   {{ form.Application_L_Type_Writing}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >قراءة </label>
+                                   {{ form.Application_L_Type_Reading}} 
+                                </div>
+                             </div>
+
+
+
+                             <div class="col-md-6">
+                                <div class="input_field" >
+                                    <label >برامج الحاسوب </label>
+                                   {{ form.Application_C_Computer_Skill}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-6">
+                                <div class="input_field" >
+                                    <label >المهارة </label>
+                                   {{ form.Application_C_Computer_Level}} 
+                                </div>
+                             </div>
+
+
                         </div>
                     </div>
-                    <div class="tab-pane" id="address">
+
+
+                    <div class="tab-pane" id="profile">
                         <div class="row">
-                            <div class="col-sm-12">
-                                <h5 class="info-text"> Are you living in a nice area? </h5>
-                            </div>
+
+                            <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >الاسم </label>
+                                   {{ form.Application_Company_Prev_Name}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >العنوان</label>
+                                   {{ form.Application_Company_Prev_Address}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >رقم الهاتف</label>
+                                   {{ form.Application_Company_Prev_Phone}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >تاريخ بدء العمل</label>
+                                   {{ form.Application_Company_Prev_Duration_From}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >تاريخ إنتهاء العمل</label>
+                                   {{ form.Application_Company_Prev_Duration_To}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >المسمى الوظيفي</label>
+                                   {{ form.Application_Company_Prev_Position}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >الراتب عند بداية التوظيف</label>
+                                   {{ form.Application_Company_Prev_Start_Salary}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >الراتب عند نهاية التوظيف</label>
+                                   {{ form.Application_Company_Prev_Last_Salary}} 
+                                </div>
+                             </div>
+
+
+
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >سبب ترك الوظيفة</label>
+                                   {{ form.Application_Company_Prev_Reason}} 
+                                </div>
+                             </div>
+
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >ألإسم</label>
+                                   {{ form.Application_T_Training_Name}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >الموقع</label>
+                                   {{ form.Application_T_Training_Location}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >الجهة التدريبية</label>
+                                   {{ form.Application_T_Training_Institute}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >تاريخ بدء الدورة</label>
+                                   {{ form.Application_T_Training_Duration_From}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >تاريخ  ألإنتهاء</label>
+                                   {{ form.Application_T_Training_Duration_To}} 
+                                </div>
+                             </div>
+
+
+
+
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >ألإسم</label>
+                                   {{ form.Application_Prev_Coworker_Name}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >الموقع</label>
+                                   {{ form.Application_Prev_Coworker_Address}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label > رقم الهاتف</label>
+                                   {{ form.Application_Prev_Coworker_Phone}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >المسمى الوظيفي  </label>
+                                   {{ form.Application_Prev_Coworker_Position}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-6">
+                                <div class="input_field" >
+                                    <label > اشرح المهام الرئيسية التي كنت تؤديها في آخر وظيفة لك  </label>
+                                   {{ form.Application_Last_Job_Desc}} 
+                                </div>
+                             </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane" id="GQ">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >هل لديك مانع من سؤال المعرفين أو أصحاب العمل السابقين عنك ؟</label>
+                                   {{ form.Application_Coworker_Ask}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label > الراتب الحالي  </label>
+                                   {{ form.Application_Current_Salary}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label > الراتب المتوقع  </label>
+                                   {{ form.Application_Expected_Salary}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label > التاريخ الذي تستطيع الالتحاق فيه بالعمل  </label>
+                                   {{ form.Application_Available_Date}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label > هل لديك أقرباء يعملون في الشركة او كانوا يعملون في شركة مجموعة منير سختيان؟        </label>
+                                   {{ form.Application_Relative_Frinds}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label > إذا كان الجواب نعم ما هي الوظيفة؟   </label>
+                                   {{ form.Application_Relative_Frinds_Job}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label > هل تعاني من أي أمراض؟   </label>
+                                   {{ form.Application_Diseases}} 
+                                </div>
+                             </div>
+
+  
 
                             {{  form.errors }}
                                
                            
-                            <input  type="submit" value="Submit">                                                          <<!secound tab >>
+                            <input  type="submit" value="Submit">                                                         
                         </div>
                     </div>
                 </div>
-
+                <script type="text/javascript">
+                    $(".date").datepicker({
+                      format: "dd-mm-yyyy",
+                    });
+                  </script>
                 </form>
                 <div class="wizard-footer">
                     <div class="pull-right">
