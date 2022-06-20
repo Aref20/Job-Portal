@@ -16,13 +16,13 @@ Job Detail
                                 <img src="img/svg_icon/1.svg" alt="">
                             </div>
                             <div class="jobs_conetent">
-                                <a href="#"><h4>{{ job.job_title }}</h4></a>
+                                <a href="#"><h4>{{ job.title }}</h4></a>
                                 <div class="links_locat d-flex align-items-center">
                                     <div class="location">
-                                        <p> <i class="fa fa-map-marker"></i> {{ job.job_location }}</p>
+                                        <p> <i class="fa fa-map-marker"></i> {{ job.location }}</p>
                                     </div>
                                     <div class="location">
-                                        <p> <i class="fa fa-clock-o"></i>{{ job.job_nature }}</p>
+                                        <p> <i class="fa fa-clock-o"></i>{{ job.nature }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +36,7 @@ Job Detail
                 </div>
                 <div class="descript_wrap white-bg">
                     <div class="single_wrap">
-                        {{ job.job_description }}
+                        {{ job.description }}
                     </div>
                 </div>
                 <div class="apply_job_form white-bg">
@@ -60,11 +60,11 @@ Job Detail
                     </div>
                     <div class="job_content">
                         <ul>
-                            <li>Published on: <span> {{ job.job_post_date }}</span></li>
-                            <li>Vacancy: <span>{{ job.job_vacancy }}</span></li>
-                            <li>Salary: <span>{{ job.job_salary }}</span></li>
-                            <li>Location: <span>{{ job.job_location }}</span></li>
-                            <li>Job Nature: <span>{{ job.job_nature }}</span></li>
+                            <li>Published on: <span> {{ job.post_date }}</span></li>
+                            <li>Vacancy: <span>{{ job.vacancy }}</span></li>
+                            <li>Salary: <span>{{ job.salary }}</span></li>
+                            <li>Location: <span>{{ job.location }}</span></li>
+                            <li>Job Nature: <span>{{ job.nature }}</span></li>
                         </ul>
                     </div>
                 </div>

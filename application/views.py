@@ -13,7 +13,7 @@ class ApplicationCreateView(CreateView):
     form_class = ApplicationForm
     def get_form(self):
         form = super().get_form()
-        form.fields['Application_Birth_Date'].widget = DateTimePickerInput()
+        form.fields['Birth_Date'].widget = DateTimePickerInput()
         return form
     
 

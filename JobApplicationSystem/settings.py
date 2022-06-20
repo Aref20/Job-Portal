@@ -85,21 +85,34 @@ WSGI_APPLICATION = 'JobApplicationSystem.wsgi.application'
 
 DATABASES = {
 
-    'default': {
+    "default": {
+        "ENGINE": "mssql",
+        "NAME": "JBDB",
+        "USER": "sa",
+        "PASSWORD": "aaaa",
+        "HOST": "localhost",
+        "PORT": "",
+        "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 
+        },
+    },
 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'JADB',
 
-        'USER': 'aref',
+    #'default': {
 
-        'PASSWORD': 'a',
+       # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'HOST': 'localhost',
+       # 'NAME': 'JADB',
 
-        'PORT': '5432',
+      #  'USER': 'aref',
 
-    }
+      #  'PASSWORD': 'a',
+
+      #  'HOST': 'localhost',
+
+     #   'PORT': '5432',
+
+   # }
 
 }
 
@@ -156,6 +169,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
   
 # allows to load iframe from same hostname
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SUMMERNOTE_THEME = 'bs4'
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 

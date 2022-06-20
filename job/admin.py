@@ -1,5 +1,5 @@
 from django.contrib import admin
-from job.models import Job, Department , Location , Job_Nature
+from job.models import Job, Department , Location , Nature
 from application.models import Application
 from django_summernote.admin import SummernoteModelAdmin
 
@@ -7,15 +7,15 @@ from django_summernote.admin import SummernoteModelAdmin
 
 class jobadmin(SummernoteModelAdmin):
     # displaying posts with title slug and created time
-    list_display = ('job_title', 'job_description', 'job_department', 'job_post_date')
-    list_filter = ("job_title",'job_department', 'job_post_date' )
-    search_fields = ['job_title', 'job_description']
+    list_display = ('title', 'description', 'department', 'post_date')
+    list_filter = ("title",'department', 'post_date' )
+    search_fields = ['title', 'description']
     # prepopulating slug from title
     #prepopulated_fields = {'slug': ('title', )}
-    summernote_fields = ('job_description', )
+    summernote_fields = ('description', )
   
 admin.site.register(Job, jobadmin)
 admin.site.register(Department)
 admin.site.register(Location)
-admin.site.register(Job_Nature)
+admin.site.register(Nature)
 admin.site.register(Application)

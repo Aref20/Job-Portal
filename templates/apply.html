@@ -82,7 +82,7 @@ Apply
                                      <div class="col-md-4">
                                             <div class="input_field" >
                                                 <label >ألإسم <small>(مطلوب)</small></label>
-                                                {{ form.Application_Name }}
+                                                {{ form.Name }}
                                             </div>
                                      </div>
 
@@ -91,21 +91,21 @@ Apply
                                      <div class="col-md-4">
                                             <div class="input_field" >
                                                 <label >ألإيميل <small>(مطلوب)</small></label>
-                                                {{ form.Application_Email }}
+                                                {{ form.Email }}
                                             </div>
                                      </div>
                             
                                      <div class="col-md-4">
                                             <div class="input_field" >
                                                 <label >رقم الهاتف <small>(مطلوب)</small></label>
-                                                {{ form.Application_Phone_Num }}
+                                                {{ form.Phone_Num }}
                                             </div>
                                      </div>
                             
                                      <div class="col-md-4">
                                             <div class="input_field" >
                                                 <label >الرقم الوطني <small>(مطلوب)</small></label>
-                                                {{ form.Application_NID }}
+                                                {{ form.NID }}
                                             </div>
                                      </div>
                             
@@ -114,7 +114,7 @@ Apply
                                      <div class="col-md-4">
                                             <div class="input_field" >
                                                 <label >الجنسية <small>(مطلوب)</small></label>
-                                                {{ form.Application_Nationality }}
+                                                {{ form.Nationality }}
                                             </div>
                                      </div>
                             
@@ -123,14 +123,14 @@ Apply
                                      <div class="col-md-4">
                                         <div class="input_field" >
                                             <label >المحافظة <small>(مطلوب)</small></label>
-                                            {{ form.Application_City }}
+                                            {{ form.City }}
                                         </div>
                                     </div>
                             
                                     <div class="col-md-4">
                                         <div class="input_field" >
                                             <label >الموقع </label>
-                                           {{ form.Application_Location }}
+                                           {{ form.Location }}
                                         </div>
                                     </div>
                             
@@ -138,7 +138,7 @@ Apply
                                     <div class="col-md-4">
                                         <div class="input_field" >
                                             <label >مكان الولادة <small>(مطلوب)</small></label>
-                                           {{ form.Application_Birth_Location }}
+                                           {{ form.Birth_Location }}
 
                                         </div>
                                     </div>
@@ -149,7 +149,7 @@ Apply
                                     <div class="col-md-4" >
                                         <div class="input_field">
                                             <label >تاريخ الولادة <small>(مطلوب)</small></label>
-                                           {{ form.Application_Birth_Date }}
+                                           {{ form.Birth_Date }}
        
                                         </div>
                                     </div>
@@ -159,21 +159,21 @@ Apply
                                     <div class="col-md-4">
                                         <div class="input_field" >
                                             <label >الحالة ألإجتماعية </label>
-                                            {{ form.Application_Socility_Status }}
+                                            {{ form.Socility_Status }}
                                         </div>
                                     </div>
                             
                                      <div class="col-md-4">
                                         <div class="input_field" >
                                             <label >هل تملك سيارة ؟ </label>
-                                           {{ form.Application_Have_Car}} 
+                                           {{ form.Have_Car}} 
                                         </div>
                                      </div>
                             
                                      <div class="col-md-4">
                                         <div class="input_field" >
                                             <label >هل تمتلك رخصة سواقة ؟ </label>
-                                           {{ form.Application_Car_License }}  
+                                           {{ form.Car_License }}  
                                         </div>
                                     </div>
                             
@@ -195,7 +195,7 @@ Apply
                             <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >المؤهل العلمي </label>
-                                   {{ form.Application_Qualification.Qualification_Degree}} 
+                                   {{ form.Qualification.Qualification_Degree}} 
                                 </div>
                              </div>
 
@@ -205,21 +205,21 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >التخصص</label>
-                                   {{ form.Application_Q_Major}} 
+                                   {{ form.Q_Major}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >اسم الجامعة/الكلية/المدرسة </label>
-                                   {{ form.Application_Q_University}} 
+                                   {{ form.Q_University}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >تاريخ التخرج </label>
-                                   {{ form.Application_Q_Graduation_Date}} 
+                                   {{ form.Q_Graduation_Date}} 
                                 </div>
                              </div>
 
@@ -233,28 +233,28 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >اللغة </label>
-                                   {{ form.Application_L_Language}} 
+                                   {{ form.L_Language}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >محادثة</label>
-                                   {{ form.Application_L_Type_Conversation}} 
+                                   {{ form.L_Type_Conversation}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >كتابة </label>
-                                   {{ form.Application_L_Type_Writing}} 
+                                   {{ form.L_Type_Writing}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >قراءة </label>
-                                   {{ form.Application_L_Type_Reading}} 
+                                   {{ form.L_Type_Reading}} 
                                 </div>
                              </div>
 
@@ -271,14 +271,14 @@ Apply
                              <div class="col-md-6">
                                 <div class="input_field" >
                                     <label >برامج الحاسوب </label>
-                                   {{ form.Application_C_Computer_Skill}} 
+                                   {{ form.C_Computer_Skill}} 
                                 </div>
                              </div>
 
                              <div class="col-md-6">
                                 <div class="input_field" >
                                     <label >المهارة </label>
-                                   {{ form.Application_C_Computer_Level}} 
+                                   {{ form.C_Computer_Level}} 
                                 </div>
                              </div>
 
@@ -300,14 +300,14 @@ Apply
                             <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الاسم </label>
-                                   {{ form.Application_Company_Prev_Name}} 
+                                   {{ form.Company_Prev_Name}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >العنوان</label>
-                                   {{ form.Application_Company_Prev_Address}} 
+                                   {{ form.Company_Prev_Address}} 
                                 </div>
                              </div>
 
@@ -315,7 +315,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >رقم الهاتف</label>
-                                   {{ form.Application_Company_Prev_Phone}} 
+                                   {{ form.Company_Prev_Phone}} 
                                 </div>
                              </div>
 
@@ -323,7 +323,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >تاريخ بدء العمل</label>
-                                   {{ form.Application_Company_Prev_Duration_From}} 
+                                   {{ form.Company_Prev_Duration_From}} 
                                 </div>
                              </div>
 
@@ -331,7 +331,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >تاريخ إنتهاء العمل</label>
-                                   {{ form.Application_Company_Prev_Duration_To}} 
+                                   {{ form.Company_Prev_Duration_To}} 
                                 </div>
                              </div>
 
@@ -339,7 +339,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >المسمى الوظيفي</label>
-                                   {{ form.Application_Company_Prev_Position}} 
+                                   {{ form.Company_Prev_Position}} 
                                 </div>
                              </div>
 
@@ -347,7 +347,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الراتب عند بداية التوظيف</label>
-                                   {{ form.Application_Company_Prev_Start_Salary}} 
+                                   {{ form.Company_Prev_Start_Salary}} 
                                 </div>
                              </div>
 
@@ -355,7 +355,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الراتب عند نهاية التوظيف</label>
-                                   {{ form.Application_Company_Prev_Last_Salary}} 
+                                   {{ form.Company_Prev_Last_Salary}} 
                                 </div>
                              </div>
 
@@ -366,7 +366,7 @@ Apply
                              <div class="col-md-6">
                                 <div class="input_field" >
                                     <label >سبب ترك الوظيفة</label>
-                                   {{ form.Application_Company_Prev_Reason}} 
+                                   {{ form.Company_Prev_Reason}} 
                                 </div>
                              </div>
 
@@ -383,7 +383,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >ألإسم</label>
-                                   {{ form.Application_T_Training_Name}} 
+                                   {{ form.T_Training_Name}} 
                                 </div>
                              </div>
 
@@ -391,7 +391,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الموقع</label>
-                                   {{ form.Application_T_Training_Location}} 
+                                   {{ form.T_Training_Location}} 
                                 </div>
                              </div>
 
@@ -399,7 +399,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الجهة التدريبية</label>
-                                   {{ form.Application_T_Training_Institute}} 
+                                   {{ form.T_Training_Institute}} 
                                 </div>
                              </div>
 
@@ -407,14 +407,14 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >تاريخ بدء الدورة</label>
-                                   {{ form.Application_T_Training_Duration_From}} 
+                                   {{ form.T_Training_Duration_From}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >تاريخ  ألإنتهاء</label>
-                                   {{ form.Application_T_Training_Duration_To}} 
+                                   {{ form.T_Training_Duration_To}} 
                                 </div>
                              </div>
 
@@ -432,7 +432,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >ألإسم</label>
-                                   {{ form.Application_Prev_Coworker_Name}} 
+                                   {{ form.Prev_Coworker_Name}} 
                                 </div>
                              </div>
 
@@ -440,7 +440,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الموقع</label>
-                                   {{ form.Application_Prev_Coworker_Address}} 
+                                   {{ form.Prev_Coworker_Address}} 
                                 </div>
                              </div>
 
@@ -448,7 +448,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label > رقم الهاتف</label>
-                                   {{ form.Application_Prev_Coworker_Phone}} 
+                                   {{ form.Prev_Coworker_Phone}} 
                                 </div>
                              </div>
 
@@ -456,7 +456,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >المسمى الوظيفي  </label>
-                                   {{ form.Application_Prev_Coworker_Position}} 
+                                   {{ form.Prev_Coworker_Position}} 
                                 </div>
                              </div>
 
@@ -464,7 +464,7 @@ Apply
                              <div class="col-md-6">
                                 <div class="input_field" >
                                     <label > اشرح المهام الرئيسية التي كنت تؤديها في آخر وظيفة لك  </label>
-                                   {{ form.Application_Last_Job_Desc}} 
+                                   {{ form.Last_Job_Desc}} 
                                 </div>
                              </div>
 
@@ -480,28 +480,28 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label > الراتب الحالي  </label>
-                                   {{ form.Application_Current_Salary}} 
+                                   {{ form.Current_Salary}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label > الراتب المتوقع  </label>
-                                   {{ form.Application_Expected_Salary}} 
+                                   {{ form.Expected_Salary}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label > التاريخ الذي تستطيع الالتحاق فيه بالعمل  </label>
-                                   {{ form.Application_Available_Date}} 
+                                   {{ form.Available_Date}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label > هل تعاني من أي أمراض؟   </label>
-                                   {{ form.Application_Diseases}} 
+                                   {{ form.Diseases}} 
                                 </div>
                              </div>
 
@@ -509,21 +509,21 @@ Apply
                              <div class="col-md-6">
                                 <div class="input_field" >
                                     <label >هل لديك مانع من سؤال المعرفين أو أصحاب العمل السابقين عنك ؟</label>
-                                   {{ form.Application_Coworker_Ask}} 
+                                   {{ form.Coworker_Ask}} 
                                 </div>
                              </div>
 
                              <div class="col-md-6">
                                 <div class="input_field" >
                                     <label > هل لديك أقرباء يعملون في الشركة او كانوا يعملون في شركة مجموعة منير سختيان؟        </label>
-                                   {{ form.Application_Relative_Frinds}} 
+                                   {{ form.Relative_Frinds}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label > إذا كان الجواب نعم ما هي الوظيفة؟   </label>
-                                   {{ form.Application_Relative_Frinds_Job}} 
+                                   {{ form.Relative_Frinds_Job}} 
                                 </div>
                              </div>
 
