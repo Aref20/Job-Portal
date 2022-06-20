@@ -157,3 +157,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
   
 # allows to load iframe from same hostname
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField' 

@@ -184,12 +184,23 @@ Apply
                     <div class="tab-pane" id="qualifications">
                         <div class="row">
 
+                            <div class="col-md-12" style = "background: #F5F7FA;" >
+                                <div class="input_field">
+                                    <h3 style="float: right;"> المؤهلات العلمية</h3>
+
+                                </div>
+                            </div>
+
+
                             <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >المؤهل العلمي </label>
                                    {{ form.Application_Qualification.Qualification_Degree}} 
                                 </div>
                              </div>
+
+
+      
 
                              <div class="col-md-3">
                                 <div class="input_field" >
@@ -212,7 +223,12 @@ Apply
                                 </div>
                              </div>
 
+                             <div class="col-md-12" style = "background: #F5F7FA;">
+                                <div class="input_field">
+                                   <h3 style="float: right;">  اللغات</h3>
 
+                                </div>
+                            </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
@@ -243,6 +259,14 @@ Apply
                              </div>
 
 
+                             <div class="col-md-12" style = "background: #F5F7FA;">
+                                <div class="input_field">
+                                   <h3 style="float: right;">  مهارات الحاسوب</h3>
+
+                                </div>
+                            </div>
+
+
 
                              <div class="col-md-6">
                                 <div class="input_field" >
@@ -265,6 +289,13 @@ Apply
 
                     <div class="tab-pane" id="profile">
                         <div class="row">
+
+                            <div class="col-md-12" style = "background: #F5F7FA;" >
+                                <div class="input_field">
+                                    <h3 style="float: right;"> السجل الوظيفي </h3>
+
+                                </div>
+                            </div>
 
                             <div class="col-md-3">
                                 <div class="input_field" >
@@ -332,12 +363,20 @@ Apply
 
 
 
-                             <div class="col-md-3">
+                             <div class="col-md-6">
                                 <div class="input_field" >
                                     <label >سبب ترك الوظيفة</label>
                                    {{ form.Application_Company_Prev_Reason}} 
                                 </div>
                              </div>
+
+
+                             <div class="col-md-12" style = "background: #F5F7FA;" >
+                                <div class="input_field">
+                                    <h3 style="float: right;">  الدورات التدريبية</h3>
+
+                                </div>
+                            </div>
 
 
 
@@ -380,6 +419,12 @@ Apply
                              </div>
 
 
+                             <div class="col-md-12" style = "background: #F5F7FA;" >
+                                <div class="input_field">
+                                    <h3 style="float: right;"> المعرفين  </h3>
+
+                                </div>
+                            </div>
 
 
 
@@ -430,12 +475,7 @@ Apply
                     <div class="tab-pane" id="GQ">
                         <div class="row">
 
-                            <div class="col-md-3">
-                                <div class="input_field" >
-                                    <label >هل لديك مانع من سؤال المعرفين أو أصحاب العمل السابقين عنك ؟</label>
-                                   {{ form.Application_Coworker_Ask}} 
-                                </div>
-                             </div>
+
 
                              <div class="col-md-3">
                                 <div class="input_field" >
@@ -460,6 +500,21 @@ Apply
 
                              <div class="col-md-3">
                                 <div class="input_field" >
+                                    <label > هل تعاني من أي أمراض؟   </label>
+                                   {{ form.Application_Diseases}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-6">
+                                <div class="input_field" >
+                                    <label >هل لديك مانع من سؤال المعرفين أو أصحاب العمل السابقين عنك ؟</label>
+                                   {{ form.Application_Coworker_Ask}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-6">
+                                <div class="input_field" >
                                     <label > هل لديك أقرباء يعملون في الشركة او كانوا يعملون في شركة مجموعة منير سختيان؟        </label>
                                    {{ form.Application_Relative_Frinds}} 
                                 </div>
@@ -472,32 +527,30 @@ Apply
                                 </div>
                              </div>
 
-                             <div class="col-md-3">
-                                <div class="input_field" >
-                                    <label > هل تعاني من أي أمراض؟   </label>
-                                   {{ form.Application_Diseases}} 
-                                </div>
-                             </div>
+
+
+
 
   
 
                             {{  form.errors }}
                                
                            
-                            <input  type="submit" value="Submit">                                                         
+                                                                                 
                         </div>
                     </div>
                 </div>
+
                 <script type="text/javascript">
                     $(".date").datepicker({
-                      format: "dd-mm-yyyy",
+                      format: "yyyy-mm-dd",
                     });
                   </script>
-                </form>
                 <div class="wizard-footer">
                     <div class="pull-right">
                         <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='التالي' />
-                        <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Finish' />
+                        <input  type="submit" class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='تقديم'>    
+                       <!-- <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Finish' />-->
                     </div>
 
                     <div class="pull-left">
@@ -505,6 +558,7 @@ Apply
                     </div>
                     <div class="clearfix"></div>
                 </div>
+            </form>
           
         </div>
     </div> <!-- wizard container -->
