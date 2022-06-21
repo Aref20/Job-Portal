@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'application',
     'django_summernote',
     'bootstrap_datepicker_plus',
-    "bootstrap4",
+    'bootstrap4',
 
 
 

@@ -69,20 +69,36 @@ Apply
 
                     </ul>
                 </div>
-                <form method="POST" enctype="multipart/form-data">
+                <form method="POST" enctype="multipart/form-data" >
                     {% csrf_token %}
                 <div class="tab-content">
                     <div class="tab-pane" id="about">
                             <div class="row">
 
+                                <div class="col-md-3">
+                                    <div class="input_field" >
+                                        <label >التخصص</label>
+                                        
+          
+                                       {{ form.Job}}
+
+                                    </div>
+                                 </div>
 
 
-                               
+    
+
+
+
+
                             
                                      <div class="col-md-4">
                                             <div class="input_field" >
                                                 <label >ألإسم <small>(مطلوب)</small></label>
+                             
                                                 {{ form.Name }}
+                                       
+                                                
                                             </div>
                                      </div>
 
@@ -176,6 +192,9 @@ Apply
                                            {{ form.Car_License }}  
                                         </div>
                                     </div>
+
+                                    
+
                             
                                      
                             </div>
@@ -344,6 +363,9 @@ Apply
                              </div>
 
 
+                             
+
+
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الراتب عند بداية التوظيف</label>
@@ -359,7 +381,12 @@ Apply
                                 </div>
                              </div>
 
-
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >إسم المدير </label>
+                                   {{ form.Company_Prev_Maneger}} 
+                                </div>
+                             </div>
 
 
 
@@ -527,13 +554,32 @@ Apply
                                 </div>
                              </div>
 
+                             <div class="col-md-12" style=" text-align: right;">
+                                <div class='file-input'>
+                                   <h4 > تحميل السيرة الذاتية  (صيغة PDF ) </h4>
+                                   {{ form.resume }}
+                                   <span class='button'>إختار</span>
+                                   <span class='label' data-js-label>لم يتم إختيار ملف</label>
+                                 </div>
+                               </div>
+
+
+
+                             <div class="col-md-12">
+                                <div class="input_field" >
+
+                                    {{form.errors}}
+                                    
+                                </div>
+                             </div>
+
 
 
 
 
   
 
-                            {{  form.errors }}
+                   
                                
                            
                                                                                  

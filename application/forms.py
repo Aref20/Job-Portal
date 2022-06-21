@@ -1,6 +1,6 @@
 
 from application.models import Application
-from bootstrap_datepicker_plus.widgets import DateTimePickerInput
+#from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 from django import forms
 
 class DateInput(forms.DateInput):
@@ -69,6 +69,8 @@ class ApplicationForm(forms.ModelForm):
         'Relative_Frinds': forms.Select(attrs={ 'class': 'form-select'}),
         'Relative_Frinds_Job': forms.TextInput(attrs={ 'class': 'form-control'}),
         'Diseases': forms.Select(attrs={ 'class': 'form-select'}),
+        'resume': forms.FileInput(attrs={ 'class': 'form-control'}),
+        
 
 
         

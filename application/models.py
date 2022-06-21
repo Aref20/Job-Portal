@@ -68,6 +68,8 @@ class Application(models.Model):
     Second_Approval = models.BooleanField(default=False,blank=True)
     Second_Approval_Note = models.TextField(max_length=5000, blank=True)
 
+    resume = models.FileField(upload_to='documents/')
+
 
 
     #Qualification_Application= models.ForeignKey(Application, on_delete=models.SET_NULL, null=True,related_name='Qualification')

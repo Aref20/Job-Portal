@@ -22,9 +22,9 @@ from django.conf.urls.static import static
 
 
 # customizing admin interface
-admin.site.site_header = 'GeeksForGeeks'
-admin.site.site_title = 'GeeksForGeeks'
-admin.site.index_title = 'GeeksForGeeks Administration'
+admin.site.site_header = 'Job Board'
+admin.site.site_title = 'Job Board'
+admin.site.index_title = 'Job Board'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
