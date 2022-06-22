@@ -76,14 +76,14 @@ class ApplicationForm(forms.ModelForm):
         
         
         }
-    def __init__(self, *args, **kwargs):
-        super(ApplicationForm, self).__init__(*args, **kwargs)
+   # def __init__(self, *args, **kwargs):
+     #   super(ApplicationForm, self).__init__(*args, **kwargs)
         #self.fields['NID'].error_messages = {'required': 'FAS:DJFASKL:DJF'}
 
 
         # if you want to do it to all of them
-        for field in self.fields.values():
-            field.error_messages = {'required':'The field ddd{fieldname} is required'.format(
-                fieldname=field.label)}
+     #   for field in self.fields.values():
+     #       field.error_messages = {'required':'The field ddd{fieldname} is required'.format(
+     #           fieldname=field.label)}
 
 

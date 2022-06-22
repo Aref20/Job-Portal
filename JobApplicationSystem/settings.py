@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
@@ -32,6 +33,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +46,8 @@ INSTALLED_APPS = [
     'django_summernote',
     'bootstrap_datepicker_plus',
     'bootstrap4',
+    'admin_auto_filters',
+
 
 
 
@@ -167,6 +172,7 @@ STATICFILES_DIRS = [os.path.join(TEMPLATES_DIR, 'static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
   
 # allows to load iframe from same hostname
 X_FRAME_OPTIONS = "SAMEORIGIN"

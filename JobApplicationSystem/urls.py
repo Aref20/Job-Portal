@@ -21,12 +21,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
+
 # customizing admin interface
 admin.site.site_header = 'Job Board'
 admin.site.site_title = 'Job Board'
 admin.site.index_title = 'Job Board'
 
 urlpatterns = [
+
+    path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin/', admin.site.urls),
     path('jobs/', include('job.urls')),
     path('application/', include('application.urls')),
