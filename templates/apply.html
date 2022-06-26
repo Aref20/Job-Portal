@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load crispy_forms_tags %}
 {% load bootstrap4 %}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
@@ -34,7 +35,7 @@ Apply
                     </div>
                     <ul>
                         <li>
-                            <a href="#about" data-toggle="tab">
+                            <a href="#about" data-toggle="tab" style=" pointer-events: none;">
                                 <div class="icon-circle">
                                     <i class="ti-user"></i>
                                 </div>
@@ -42,7 +43,7 @@ Apply
                             </a>
                         </li>
                         <li>
-                            <a href="#qualifications" data-toggle="tab">
+                            <a href="#qualifications" data-toggle="tab" style=" pointer-events: none;">
                                 <div class="icon-circle">
                                     <i class="ti-pencil-alt"></i>
                                 </div>
@@ -50,7 +51,7 @@ Apply
                             </a>
                         </li>
                         <li>
-                            <a href="#profile" data-toggle="tab">
+                            <a href="#profile" data-toggle="tab" style=" pointer-events: none;">
                                 <div class="icon-circle">
                                     <i class="ti-book"></i>
                                 </div>
@@ -59,7 +60,7 @@ Apply
                         </li>
 
                     <li>
-                        <a href="#GQ" data-toggle="tab">
+                        <a href="#GQ" data-toggle="tab" style=" pointer-events: none;">
                             <div class="icon-circle">
                                 <i class="ti-map"></i>
                             </div>
@@ -75,18 +76,6 @@ Apply
                     <div class="tab-pane" id="about">
                             <div class="row">
 
-                                <div class="col-md-3">
-                                    <div class="input_field" >
-                                        <label >التخصص</label>
-                                        
-          
-                                       {{ form.Job}}
-
-                                    </div>
-                                 </div>
-
-
-    
 
 
 
@@ -209,12 +198,14 @@ Apply
 
                                 </div>
                             </div>
-
-
+    
+                            {% for formset in inlines %}
                             <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >المؤهل العلمي </label>
-                                   {{ form.Qualification.Qualification_Degree}} 
+
+                                    {{ formset|crispy}} 
+
                                 </div>
                              </div>
 
@@ -224,23 +215,25 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >التخصص</label>
-                                   {{ form.Q_Major}} 
+                                   {{ formset.Major}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >اسم الجامعة/الكلية/المدرسة </label>
-                                   {{ form.Q_University}} 
+                                   {{ formset.University}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >تاريخ التخرج </label>
-                                   {{ form.Q_Graduation_Date}} 
+                                    {{ formset.Graduation_Date}} 
                                 </div>
                              </div>
+
+                             {% endfor %}
 
                              <div class="col-md-12" style = "background: #F5F7FA;">
                                 <div class="input_field">

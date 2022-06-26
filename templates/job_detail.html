@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
 Job Detail
 {% endblock title %}
@@ -12,8 +12,8 @@ Job Detail
                 <div class="job_details_header">
                     <div class="single_jobs white-bg d-flex justify-content-between">
                         <div class="jobs_left d-flex align-items-center">
-                            <div class="thumb">
-                                <img src="img/svg_icon/1.svg" alt="">
+                            <div class="thumb" style="margin-right: 30px; padding: 0px;     width: auto;height: auto;    margin-top: 14px;">
+                                <img src="{% static 'img/svg_icon/logo.png'%}" alt="">
                             </div>
                             <div class="jobs_conetent">
                                 <a href="#"><h4>{{ job.title }}</h4></a>
@@ -27,16 +27,12 @@ Job Detail
                                 </div>
                             </div>
                         </div>
-                        <div class="jobs_right">
-                            <div class="apply_now">
-                                <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <div class="descript_wrap white-bg">
                     <div class="single_wrap">
-                        {{ job.description }}
+                        {{ job.description|safe }}
                     </div>
                 </div>
                 <div class="apply_job_form white-bg">

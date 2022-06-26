@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'admin_auto_filters',
+    'extra_views',
+    'crispy_forms',
 
 
 

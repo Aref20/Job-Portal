@@ -100,7 +100,7 @@ ul {
 
 /* line 57, ../../Arafath/CL/December/235. Job board/HTML/scss/theme-default.scss */
 li {
-  list-style: none;
+  /*list-style: none;*/
 }
 
 /* line 60, ../../Arafath/CL/December/235. Job board/HTML/scss/theme-default.scss */
@@ -4514,7 +4514,7 @@ sup,
 sub,
 u,
 del {
-  color: #ff5e13;
+/*  color: #ff5e13; */
 }
 
 /* line 93, ../../Arafath/CL/December/235. Job board/HTML/scss/_elements.scss */

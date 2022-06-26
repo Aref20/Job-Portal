@@ -21,10 +21,10 @@ class Application(models.Model):
     Nationality = models.CharField(max_length=100)
     Car_License = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
     Have_Car = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
-    Job = models.ForeignKey(Job, on_delete=models.SET_NULL, null=True)
+    Job_App = models.ForeignKey(Job, on_delete=models.SET_NULL, null=True,blank=True)
     Last_Job_Desc = models.TextField(max_length=5000)
-    Current_Salary = models.IntegerField(default=0, null=True,blank=True)
-    Expected_Salary = models.IntegerField(default=0, null=True,blank=True)
+    Current_Salary = models.IntegerField( null=True,blank=True)
+    Expected_Salary = models.IntegerField( null=True,blank=True)
     Available_Date = models.DateField(default=datetime.now)
     Relative_Frinds = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
     Relative_Frinds_Job = models.CharField(max_length=100)
@@ -40,12 +40,12 @@ class Application(models.Model):
 
     Company_Prev_Name = models.CharField(max_length=100)
     Company_Prev_Address = models.CharField(max_length=100)
-    Company_Prev_Phone = models.IntegerField(default=0, null=True,blank=True)
+    Company_Prev_Phone = models.IntegerField( null=True,blank=True)
     Company_Prev_Duration_From = models.DateField(default=datetime.now)
     Company_Prev_Duration_To = models.DateField(default=datetime.now)
     Company_Prev_Position = models.CharField(max_length=100)
-    Company_Prev_Start_Salary = models.IntegerField(default=0, null=True,blank=True)
-    Company_Prev_Last_Salary = models.IntegerField(default=0, null=True,blank=True)
+    Company_Prev_Start_Salary = models.IntegerField( null=True,blank=True)
+    Company_Prev_Last_Salary = models.IntegerField( null=True,blank=True)
     Company_Prev_Reason = models.TextField(max_length=5000)
     Company_Prev_Maneger = models.CharField(max_length=100)
 
@@ -58,7 +58,7 @@ class Application(models.Model):
 
     Prev_Coworker_Name = models.CharField(max_length=100)
     Prev_Coworker_Address = models.CharField(max_length=100)
-    Prev_Coworker_Phone = models.IntegerField(default=0, null=True,blank=True)
+    Prev_Coworker_Phone = models.IntegerField( null=True,blank=True)
     Prev_Coworker_Position = models.CharField(max_length=100)
 
     Coworker_Ask = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
@@ -76,14 +76,18 @@ class Application(models.Model):
 
 
 
-    #Qualification_Application= models.ForeignKey(Application, on_delete=models.SET_NULL, null=True,related_name='Qualification')
-    #Qualification_Degree = models.CharField(max_length=100)
-    #Qualification_University = models.CharField(max_length=100)
-    #Qualification_Graduation_Date = models.DateField()
-    #Qualification_Major = models.CharField(max_length=100)
 
 
-#class Qualification(models.Model):
+
+class Qualification(models.Model):
+    Qualification_Application= models.ForeignKey(Application, on_delete=models.SET_NULL, null=True,related_name='Qualification')
+    Degree = models.CharField(max_length=100)
+    University = models.CharField(max_length=100)
+    Graduation_Date = models.DateField()
+    Major = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.Qualification_Application
 
 
 

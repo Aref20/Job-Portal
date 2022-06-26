@@ -1,5 +1,5 @@
 from django.contrib import admin
-from job.models import Job, Department , Location , Nature
+from job.models import Job, Department , Location , Nature 
 
 
 from django_summernote.admin import SummernoteModelAdmin
@@ -14,9 +14,15 @@ class jobadmin(SummernoteModelAdmin , admin.ModelAdmin):
     # prepopulating slug from title
     #prepopulated_fields = {'slug': ('title', )}
     summernote_fields = ('description', )
+
+
+
+
+
   
 admin.site.register(Job, jobadmin)
 admin.site.register(Department)
 admin.site.register(Location)
 admin.site.register(Nature)
+
 
