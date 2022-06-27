@@ -5,6 +5,7 @@ Jobs
 {% endblock title %}
 
 {% block content %}
+
 <div class="job_listing_area plus_padding">
     <div class="container">
         <div class="row">
@@ -105,6 +106,7 @@ Jobs
                     </div>
                 </div>
 
+
                 <div class="job_lists m-0">
                     {% if jobs_list %}
                            
@@ -184,4 +186,29 @@ Jobs
         </div>
     </div>
 </div>
+{% if messages %}
+{% for message in messages %}
+<script type=text/javascript>
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-center",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "500",
+  "hideDuration": "2000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+
+
+toastr.{{message.tags}}('{{ message }}')</script>
+{% endfor %}
+{% endif %}
 {% endblock content %}

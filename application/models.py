@@ -87,7 +87,7 @@ class Qualification(models.Model):
     Major = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.Qualification_Application
+        return self.Qualification_Application.Name
 
 
 

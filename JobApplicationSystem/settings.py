@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from decouple import config
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -22,7 +24,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'q+4n9h7^so+*qr@)vcypwb+$*jj&tm*w+wf#g^%=3!yu8q6s%w'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -96,7 +98,7 @@ DATABASES = {
         "ENGINE": "mssql",
         "NAME": "JBDB",
         "USER": "sa",
-        "PASSWORD": "aaaa",
+        "PASSWORD":  config('SQLPASS'),
         "HOST": "localhost",
         "PORT": "",
         "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 
@@ -129,6 +131,15 @@ DATABASES = {
    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     #}
 #}
+
+# Email Config
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.sukhtian.com.jo'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587 
+EMAIL_HOST_USER = 'hr@sukhtian.com.jo'
+EMAIL_HOST_PASSWORD = config('EMAILPASS')
 
 
 # Password validation
