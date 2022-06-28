@@ -11,6 +11,7 @@ Apply
 {% endblock title %}
 
 {% block content %}
+
 <div class="job_details_area">
     <div class="container">
 
@@ -198,19 +199,19 @@ Apply
 
                                 </div>
                             </div>
-    
-                            {% for formset in inlines %}
-                            <div class="col-md-3">
+                            {{ Qualification_form.management_form }}
+                            {{ Qualification_form.non_form_errors }}
+                            {% for formset in Qualification_form %}
+
+                        <div class="inline {{ Qualification_form.prefix }}">
+                            <div class="col-md-3 ">
                                 <div class="input_field" >
                                     <label >المؤهل العلمي </label>
 
-                                    {{ formset}} 
+                                    {{ formset.Degree}} 
 
                                 </div>
                              </div>
-
-
-      
 
                              <div class="col-md-3">
                                 <div class="input_field" >
@@ -232,6 +233,7 @@ Apply
                                     {{ formset.Graduation_Date}} 
                                 </div>
                              </div>
+                        </div>
 
                              {% endfor %}
 
@@ -241,35 +243,38 @@ Apply
 
                                 </div>
                             </div>
-
+              
+                            {{ Language_Form.management_form }}
+                            {{ Language_Form.non_form_errors }}
+                            {% for formset in Language_Form %}
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >اللغة </label>
-                                   {{ form.L_Language}} 
+                                   {{ formset.Language_Name}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >محادثة</label>
-                                   {{ form.L_Type_Conversation}} 
+                                   {{ formset.Type_Conversation}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >كتابة </label>
-                                   {{ form.L_Type_Writing}} 
+                                   {{ formset.Type_Writing}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >قراءة </label>
-                                   {{ form.L_Type_Reading}} 
+                                   {{ formset.Type_Reading}} 
                                 </div>
                              </div>
-
+                             {% endfor %}
 
                              <div class="col-md-12" style = "background: #F5F7FA;">
                                 <div class="input_field">
@@ -278,22 +283,24 @@ Apply
                                 </div>
                             </div>
 
-
+                            {{ Computer_Skill_Form.management_form }}
+                            {{ Computer_Skill_Form.non_form_errors }}
+                            {% for formset in Computer_Skill_Form %}
 
                              <div class="col-md-6">
                                 <div class="input_field" >
                                     <label >برامج الحاسوب </label>
-                                   {{ form.C_Computer_Skill}} 
+                                   {{ formset.Skill}} 
                                 </div>
                              </div>
 
                              <div class="col-md-6">
                                 <div class="input_field" >
                                     <label >المهارة </label>
-                                   {{ form.C_Computer_Level}} 
+                                   {{ formset.Level}} 
                                 </div>
                              </div>
-
+                             {% endfor %}
 
                         </div>
                     </div>
@@ -308,18 +315,21 @@ Apply
 
                                 </div>
                             </div>
+                            {{ Application_Previous_Company_Form.management_form }}
+                            {{ Application_Previous_Company_Form.non_form_errors }}
+                            {% for formset in Application_Previous_Company_Form %}
 
                             <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الاسم </label>
-                                   {{ form.Company_Prev_Name}} 
+                                   {{ formset.Name}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >العنوان</label>
-                                   {{ form.Company_Prev_Address}} 
+                                   {{ formset.Address}} 
                                 </div>
                              </div>
 
@@ -327,7 +337,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >رقم الهاتف</label>
-                                   {{ form.Company_Prev_Phone}} 
+                                   {{ formset.Phone}} 
                                 </div>
                              </div>
 
@@ -335,7 +345,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >تاريخ بدء العمل</label>
-                                   {{ form.Company_Prev_Duration_From}} 
+                                   {{ formset.Duration_From}} 
                                 </div>
                              </div>
 
@@ -343,7 +353,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >تاريخ إنتهاء العمل</label>
-                                   {{ form.Company_Prev_Duration_To}} 
+                                   {{ formset.Duration_To}} 
                                 </div>
                              </div>
 
@@ -351,18 +361,15 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >المسمى الوظيفي</label>
-                                   {{ form.Company_Prev_Position}} 
+                                   {{ formset.Position}} 
                                 </div>
                              </div>
-
-
-                             
 
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الراتب عند بداية التوظيف</label>
-                                   {{ form.Company_Prev_Start_Salary}} 
+                                   {{ formset.Start_Salary}} 
                                 </div>
                              </div>
 
@@ -370,25 +377,27 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الراتب عند نهاية التوظيف</label>
-                                   {{ form.Company_Prev_Last_Salary}} 
+                                   {{ formset.Last_Salary}} 
                                 </div>
                              </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >إسم المدير </label>
-                                   {{ form.Company_Prev_Maneger}} 
+                                   {{ formset.Maneger}} 
                                 </div>
                              </div>
 
 
 
-                             <div class="col-md-6">
+                             <div class="col-md-9">
                                 <div class="input_field" >
                                     <label >سبب ترك الوظيفة</label>
-                                   {{ form.Company_Prev_Reason}} 
+                                   {{ formset.Reason}} 
                                 </div>
                              </div>
+
+                             {% endfor %}
 
 
                              <div class="col-md-12" style = "background: #F5F7FA;" >
@@ -398,12 +407,15 @@ Apply
                                 </div>
                             </div>
 
+                            {{ Application_Training_Form.management_form }}
+                            {{ Application_Training_Form.non_form_errors }}
+                            {% for formset in Application_Training_Form %}
 
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >ألإسم</label>
-                                   {{ form.T_Training_Name}} 
+                                   {{ formset.Name}} 
                                 </div>
                              </div>
 
@@ -411,34 +423,35 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الموقع</label>
-                                   {{ form.T_Training_Location}} 
+                                   {{ formset.Location}} 
                                 </div>
                              </div>
 
 
-                             <div class="col-md-3">
+                             <div class="col-md-2">
                                 <div class="input_field" >
                                     <label >الجهة التدريبية</label>
-                                   {{ form.T_Training_Institute}} 
+                                   {{ formset.Institute}} 
                                 </div>
                              </div>
 
-
-                             <div class="col-md-3">
+                            <div class="col-md-4">
+                             <div class="col-md-6">
                                 <div class="input_field" >
                                     <label >تاريخ بدء الدورة</label>
-                                   {{ form.T_Training_Duration_From}} 
+                                   {{ formset.Duration_From}} 
                                 </div>
                              </div>
 
-                             <div class="col-md-3">
+                             <div class="col-md-6">
                                 <div class="input_field" >
                                     <label >تاريخ  ألإنتهاء</label>
-                                   {{ form.T_Training_Duration_To}} 
+                                   {{ formset.Duration_To}} 
                                 </div>
                              </div>
+                            </div>
 
-
+                             {% endfor %}
                              <div class="col-md-12" style = "background: #F5F7FA;" >
                                 <div class="input_field">
                                     <h3 style="float: right;"> المعرفين  </h3>
@@ -449,10 +462,14 @@ Apply
 
 
 
+                            {{ Application_Previous_Coworker_Form.management_form }}
+                            {{ Application_Previous_Coworker_Form.non_form_errors }}
+                            {% for formset in Application_Previous_Coworker_Form %}
+
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >ألإسم</label>
-                                   {{ form.Prev_Coworker_Name}} 
+                                   {{ formset.Name}} 
                                 </div>
                              </div>
 
@@ -460,7 +477,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الموقع</label>
-                                   {{ form.Prev_Coworker_Address}} 
+                                   {{ formset.Address}} 
                                 </div>
                              </div>
 
@@ -468,7 +485,7 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label > رقم الهاتف</label>
-                                   {{ form.Prev_Coworker_Phone}} 
+                                   {{ formset.Phone}} 
                                 </div>
                              </div>
 
@@ -476,10 +493,10 @@ Apply
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >المسمى الوظيفي  </label>
-                                   {{ form.Prev_Coworker_Position}} 
+                                   {{ formset.Position}} 
                                 </div>
                              </div>
-
+                             {% endfor %}
 
                              <div class="col-md-6">
                                 <div class="input_field" >
@@ -585,6 +602,18 @@ Apply
                       format: "yyyy-mm-dd",
                     });
                   </script>
+
+
+                    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">  </script>
+                    <script src="{% static 'js/jquery.formset.js' %}"></script>
+                    <script type="text/javascript">
+                        $(function() {
+                            $(".inline.{{ Qualification_form.prefix }}").formset({
+                                prefix: "{{ Qualification_form.prefix }}",
+                            })
+
+                        })
+                    </script>
                 <div class="wizard-footer">
                     <div class="pull-right">
                         <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='التالي' />

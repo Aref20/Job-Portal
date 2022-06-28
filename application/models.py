@@ -29,45 +29,12 @@ class Application(models.Model):
     Relative_Frinds = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
     Relative_Frinds_Job = models.CharField(max_length=100)
     Diseases = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
-    
-    L_Language = models.CharField(max_length=100)
-    L_Type_Conversation = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12)
-    L_Type_Writing = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12)
-    L_Type_Reading = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12)
-
-    C_Computer_Skill = models.CharField(max_length=100)
-    C_Computer_Level = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12)
-
-    Company_Prev_Name = models.CharField(max_length=100)
-    Company_Prev_Address = models.CharField(max_length=100)
-    Company_Prev_Phone = models.IntegerField( null=True,blank=True)
-    Company_Prev_Duration_From = models.DateField(default=datetime.now)
-    Company_Prev_Duration_To = models.DateField(default=datetime.now)
-    Company_Prev_Position = models.CharField(max_length=100)
-    Company_Prev_Start_Salary = models.IntegerField( null=True,blank=True)
-    Company_Prev_Last_Salary = models.IntegerField( null=True,blank=True)
-    Company_Prev_Reason = models.TextField(max_length=5000)
-    Company_Prev_Maneger = models.CharField(max_length=100)
-
-
-    T_Training_Name = models.CharField(max_length=100)
-    T_Training_Duration_From = models.DateField(default=datetime.now)
-    T_Training_Duration_To = models.DateField(default=datetime.now)
-    T_Training_Location = models.CharField( null=True,blank=True,max_length=100)
-    T_Training_Institute = models.CharField(max_length=100)
-
-    Prev_Coworker_Name = models.CharField(max_length=100)
-    Prev_Coworker_Address = models.CharField(max_length=100)
-    Prev_Coworker_Phone = models.IntegerField( null=True,blank=True)
-    Prev_Coworker_Position = models.CharField(max_length=100)
-
-    Coworker_Ask = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
     Black_List = models.BooleanField(default=False, blank=True)
     First_Approval = models.BooleanField(default=False, blank=True)
     First_Approval_Note = models.TextField(max_length=5000, blank=True)
     Second_Approval = models.BooleanField(default=False,blank=True)
     Second_Approval_Note = models.TextField(max_length=5000, blank=True)
-
+    Coworker_Ask = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
     resume = models.FileField(upload_to='documents/')
     
     def __str__(self):
@@ -83,11 +50,55 @@ class Qualification(models.Model):
     Qualification_Application= models.ForeignKey(Application, on_delete=models.SET_NULL, null=True,related_name='Qualification')
     Degree = models.CharField(max_length=100)
     University = models.CharField(max_length=100)
-    Graduation_Date = models.DateField()
+    Graduation_Date = models.DateField(default=datetime.now)
     Major = models.CharField(max_length=100)
 
     def __str__(self):
         return self.Qualification_Application.Name
+
+
+class Language(models.Model):
+    Language_Application = models.ForeignKey(Application, on_delete=models.SET_NULL, null=True,related_name='Language')
+    Language_Name = models.CharField(max_length=100)
+    Type_Conversation = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12)
+    Type_Writing = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12)
+    Type_Reading = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12)
+
+class Computer_Skill(models.Model):
+    Computer_Skill_Application = models.ForeignKey(Application, on_delete=models.SET_NULL, null=True,related_name='Computer_Skill')
+    Skill = models.CharField(max_length=100)
+    Level = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12)
+
+
+class Previous_Company(models.Model):
+    Previous_Company_Application = models.ForeignKey(Application, on_delete=models.SET_NULL, null=True,related_name='Previous_Company')
+    Name = models.CharField(max_length=100)
+    Address = models.CharField(max_length=100)
+    Phone = models.IntegerField( null=True,blank=True)
+    Duration_From = models.DateField(default=datetime.now)
+    Duration_To = models.DateField(default=datetime.now)
+    Position = models.CharField(max_length=100)
+    Start_Salary = models.IntegerField( null=True,blank=True)
+    Last_Salary = models.IntegerField( null=True,blank=True)
+    Reason = models.TextField(max_length=5000)
+    Maneger = models.CharField(max_length=100)
+
+
+class Training(models.Model):
+    Training_Application = models.ForeignKey(Application, on_delete=models.SET_NULL, null=True,related_name='Training')
+    Name = models.CharField(max_length=100)
+    Duration_From = models.DateField(default=datetime.now)
+    Duration_To = models.DateField(default=datetime.now)
+    Location = models.CharField( null=True,blank=True,max_length=100)
+    Institute = models.CharField(max_length=100)
+
+class Previous_Coworker(models.Model):
+    Previous_Coworker_Application = models.ForeignKey(Application, on_delete=models.SET_NULL, null=True,related_name='Previous_Coworker')
+    Name = models.CharField(max_length=100)
+    Address = models.CharField(max_length=100)
+    Phone = models.IntegerField( null=True,blank=True)
+    Position = models.CharField(max_length=100)
+    
 
 
 
