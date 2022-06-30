@@ -51,13 +51,15 @@ INSTALLED_APPS = [
     'admin_auto_filters',
     'extra_views',
     'crispy_forms',
+    'interview',
+    'smart_selects'
 
 
 
 
 
 ]
-
+JQUERY_URL = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

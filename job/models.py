@@ -1,25 +1,21 @@
-from enum import Enum
+from asyncio import create_task
+from datetime import timezone
+from .enum import *
 from django.db import models
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group,User
+from datetime import date, datetime    
+from smart_selects.db_fields import ChainedForeignKey
 
 # Create your models here.
 
 
-class Status(Enum):
 
-    ACTIVE = "ACTIVE"
-    INACTIVE = "INACTIVE"
-
-    @classmethod
-    def choices(cls):
-        print(tuple((i.name, i.value) for i in cls))
-        return tuple((i.name, i.value) for i in cls)
 
 class Job(models.Model):
-    title = models.CharField(max_length=300)
+    title = models.ForeignKey('Title', on_delete=models.SET_NULL, null=True)
     description = models.TextField(max_length=3000)
-    department = models.ForeignKey(Group,on_delete=models.SET_NULL, null=True) 
-    #DepartmentPerson = models.ForeignKey('Department_Person', on_delete=models.SET_NULL, null=True)
+    department = models.ForeignKey(Group,on_delete=models.SET_NULL, null=True,related_name="groub")
+    #department_person = ChainedForeignKey(User, chained_field="department",chained_model_field="department",)# chaining fileds
     post_date = models.DateField(auto_now_add=True)
     vacancy = models.IntegerField(blank=True)
     salary = models.IntegerField( blank=True)
@@ -28,19 +24,22 @@ class Job(models.Model):
     experience_max = models.IntegerField(blank=True)
     nature = models.ForeignKey('Nature', on_delete=models.SET_NULL, null=True)
     status = models.CharField(max_length=255, choices=Status.choices(),default=Status.ACTIVE)
-
-    def __str__(self):
-        return self.title
-
+    expiration_date = models.DateTimeField(default=datetime.now)
     
 
-#class Department(models.Model):
-  #  department_name = models.CharField(max_length=300)
-     #
-    
+
+
+    #def save(self, *args, **kwargs):
+        #if self.expiration_date >= datetime.now():
+        #self.status = Status.INACTIVE
+        
+
 
     def __str__(self):
-        return self.department_name
+        return self.title.name
+
+
+    
 
 
 class Location(models.Model):
@@ -54,6 +53,13 @@ class Nature(models.Model):
 
     def __str__(self):
         return self.Nature_name
+
+class Title(models.Model):
+    name = models.CharField(max_length=300)
+
+
+    def __str__(self):
+        return self.name
 
 #class Department_Person(models.Model):
    # DepartmentPerson= models.ForeignKey(Department, on_delete=models.SET_NULL, null=True,related_name='DepartmentPerson')

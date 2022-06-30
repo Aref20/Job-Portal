@@ -32,6 +32,7 @@ admin.site.register(Job, jobadmin)
 #admin.site.register(Department)
 admin.site.register(Location)
 admin.site.register(Nature)
+admin.site.register(Title)
 #admin.site.register(Department,DepartmentPersonadmin)
 
 
