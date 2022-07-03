@@ -59,7 +59,7 @@ INSTALLED_APPS = [
 
 
 ]
-JQUERY_URL = True
+USE_DJANGO_JQUERY = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

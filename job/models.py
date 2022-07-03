@@ -4,7 +4,7 @@ from .enum import *
 from django.db import models
 from django.contrib.auth.models import Group,User
 from datetime import date, datetime    
-from smart_selects.db_fields import ChainedForeignKey
+from smart_selects.db_fields import ChainedManyToManyField,ChainedForeignKey
 
 # Create your models here.
 
@@ -14,8 +14,6 @@ from smart_selects.db_fields import ChainedForeignKey
 class Job(models.Model):
     title = models.ForeignKey('Title', on_delete=models.SET_NULL, null=True)
     description = models.TextField(max_length=3000)
-    department = models.ForeignKey(Group,on_delete=models.SET_NULL, null=True,related_name="groub")
-    #department_person = ChainedForeignKey(User, chained_field="department",chained_model_field="department",)# chaining fileds
     post_date = models.DateField(auto_now_add=True)
     vacancy = models.IntegerField(blank=True)
     salary = models.IntegerField( blank=True)
@@ -56,6 +54,13 @@ class Nature(models.Model):
 
 class Title(models.Model):
     name = models.CharField(max_length=300)
+    department = models.ForeignKey(Group,on_delete=models.SET_NULL, null=True)
+    department_person = ChainedManyToManyField(
+        User,
+        verbose_name='department_person',
+        horizontal=True,
+        chained_field="department",
+        chained_model_field="groups", blank=True, null=True,related_name='usertitle')# chaining fileds
 
 
     def __str__(self):

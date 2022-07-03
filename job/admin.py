@@ -16,9 +16,8 @@ class jobadmin(SummernoteModelAdmin , admin.ModelAdmin):
     list_display = ('title','nature','status', 'post_date')
     list_filter = ("title", 'post_date','status','nature','location','salary','experience_min','experience_max')
     search_fields = ['title', 'description']
-    # prepopulating slug from title
-    #prepopulated_fields = {'slug': ('title', )}
     summernote_fields = ('description', )
+
 
 #class DepartmentPersonadmin( admin.ModelAdmin):
    #     inlines = [Department_Personline,]

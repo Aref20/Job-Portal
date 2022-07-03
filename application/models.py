@@ -35,6 +35,8 @@ class Application(models.Model):
     Second_Approval = models.BooleanField(default=False,blank=True)
     Second_Approval_Note = models.TextField(max_length=5000, blank=True)
     Coworker_Ask = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
+    Interview_Date = models.DateField(default=datetime.now)
+    HR_Interview_Approval = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
     resume = models.FileField(upload_to='documents/')
     
     def __str__(self):
