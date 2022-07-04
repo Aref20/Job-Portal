@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from decouple import config
+from django.core.mail import get_connection, send_mail
+from django.core.mail.message import EmailMessage
 
 
 
@@ -137,12 +139,14 @@ DATABASES = {
 
 # Email Config
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.sukhtian.com.jo'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587 
-EMAIL_HOST_USER = 'hr@sukhtian.com.jo'
-EMAIL_HOST_PASSWORD = config('EMAILPASS')
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST = 'mail.sukhtian.com.jo'
+#EMAIL_USE_TLS = True
+#EMAIL_PORT = 587 
+#EMAIL_HOST_USER = 'hr@sukhtian.com.jo'
+#EMAIL_HOST_PASSWORD = config('EMAILPASS')
+
+
 
 
 # Password validation

@@ -11,8 +11,11 @@ from django.views.generic.detail import SingleObjectMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.conf import settings
-from django.core.mail import send_mail
+from decouple import config
+from django.core.mail import get_connection, send_mail
+from django.core.mail.message import EmailMessage
 from django.db import transaction
+
 
 
 # Create your views here.
@@ -100,12 +103,23 @@ class ApplicationCreateView(CreateView):#CreateWithInlinesView):
      # get email from the form
      email = form.cleaned_data['Email'] 
 
-     # send email
+     # send success email for applicatent
      subject = 'welcome to GFG world'
      message = 'Hi aref thank you for registering in geeksforgeeks.'
-     email_from = settings.EMAIL_HOST_USER
+     #email_from = settings.EMAIL_HOST_USER
      recipient_list = [email, ]
-     send_mail( subject, message, email_from, recipient_list )
+     my_host = 'mail.sukhtian.com.jo'
+     my_port = 587
+     my_username = 'hr@sukhtian.com.jo'
+     my_password = config('EMAILPASS')
+     my_use_tls = True
+     connection = get_connection(host=my_host, 
+                                    port=my_port, 
+                                    username=my_username, 
+                                    password=my_password, 
+                                    use_tls=my_use_tls) 
+     send_mail( subject, message, my_username, recipient_list, connection=connection )
+     
      
      # add formset
      self.object = form.save()

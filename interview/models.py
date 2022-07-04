@@ -31,4 +31,9 @@ class Interview(models.Model):
     hiring_Recommendation = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
 
 
+      
+    def __str__(self):
+        return self.interview_application.Name
+
+
 

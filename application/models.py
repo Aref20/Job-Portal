@@ -21,7 +21,7 @@ class Application(models.Model):
     Nationality = models.CharField(max_length=100)
     Car_License = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
     Have_Car = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
-    Job_App = models.ForeignKey(Job, on_delete=models.SET_NULL, null=True,blank=True)
+    Job_App = models.ForeignKey(Job, on_delete=models.SET_NULL, null=True,blank=True , related_name="JA")
     Last_Job_Desc = models.TextField(max_length=5000)
     Current_Salary = models.IntegerField( null=True,blank=True)
     Expected_Salary = models.IntegerField( null=True,blank=True)
@@ -35,8 +35,8 @@ class Application(models.Model):
     Second_Approval = models.BooleanField(default=False,blank=True)
     Second_Approval_Note = models.TextField(max_length=5000, blank=True)
     Coworker_Ask = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
-    Interview_Date = models.DateField(default=datetime.now)
-    HR_Interview_Approval = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3)
+    Interview_Date = models.DateTimeField(default=datetime.now,blank=True)
+    HR_Interview_Approval = models.BooleanField(default=False,blank=True)
     resume = models.FileField(upload_to='documents/')
     
     def __str__(self):
