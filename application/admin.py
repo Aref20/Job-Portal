@@ -44,15 +44,12 @@ class ApplicationAdmin(admin.ModelAdmin):
         if loguserlist in  users: # if current user defind for this job
             form.base_fields["First_Approval"].disabled = True
             form.base_fields["First_Approval_Note"].disabled = True
-            
 
-            print(loguserlist)
-            print(users)
         else:
             form.base_fields["Second_Approval"].disabled = True
             form.base_fields["Second_Approval_Note"].disabled = True
             form.base_fields["HR_Interview_Approval"].disabled = True
-            print(users)
+
 
             
         return form

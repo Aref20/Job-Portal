@@ -61,7 +61,7 @@ class LanguageForm(forms.ModelForm):
             model = Language
             fields = '__all__'
             widgets = {
-                'Language_Name': forms.TextInput(attrs={'class': 'form-control'}),
+                'Language_Name': forms.Select(attrs={'class': 'form-select'}),
                 'Type_Conversation': forms.Select(attrs={'class': 'form-select'}),
                 'Type_Writing': forms.Select(attrs={ 'class': 'form-select'}),
                 'Type_Reading': forms.Select(attrs={ 'class': 'form-select'}),

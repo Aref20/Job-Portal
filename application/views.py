@@ -81,6 +81,7 @@ class ApplicationCreateView(CreateView):#CreateWithInlinesView):
         ):
             return self.form_valid(form, Qualification_form , Language_Form , Computer_Skill_Form , Application_Previous_Company_Form , Application_Training_Form , Application_Previous_Coworker_Form)
         else:
+            print(Language_Form.get_form_error() )
             return self.form_invalid(form, Qualification_form , Language_Form , Computer_Skill_Form , Application_Previous_Company_Form , Application_Training_Form , Application_Previous_Coworker_Form)
 
    # def get_context_data(self, **kwargs):

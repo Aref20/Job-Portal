@@ -23,9 +23,9 @@ from django.conf.urls.static import static
 
 
 # customizing admin interface
-admin.site.site_header = 'Job Board'
-admin.site.site_title = 'Job Board'
-admin.site.index_title = 'Job Board'
+admin.site.site_header = 'نظام التوظيف ألإلكتروني'
+admin.site.site_title = ' نظام التوظيف'
+admin.site.index_title = ' نظام التوظيف'
 
 urlpatterns = [
 
