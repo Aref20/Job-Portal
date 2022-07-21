@@ -54,7 +54,10 @@ INSTALLED_APPS = [
     'extra_views',
     'crispy_forms',
     'interview',
-    'smart_selects'
+    'smart_selects',
+    'djangoql',
+    'import_export',
+
 
 
 
@@ -188,7 +191,7 @@ USE_L10N = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(TEMPLATES_DIR, 'static')] 
 
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

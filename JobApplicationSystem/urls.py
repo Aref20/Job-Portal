@@ -36,6 +36,8 @@ urlpatterns = [
     path('', RedirectView.as_view(url='jobs/', permanent=True)),
     path('editor/', include('django_summernote.urls')),
     path('chaining/', include('smart_selects.urls')),
+
+
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

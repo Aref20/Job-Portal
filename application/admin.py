@@ -11,7 +11,23 @@ from interview.models import *
 
 class QualificationInline(admin.TabularInline):
     model = Qualification
-    #fields = ['Degree']  
+
+class LanguageInline(admin.TabularInline):
+    model = Language
+
+class Computer_SkillInline(admin.TabularInline):
+    model = Computer_Skill
+
+class Previous_CompanyInline(admin.StackedInline):
+    model = Previous_Company
+
+class TrainingInline(admin.TabularInline):
+    model = Training
+
+class Previous_CoworkerInline(admin.TabularInline):
+    model =  Previous_Coworker
+
+   
 
 
 class JobFilter(AutocompleteFilter):
@@ -24,11 +40,26 @@ class JobFilter(AutocompleteFilter):
 
 class ApplicationAdmin(admin.ModelAdmin):
     readonly_fields = ('id',)
-    inlines = [QualificationInline,]
+    inlines = [QualificationInline,LanguageInline,Computer_SkillInline,Previous_CompanyInline,TrainingInline,Previous_CoworkerInline]
     list_display = ('Name', 'NID','Email','Phone_Num','Job_App' , 'Create_Date')
     list_filter = (JobFilter,'Name', 'NID','Email','Job_App' , 'Create_Date')
     change_list_template = "admin/change_list_filter_confirm.html"
     change_list_filter_template = "admin/filter_listing.html"
+
+    fieldsets = (
+      (' معلومات المتقدم', {
+          'fields': ('id',('Name','NID','Email','Phone_Num'),('Birth_Date','Birth_Location','City','Location',)
+          ,('Nationality','Job_App','Have_Car','Car_License'),('Current_Salary','Expected_Salary','Available_Date','Socility_Status')
+          ,('Relative_Frinds','Relative_Frinds_Job','Diseases','Coworker_Ask'))
+      }),
+      (' ملاحظات الموارد البشرية ', {
+          'fields': ('First_Approval','First_Approval_Note','HR_Interview_Approval','Black_List')
+      }),
+
+      (' ملاحظات  رئيس القسم ', {
+          'fields': ('Second_Approval','Second_Approval_Note','Interview_Date')
+      }),
+    )
     
     
     
@@ -38,20 +69,23 @@ class ApplicationAdmin(admin.ModelAdmin):
         loguser = (request.user.id)
         loguserlist.append(loguser)
         job = Job.objects.filter(JA__id=appid)[0] # get current job
-        users = list(User.objects.filter(usertitle__name=job).values_list('id',flat=True)) # get all users for this job
+        users = list(User.objects.filter(usertitle__name=job).values_list('id',flat=True)) # get all users related to thid job for this job
         
         form = super(ApplicationAdmin, self).get_form(request, obj, **kwargs)
         if loguserlist in  users: # if current user defind for this job
-            form.base_fields["First_Approval"].disabled = True
-            form.base_fields["First_Approval_Note"].disabled = True
+
+
+            form.base_fields["Second_Approval"].disabled = False
+            form.base_fields["Second_Approval_Note"].disabled = False
+            form.base_fields["HR_Interview_Approval"].disabled = False
+            form.base_fields["Black_List"].disabled = False 
+            
 
         else:
-            form.base_fields["Second_Approval"].disabled = True
-            form.base_fields["Second_Approval_Note"].disabled = True
-            form.base_fields["HR_Interview_Approval"].disabled = True
 
+            form.base_fields["First_Approval"].disabled = False
+            form.base_fields["First_Approval_Note"].disabled = False
 
-            
         return form
 
 
@@ -124,4 +158,4 @@ class ApplicationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Application,ApplicationAdmin)
-admin.site.register(Qualification)
+#admin.site.register(Qualification)

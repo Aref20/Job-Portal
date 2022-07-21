@@ -4,19 +4,37 @@ from decouple import config
 from django.core.mail import get_connection, send_mail
 from django_summernote.admin import SummernoteModelAdmin
 from django.core.mail.message import EmailMessage
+from import_export.admin import ImportExportModelAdmin
+from import_export import resources
 # Register your models here.
 
 #class Department_Personline(admin.TabularInline):
    # model = Department_Person
 
+class BookResource(resources.ModelResource):
 
-class jobadmin(SummernoteModelAdmin , admin.ModelAdmin):
+    class Meta:
+        model = Job
+        fileds = ('id','title','department','nature','salary','experience_min','experience_max','location','vacancy','Education__name','status', 'expiration_date','post_date')
+        export_order = ('id','title','department','nature','salary','experience_min','experience_max','location','vacancy','Education','status', 'expiration_date','post_date')
+class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
     # displaying posts with title slug and created time
-
-    list_display = ('title','nature','status', 'post_date')
-    list_filter = ("title", 'post_date','status','nature','location','salary','experience_min','experience_max')
+    
+    resource_class = BookResource
+    #change_list_template = "admin/change_list_filter_confirm.html"
+    readonly_fields = ('id',)
+    list_display = ('id','title','department','nature','salary','experience_min','experience_max','location','vacancy','Education','status', 'expiration_date','post_date')
+    list_filter = ('id','title','department','nature','salary','experience_min','experience_max','location','vacancy','Education','status', 'expiration_date','post_date')
     search_fields = ['title', 'description']
     summernote_fields = ('description', )
+    fieldsets = (
+      ('ألإسم والوصف', {
+          'fields': ('id',('title','description'))
+      }),
+      ('معلومات الوظيفة ', {
+          'fields': (('department','Education'), ('salary', 'nature','location'),('experience_min','experience_max','vacancy'),('status','expiration_date','langs'))
+      }),
+   )
 
 
 #class DepartmentPersonadmin( admin.ModelAdmin):

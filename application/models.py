@@ -77,6 +77,9 @@ class Language(models.Model):
     Type_Writing = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12,verbose_name=' كتابة')
     Type_Reading = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12,verbose_name=' قراءة')
 
+    def __str__(self):
+        return self.Language_Name.name
+
     class Meta:
         verbose_name = _('اللغات ')
         verbose_name_plural = _('اللغات ')
@@ -86,6 +89,8 @@ class Computer_Skill(models.Model):
     Skill = models.CharField(max_length=100,verbose_name=' برنامج الحاسوب')
     Level = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12,verbose_name=' المهارة')
 
+    def __str__(self):
+        return self.Skill
 
     class Meta:
         verbose_name = _('مهارات الحاسوب ')
@@ -105,6 +110,8 @@ class Previous_Company(models.Model):
     Reason = models.TextField(max_length=5000,verbose_name='سبب ترك العمل ')
     Maneger = models.CharField(max_length=100,verbose_name=' المدير المباشر ')
 
+    def __str__(self):
+        return self.Name
     class Meta:
         verbose_name = _('السجل الوظيفي  ')
         verbose_name_plural = _('السجل الوظيفي  ')
@@ -118,6 +125,9 @@ class Training(models.Model):
     Location = models.CharField( null=True,blank=True,max_length=100,verbose_name=' مكان انعقاد الدورة')
     Institute = models.CharField(max_length=100,verbose_name='الجهة التدريبية ')
 
+    def __str__(self):
+        return self.Name
+
     class Meta:
         verbose_name = _(' الدورات التدريبية  ')
         verbose_name_plural = _(' الدورات التدريبية  ')
@@ -128,6 +138,9 @@ class Previous_Coworker(models.Model):
     Address = models.CharField(max_length=100,verbose_name='مكان العمل ')
     Phone = models.IntegerField( null=True,blank=True,verbose_name='رقم الهاتف ')
     Position = models.CharField(max_length=100,verbose_name='المسمى الوظيفي ')
+
+    def __str__(self):
+        return self.Name
 
     class Meta:
         verbose_name = _('المعرفين  ')

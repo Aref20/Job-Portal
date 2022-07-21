@@ -36,12 +36,14 @@ class Job(models.Model):
     vacancy = models.IntegerField(blank=True,verbose_name='الشواغر ')
     salary = models.IntegerField( blank=True,verbose_name='الراتب ')
     Education = models.ForeignKey(Degree,on_delete=models.SET_NULL, null=True,verbose_name='الدرجة العلمية ')
+    department = models.ForeignKey(Group,on_delete=models.SET_NULL, null=True,verbose_name=' القسم')
     location = models.ForeignKey('Location', on_delete=models.SET_NULL, null=True,verbose_name='الموقع ')
     experience_min = models.IntegerField(blank=True,verbose_name='الخبرة من')
     experience_max = models.IntegerField(blank=True,verbose_name='الخبرة الى ')
     nature = models.ForeignKey('Nature', on_delete=models.SET_NULL, null=True,verbose_name='طبيعة العمل ')
     langs =  models.ManyToManyField(Language, null=True,verbose_name='اللغات ')
     status = models.CharField(max_length=255, choices=Status.choices(),default=Status.ACTIVE,verbose_name='حالة الوظيفة ')
+
     expiration_date = models.DateTimeField(default=datetime.now,verbose_name='تاريخ إنتهاء الوظيفة ')
     
     def __str__(self):
