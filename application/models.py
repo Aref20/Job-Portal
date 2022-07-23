@@ -2,7 +2,7 @@ from django.db import models
 from job.models import Job
 from datetime import date, datetime    
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from job.models import *
 # Create your models here.
 
