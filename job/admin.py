@@ -66,7 +66,7 @@ class requestjobadmin(SummernoteModelAdmin , admin.ModelAdmin):
         user = (User.objects.filter(id=request.user.id).values_list('username',flat=True))[0]
         dep = request.user.groups.values_list('name',flat = True)[0]
         #id = request.resolver_match.kwargs['object_id']
-        print(""+user+ " from "+dep+" department has request new job "+str(dep)+" ")
+        #print(""+user+ " from "+dep+" department has request new job "+str(dep)+" ")
         # send email for HR
         subject = 'New Job'
         message = ""+user+" from "+dep+" department has request new job"

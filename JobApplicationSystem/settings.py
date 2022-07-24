@@ -37,7 +37,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-
+    'admin_numeric_filter',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',

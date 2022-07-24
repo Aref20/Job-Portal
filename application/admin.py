@@ -6,6 +6,8 @@ from decouple import config
 from django.core.mail import get_connection, send_mail
 from django.core.mail.message import EmailMessage
 from interview.models import *
+from admin_numeric_filter.admin import NumericFilterModelAdmin, SingleNumericFilter, RangeNumericFilter, \
+    SliderNumericFilter
 # Register your models here.
 
 
@@ -38,11 +40,12 @@ class JobFilter(AutocompleteFilter):
 
 
 
-class ApplicationAdmin(admin.ModelAdmin):
+class ApplicationAdmin(NumericFilterModelAdmin):
+    
     readonly_fields = ('id',)
     inlines = [QualificationInline,LanguageInline,Computer_SkillInline,Previous_CompanyInline,TrainingInline,Previous_CoworkerInline]
-    list_display = ('Name', 'NID','Email','Phone_Num','Job_App' , 'Create_Date')
-    list_filter = (JobFilter,'Name', 'NID','Email','Job_App' , 'Create_Date')
+    list_display = ('id','Name', 'NID','Email','Phone_Num','Job_App' ,'Socility_Status','Birth_Location','Nationality','Car_License','Have_Car','Current_Salary','Expected_Salary','Available_Date','First_Approval','Second_Approval','Coworker_Ask','Diseases', 'Create_Date')
+    list_filter = (JobFilter,'Name', 'NID','Email','Job_App','Current_Salary' , 'Create_Date')
     change_list_template = "admin/change_list_filter_confirm.html"
     change_list_filter_template = "admin/filter_listing.html"
 
@@ -62,8 +65,33 @@ class ApplicationAdmin(admin.ModelAdmin):
     )
     
     
-    
+    def get_queryset(self, request):
+        #print(request.resolver_match.kwargs[''])
+        qs = super(ApplicationAdmin, self).get_queryset(request)
+        user = (User.objects.filter(id=request.user.id).values_list('username',flat=True))[0]
+        dep = request.user.groups.values_list('name',flat = True)[0]
+        bl = list(map(int,Application.objects.filter(Black_List = True).values_list('NID',flat=True)))# get all black list national id
+        record = list(map(int,qs.values_list('NID',flat=True) ))
+        #nd = Application.objects.get(NID=True)
+        print(record in  bl)
+        print(bl)
+        print(record)
+        
+
+       # if dep == 'HR':
+        #    return qs.get()
+            
+      #  else:
+            #return qs.filter(First_Approval = True)
+          #  return qs.filter(NID = bl)
+        return qs
+
+        
+
+
+
     def get_form(self, request, obj, **kwargs):
+        
         loguserlist = []
         appid = request.resolver_match.kwargs['object_id'] # get current application id
         loguser = (request.user.id)
