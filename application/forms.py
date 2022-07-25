@@ -126,32 +126,32 @@ class Previous_CoworkerForm(forms.ModelForm):
 
 ApplicationQualificationFormSet = inlineformset_factory(
      Application, Qualification, form=QualificationForm,
-      #extra=2, can_delete=True
+      #extra=1, can_delete=True
      )
 
 ApplicationLanguageFormSet = inlineformset_factory(
      Application, Language, form=LanguageForm,
-      extra=2, can_delete=True
+      extra=1, can_delete=True
      )
 
 ApplicationComputer_SkillFormSet = inlineformset_factory(
      Application, Computer_Skill, form=Computer_SkillForm,
-      extra=2, can_delete=True
+      extra=1, can_delete=True
      )
 
 ApplicationPrevious_CompanyFormSet = inlineformset_factory(
      Application, Previous_Company, form=Previous_CompanyForm,
-      extra=2, can_delete=True
+      extra=1, can_delete=True
      )
 
 ApplicationTrainingFormSet = inlineformset_factory(
      Application, Training, form=TrainingForm,
-     extra=2, can_delete=True
+     extra=1, can_delete=True
      )
 
 ApplicationPrevious_CoworkerFormSet = inlineformset_factory(
      Application, Previous_Coworker, form=Previous_CoworkerForm,
-      extra=2, can_delete=True
+      extra=1, can_delete=True
      )
 
 

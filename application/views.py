@@ -69,27 +69,29 @@ class ApplicationCreateView(CreateView):#CreateWithInlinesView):
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
+
         Qualification_form = ApplicationQualificationFormSet(self.request.POST,prefix='Qualification_form')
         Language_Form = ApplicationLanguageFormSet(self.request.POST)
         Computer_Skill_Form = ApplicationComputer_SkillFormSet(self.request.POST)
         Application_Previous_Company_Form =ApplicationPrevious_CompanyFormSet(self.request.POST)
         Application_Training_Form = ApplicationTrainingFormSet(self.request.POST)
         Application_Previous_Coworker_Form = ApplicationPrevious_CoworkerFormSet(self.request.POST)
+
         if (form.is_valid() and Qualification_form.is_valid() 
          and Language_Form.is_valid() and Computer_Skill_Form.is_valid() and Application_Previous_Company_Form.is_valid()
-         and Application_Training_Form.is_valid() and Application_Previous_Coworker_Form.is_valid()
-        ):
-            return self.form_valid(form, Qualification_form , Language_Form , Computer_Skill_Form , Application_Previous_Company_Form , Application_Training_Form , Application_Previous_Coworker_Form)
+         and Application_Training_Form.is_valid() and Application_Previous_Coworker_Form.is_valid()):
+
+            bl = list(Application.objects.filter(Black_List = True).values_list('NID',flat=True))# get all black list national id
+            nd = form.cleaned_data['NID']
+            if nd in bl: #prevent black list from apply
+                messages.add_message(self.request, messages.SUCCESS,'لقد تم تقديم الطلب بنجاح')
+                return HttpResponseRedirect('../')
+            else:
+                return self.form_valid(form, Qualification_form , Language_Form , Computer_Skill_Form , Application_Previous_Company_Form , Application_Training_Form , Application_Previous_Coworker_Form)
         else:
-            print(Language_Form.get_form_error() )
+
             return self.form_invalid(form, Qualification_form , Language_Form , Computer_Skill_Form , Application_Previous_Company_Form , Application_Training_Form , Application_Previous_Coworker_Form)
 
-   # def get_context_data(self, **kwargs):
-    #    data = super(ApplicationCreateView, self).get_context_data(**kwargs)
-   ##        data['titles'] = ApplicationQualificationFormSet(self.request.POST)
-     #   else:
-    #        data['titles'] = ApplicationQualificationFormSet()
-    #    return data
 
 
 # set job for application by id
@@ -137,10 +139,9 @@ class ApplicationCreateView(CreateView):#CreateWithInlinesView):
      Application_Previous_Coworker_Form.instance = self.object
      Application_Previous_Coworker_Form.save()
 
-     #return HttpResponseRedirect(self.get_success_url())
      return super().form_valid(form)
+        
 
-     #return super().form_valid(form)
 
     def form_invalid(self, form, Qualification_form, Language_Form , Computer_Skill_Form , Application_Previous_Company_Form , Application_Training_Form , Application_Previous_Coworker_Form):
         """

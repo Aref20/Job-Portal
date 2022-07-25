@@ -73,9 +73,9 @@ class ApplicationAdmin(NumericFilterModelAdmin):
         bl = list(map(int,Application.objects.filter(Black_List = True).values_list('NID',flat=True)))# get all black list national id
         record = list(map(int,qs.values_list('NID',flat=True) ))
         #nd = Application.objects.get(NID=True)
-        print(record in  bl)
-        print(bl)
-        print(record)
+       # print(record in  bl)
+        #print(bl)
+       # print(record)
         
 
        # if dep == 'HR':
