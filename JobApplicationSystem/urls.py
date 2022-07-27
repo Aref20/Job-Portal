@@ -30,6 +30,7 @@ admin.site.index_title = ' نظام التوظيف'
 urlpatterns = [
 
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
+    path('admin/', include('django_admin_filter.urls')),
     path('admin/', admin.site.urls),
     path('jobs/', include('job.urls')),
     path('application/', include('application.urls')),

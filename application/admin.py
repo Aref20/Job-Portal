@@ -8,6 +8,8 @@ from django.core.mail.message import EmailMessage
 from interview.models import *
 from admin_numeric_filter.admin import NumericFilterModelAdmin, SingleNumericFilter, RangeNumericFilter, \
     SliderNumericFilter
+from django.forms import TextInput, Textarea
+
 # Register your models here.
 
 
@@ -45,15 +47,23 @@ class ApplicationAdmin(NumericFilterModelAdmin):
     readonly_fields = ('id',)
     inlines = [QualificationInline,LanguageInline,Computer_SkillInline,Previous_CompanyInline,TrainingInline,Previous_CoworkerInline]
     list_display = ('id','Name', 'NID','Email','Phone_Num','Job_App' ,'Socility_Status','Birth_Location','Nationality','Car_License','Have_Car','Current_Salary','Expected_Salary','Available_Date','First_Approval','Second_Approval','Coworker_Ask','Diseases', 'Create_Date')
-    list_filter = (JobFilter,'Name', 'NID','Email','Job_App','Current_Salary' , 'Create_Date')
+    list_filter = [JobFilter,'Name', 'NID','Email','Job_App','Current_Salary' , 'Create_Date']
     change_list_template = "admin/change_list_filter_confirm.html"
     change_list_filter_template = "admin/filter_listing.html"
 
+    formfield_overrides = {
+    models.CharField: {'widget': TextInput(attrs={'size':'100'})},
+    models.DateField: {'widget': TextInput(attrs={'size':'100'})},
+    models.IntegerField: {'widget': TextInput(attrs={'size':'100'})},
+
+    }
+
+
     fieldsets = (
       (' معلومات المتقدم', {
-          'fields': ('id',('Name','NID','Email','Phone_Num'),('Birth_Date','Birth_Location','City','Location',)
-          ,('Nationality','Job_App','Have_Car','Car_License'),('Current_Salary','Expected_Salary','Available_Date','Socility_Status')
-          ,('Relative_Frinds','Relative_Frinds_Job','Diseases','Coworker_Ask'))
+          'fields': ('id',('Name','NID','Phone_Num','Email'),('Birth_Date','Birth_Location','City','Location',)
+          ,('Nationality','Have_Car','Car_License','Job_App'),('Current_Salary','Expected_Salary','Available_Date','Socility_Status')
+          ,('Relative_Frinds','Relative_Frinds_Job','Diseases','Coworker_Ask'),('resume',))
       }),
       (' ملاحظات الموارد البشرية ', {
           'fields': ('First_Approval','First_Approval_Note','HR_Interview_Approval','Black_List')
@@ -63,20 +73,23 @@ class ApplicationAdmin(NumericFilterModelAdmin):
           'fields': ('Second_Approval','Second_Approval_Note','Interview_Date')
       }),
     )
+
+    def embed_pdf(self, obj):
+        # check for valid URL and return if no valid URL
+        url = obj.pdf_file.url
+        html = '<embed src="documents/Resume.pdf" type="application/pdf">'
+        formatted_html = format_html(html.format(url=obj.cover.url))
+        return formatted_html
     
     
     def get_queryset(self, request):
-        #print(request.resolver_match.kwargs[''])
+
         qs = super(ApplicationAdmin, self).get_queryset(request)
         user = (User.objects.filter(id=request.user.id).values_list('username',flat=True))[0]
         dep = request.user.groups.values_list('name',flat = True)[0]
         bl = list(map(int,Application.objects.filter(Black_List = True).values_list('NID',flat=True)))# get all black list national id
         record = list(map(int,qs.values_list('NID',flat=True) ))
-        #nd = Application.objects.get(NID=True)
-       # print(record in  bl)
-        #print(bl)
-       # print(record)
-        
+
 
        # if dep == 'HR':
         #    return qs.get()
@@ -91,7 +104,7 @@ class ApplicationAdmin(NumericFilterModelAdmin):
 
 
     def get_form(self, request, obj, **kwargs):
-        
+     #if self.pk is None:
         loguserlist = []
         appid = request.resolver_match.kwargs['object_id'] # get current application id
         loguser = (request.user.id)

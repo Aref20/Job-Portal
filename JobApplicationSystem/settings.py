@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'smart_selects',
     'djangoql',
     'import_export',
+    'django_admin_filter',
 
 
 

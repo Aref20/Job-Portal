@@ -4,6 +4,7 @@ from datetime import date, datetime
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from job.models import *
+from django.utils.html import format_html
 # Create your models here.
 
 
@@ -37,15 +38,22 @@ class Application(models.Model):
     Second_Approval_Note = models.TextField(max_length=5000, blank=True,verbose_name=' ملاحظات رئيس القسم')
     Coworker_Ask = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name=' هل لديك مانع من سؤال المعرفين أو أصحاب العمل السابقين عنك ؟  ')
     Interview_Date = models.DateTimeField(default=datetime.now,blank=True,verbose_name=' تحديد تاريخ المقابلة')
-    HR_Interview_Approval = models.BooleanField(default=False,blank=True,verbose_name=' موافقة الموارد البشرية لتاريخ المقابلة ')
+    HR_Interview_Approval = models.BooleanField(default=False,verbose_name=' موافقة الموارد البشرية لتاريخ المقابلة ')
     resume = models.FileField(upload_to='documents/',verbose_name='السيرة الذاتية ')
     
-    def __str__(self):
-        return self.Name
+
 
     class Meta:
         verbose_name = _('طلبات التوظيف')
         verbose_name_plural = _('طلبات التوظيف')
+
+
+
+
+    def __str__(self):
+        return self.Name
+
+
 
 
 

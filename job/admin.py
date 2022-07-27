@@ -6,6 +6,7 @@ from django_summernote.admin import SummernoteModelAdmin
 from django.core.mail.message import EmailMessage
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
+from django.forms import TextInput, Textarea
 # Register your models here.
 
 #class Department_Personline(admin.TabularInline):
@@ -32,9 +33,16 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
           'fields': ('id',('title','description'))
       }),
       ('معلومات الوظيفة ', {
-          'fields': (('department','Education'), ('salary', 'nature','location'),('experience_min','experience_max','vacancy'),('status','expiration_date','langs'))
+          'fields': (('department','Education'), ('salary', 'vacancy','nature'),('experience_min','experience_max','location'),('status','expiration_date','langs'))
       }),
    )
+
+    formfield_overrides = {
+    models.CharField: {'widget': TextInput(attrs={'size':'100'})},
+    models.DateField: {'widget': TextInput(attrs={'size':'100'})},
+    models.IntegerField: {'widget': TextInput(attrs={'size':'100'})},
+
+    }
 
 
 #class DepartmentPersonadmin( admin.ModelAdmin):
