@@ -1,3 +1,5 @@
+from django.shortcuts import render, redirect
+from importlib.resources import path
 from django.contrib import admin
 from application.models import Application ,Qualification
 from admin_auto_filters.filters import AutocompleteFilter
@@ -9,6 +11,7 @@ from interview.models import *
 from admin_numeric_filter.admin import NumericFilterModelAdmin, SingleNumericFilter, RangeNumericFilter, \
     SliderNumericFilter
 from django.forms import TextInput, Textarea
+
 
 # Register your models here.
 
@@ -48,8 +51,9 @@ class ApplicationAdmin(NumericFilterModelAdmin):
     inlines = [QualificationInline,LanguageInline,Computer_SkillInline,Previous_CompanyInline,TrainingInline,Previous_CoworkerInline]
     list_display = ('id','Name', 'NID','Email','Phone_Num','Job_App' ,'Socility_Status','Birth_Location','Nationality','Car_License','Have_Car','Current_Salary','Expected_Salary','Available_Date','First_Approval','Second_Approval','Coworker_Ask','Diseases', 'Create_Date')
     list_filter = [JobFilter,'Name', 'NID','Email','Job_App','Current_Salary' , 'Create_Date']
-    change_list_template = "admin/change_list_filter_confirm.html"
-    change_list_filter_template = "admin/filter_listing.html"
+    search_fields = [JobFilter,'Name', 'NID','Email','Job_App','Current_Salary' , 'Create_Date']
+    #change_list_template = "admin/change_list_filter_confirm.html"
+    #change_list_filter_template = "admin/filter_listing.html"
 
     formfield_overrides = {
     models.CharField: {'widget': TextInput(attrs={'size':'100'})},
@@ -63,10 +67,14 @@ class ApplicationAdmin(NumericFilterModelAdmin):
       (' معلومات المتقدم', {
           'fields': ('id',('Name','NID','Phone_Num','Email'),('Birth_Date','Birth_Location','City','Location',)
           ,('Nationality','Have_Car','Car_License','Job_App'),('Current_Salary','Expected_Salary','Available_Date','Socility_Status')
-          ,('Relative_Frinds','Relative_Frinds_Job','Diseases','Coworker_Ask'),('resume',))
+          ,('Relative_Frinds','Relative_Frinds_Job','Diseases','Coworker_Ask'),('Car_License_Type','Experience_Years','resume',))
       }),
+
+
+      
+
       (' ملاحظات الموارد البشرية ', {
-          'fields': ('First_Approval','First_Approval_Note','HR_Interview_Approval','Black_List')
+          'fields': ('First_Approval','First_Approval_Note','HR_Interview_Approval','Black_List','Waiting_List')
       }),
 
       (' ملاحظات  رئيس القسم ', {
@@ -74,13 +82,9 @@ class ApplicationAdmin(NumericFilterModelAdmin):
       }),
     )
 
-    def embed_pdf(self, obj):
-        # check for valid URL and return if no valid URL
-        url = obj.pdf_file.url
-        html = '<embed src="documents/Resume.pdf" type="application/pdf">'
-        formatted_html = format_html(html.format(url=obj.cover.url))
-        return formatted_html
-    
+
+
+
     
     def get_queryset(self, request):
 
@@ -198,5 +202,6 @@ class ApplicationAdmin(NumericFilterModelAdmin):
 
 
 
+admin.site.register(License_Type)
 admin.site.register(Application,ApplicationAdmin)
 #admin.site.register(Qualification)

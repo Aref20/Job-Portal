@@ -31,7 +31,7 @@ class Degree(models.Model):
 
 class Job(models.Model):
     title = models.ForeignKey('Title', on_delete=models.SET_NULL, null=True,verbose_name='عنوان الوظيفة ')
-    description = models.TextField(max_length=3000,verbose_name='الوصف ')
+
     post_date = models.DateField(auto_now_add=True,verbose_name=' تاريخ الانشاء')
     vacancy = models.IntegerField(blank=True,verbose_name='الشواغر ')
     salary = models.IntegerField( blank=True,verbose_name='الراتب ')
@@ -75,9 +75,12 @@ class Nature(models.Model):
         verbose_name = _(' طبيعة العمل ')
         verbose_name_plural = _(' طبيعة العمل ')
 
+
 class Title(models.Model):
     name = models.CharField(max_length=300,verbose_name=' عنوان الوظيفة')
+    description = models.TextField(max_length=3000,verbose_name='الوصف ')
     department = models.ForeignKey(Group,on_delete=models.SET_NULL, null=True,verbose_name=' القسم')
+    warranty = models.BooleanField(default=False, blank=True,verbose_name='  هل يتطلب إحضار كفالة عدلية ')
     department_person = ChainedManyToManyField(
         User,
         verbose_name='department_person',

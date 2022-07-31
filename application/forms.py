@@ -34,6 +34,9 @@ class ApplicationForm(forms.ModelForm):
         'Relative_Frinds': forms.Select(attrs={ 'class': 'form-select'}),
         'Relative_Frinds_Job': forms.TextInput(attrs={ 'class': 'form-control'}),
         'Diseases': forms.Select(attrs={ 'class': 'form-select'}),
+        'Warranty': forms.Select(attrs={ 'class': 'form-select'}),
+        'Car_License_Type': forms.Select(attrs={ 'class': 'form-select'}),
+        'Experience_Years': forms.NumberInput(attrs={ 'class': 'form-control'}),
         'resume': forms.FileInput(attrs={ 'class': 'form-control'}),
         
         

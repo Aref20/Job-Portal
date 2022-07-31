@@ -1,4 +1,6 @@
 
+from faulthandler import disable
+import re
 from django.contrib import messages
 from django.shortcuts import render
 from django.views.generic import CreateView , FormView
@@ -15,10 +17,13 @@ from decouple import config
 from django.core.mail import get_connection, send_mail
 from django.core.mail.message import EmailMessage
 from django.db import transaction
-
+from django.template import RequestContext
 
 
 # Create your views here.
+
+
+
 
 
 #class QualificationInline(InlineFormSetFactory):
@@ -35,11 +40,22 @@ class ApplicationCreateView(CreateView):#CreateWithInlinesView):
 
 
 
+
+    def get_context_data(self, **kwargs):          
+        context = super().get_context_data(**kwargs)  
+        warranty_required = list((Title.objects.filter(warranty=True).values_list('id',flat=True)))
+        job_title_id = (Job.objects.filter(id=self.Job_App[0][0]).values_list('title',flat=True)[0])                   
+        context["wa"] = job_title_id in warranty_required
+        return context
+
+
     def get(self, request, *args, **kwargs):
         """
         Handles GET requests and instantiates blank versions of the form
         and its inline formsets.
         """
+        context = locals()
+        context['var1'] = 'self.sadsavar1'
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)

@@ -26,11 +26,11 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
     readonly_fields = ('id',)
     list_display = ('id','title','department','nature','salary','experience_min','experience_max','location','vacancy','Education','status', 'expiration_date','post_date')
     list_filter = ('id','title','department','nature','salary','experience_min','experience_max','location','vacancy','Education','status', 'expiration_date','post_date')
-    search_fields = ['title', 'description']
+    search_fields = ['title']
     summernote_fields = ('description', )
     fieldsets = (
       ('ألإسم والوصف', {
-          'fields': ('id',('title','description'))
+          'fields': ('id',('title'))
       }),
       ('معلومات الوظيفة ', {
           'fields': (('department','Education'), ('salary', 'vacancy','nature'),('experience_min','experience_max','location'),('status','expiration_date','langs'))
@@ -58,6 +58,16 @@ class requestjobadmin(SummernoteModelAdmin , admin.ModelAdmin):
     summernote_fields = ('required_competencies','other' )
 
 
+    fieldsets = (
+      ('معلومات الوظيفة', {
+          'fields': ('id',('title','department','location','level'),('experience_min','experience_max','Education','language'))
+      }),
+      ('المهارات المطلوبة ', {
+          'fields': ((),('required_competencies','other'))
+      }),
+   )
+
+
     def get_form(self, request, obj, **kwargs):
 
         
@@ -78,7 +88,7 @@ class requestjobadmin(SummernoteModelAdmin , admin.ModelAdmin):
         # send email for HR
         subject = 'New Job'
         message = ""+user+" from "+dep+" department has request new job"
-        recipient_list = ['arefalhamad@yahoo.com']
+        recipient_list = ['SAlJaloudi@sukhtian.com.jo']
         #recipient_list.append('hr@sukhtian.com.jo')
         my_host = 'mail.sukhtian.com.jo'
         my_port = 587
@@ -102,6 +112,7 @@ admin.site.register(Language)
 admin.site.register(Degree)
 admin.site.register(Career_Level)
 admin.site.register(Request_Job,requestjobadmin)
+
 #admin.site.register(Department,DepartmentPersonadmin)
 
 

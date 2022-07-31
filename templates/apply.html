@@ -80,7 +80,7 @@ Apply
 
 
 
-
+                        
                             
                                      <div class="col-md-4">
                                             <div class="input_field" >
@@ -182,6 +182,28 @@ Apply
                                            {{ form.Car_License }}  
                                         </div>
                                     </div>
+
+
+
+
+
+                                    <div class="col-md-4">
+                                        <div class="input_field" >
+                                            <label >فئة الرخصة التي تمتلكها</label>
+                                           {{ form.Car_License_Type }}  
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-4">
+                                        <div class="input_field" >
+                                            <label > إجمالي سنوات الخبرة التي تمتلكها</label>
+                                           {{ form.Experience_Years }}  
+                                        </div>
+                                    </div>
+
+
+                                    
 
                                     
 
@@ -591,6 +613,18 @@ Apply
                                 </div>
                              </div>
 
+                             <!-- dispaly and hide IF warrant is requered -->
+                             {%  if  wa %}
+                             <div class="col-md-3" name="wdiv">
+                                <div class="input_field" >
+                                    <label > هل يمكنك إحضار كفالة عدلية ؟</label>
+                                   {{ form.Warranty}} 
+                                </div>
+                             </div>
+                             {% endif%}
+
+                             
+
                              <div class="col-md-12" style=" text-align: right;">
                                 <div class='file-input'>
                                    <h4 > تحميل السيرة الذاتية  (صيغة PDF ) </h4>
@@ -610,16 +644,7 @@ Apply
                                 </div>
                              </div>
 
-
-
-
-
-  
-
-                   
-                               
-                           
-                                                                                 
+                                
                         </div>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ class InterviewAdmin(admin.ModelAdmin):
     change_list_template = "admin/change_list_filter_confirm.html"
     change_list_filter_template = "admin/filter_listing.html"
 
-
+    # to get relation data
     @admin.display( ordering='interview_application__NID',description='الرقم الوطني')
     def get_NID(self, obj):
         return obj.interview_application.NID

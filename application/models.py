@@ -7,7 +7,16 @@ from job.models import *
 from django.utils.html import format_html
 # Create your models here.
 
+class License_Type(models.Model):
+    Name = models.CharField(max_length=100,verbose_name=' فئة الرخصة')
 
+
+    def __str__(self):
+        return self.Name
+
+    class Meta:
+        verbose_name = _('فئة الرخصة ')
+        verbose_name_plural = _('فئة الرخصة ')
 
 class Application(models.Model):
     NID = models.CharField(max_length=10,verbose_name='الرقم الوطني',error_messages={'required': 'Please let us know what to call you!'})
@@ -29,7 +38,7 @@ class Application(models.Model):
     Expected_Salary = models.IntegerField( null=True,blank=True,verbose_name='الراتب المطلوب ')
     Available_Date = models.DateField(default=datetime.now,verbose_name=' التاريخ الذي تستطيع الالتحاق فيه بالعمل')
     Relative_Frinds = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name='هل لديك اصدقاء او معارف يعملون او كانوا يعملون في شركة مجموعة منير سختيان   ')
-    Relative_Frinds_Job = models.CharField(max_length=100,verbose_name='إذا كان الجواب نعم ما هي الوظيفة؟  ')
+    Relative_Frinds_Job = models.CharField(max_length=100,verbose_name='إذا كان الجواب نعم ما هي الوظيفة؟  ',blank=True)
     Diseases = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name='هل تعاني من أي أمراض؟  ')
     Black_List = models.BooleanField(default=False, blank=True,verbose_name=' القائمة السوداء ')
     First_Approval = models.BooleanField(default=False, blank=True,verbose_name=' موافقة الموارد البشرية ')
@@ -39,6 +48,10 @@ class Application(models.Model):
     Coworker_Ask = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name=' هل لديك مانع من سؤال المعرفين أو أصحاب العمل السابقين عنك ؟  ')
     Interview_Date = models.DateTimeField(default=datetime.now,blank=True,verbose_name=' تحديد تاريخ المقابلة')
     HR_Interview_Approval = models.BooleanField(default=False,verbose_name=' موافقة الموارد البشرية لتاريخ المقابلة ')
+    Warranty = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name=' هل يمكنك إحضار كفالة عدلية ')
+    Car_License_Type = models.ForeignKey(License_Type, on_delete=models.SET_NULL, null=True,verbose_name=' فئة الرخصة')
+    Experience_Years = models.IntegerField(verbose_name='عدد سنوات الخبرة')
+    Waiting_List = models.BooleanField(default=False, blank=True,verbose_name='قائمة ألإنتظار ')
     resume = models.FileField(upload_to='documents/',verbose_name='السيرة الذاتية ')
     
 
@@ -46,8 +59,6 @@ class Application(models.Model):
     class Meta:
         verbose_name = _('طلبات التوظيف')
         verbose_name_plural = _('طلبات التوظيف')
-
-
 
 
     def __str__(self):
