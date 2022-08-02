@@ -19,6 +19,7 @@ from django.urls import path
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from application.views import *
 
 
 
@@ -32,6 +33,7 @@ urlpatterns = [
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin/', include('django_admin_filter.urls')),
     path('admin/', admin.site.urls),
+    path('apply/',ApplicationFormCreateView.as_view() ,name='applyform'),
     path('jobs/', include('job.urls')),
     path('application/', include('application.urls')),
     path('', RedirectView.as_view(url='jobs/', permanent=True)),

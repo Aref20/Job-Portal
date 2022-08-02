@@ -10,6 +10,11 @@ class JobsListView(ListView):
         context_object_name = 'jobs_list'
         template_name = 'index.html'
         paginate_by = 5
+
+
+        def get_queryset(self):
+            queryset = Job.objects.filter(status='ACTIVE')
+            return queryset
         
 
 

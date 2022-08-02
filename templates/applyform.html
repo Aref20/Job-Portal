@@ -1,0 +1,706 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ form.media }}
+{% block title %}
+Apply
+{% endblock title %}
+
+{% block content %}
+
+<div class="job_details_area">
+    <div class="container">
+
+
+<div class="col-sm-12" dir="rtl">
+
+    <!--      Wizard container        -->
+    <div class="wizard-container">
+
+        <div class="card wizard-card" data-color="orange" id="wizardProfile">
+   
+        <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
+
+                <div class="wizard-header text-center">
+                    <h3 class="wizard-title">طلب توظيف</h3>
+                    <p class="category"></p>
+                </div>
+
+                <div class="wizard-navigation">
+                    <div class="progress-with-circle" dir="rtl">
+                         <div  dir="rtl" class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 21%;"></div>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="#about" data-toggle="tab" style=" pointer-events: none;">
+                                <div class="icon-circle">
+                                    <i class="ti-user"></i>
+                                </div>
+                                البيانات الشخصية
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#qualifications" data-toggle="tab" style=" pointer-events: none;">
+                                <div class="icon-circle">
+                                    <i class="ti-pencil-alt"></i>
+                                </div>
+                                المؤهلات ألأكاديمية
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#profile" data-toggle="tab" style=" pointer-events: none;">
+                                <div class="icon-circle">
+                                    <i class="ti-book"></i>
+                                </div>
+                                السجل الوظيفي
+                            </a>
+                        </li>
+
+                    <li>
+                        <a href="#GQ" data-toggle="tab" style=" pointer-events: none;">
+                            <div class="icon-circle">
+                                <i class="ti-map"></i>
+                            </div>
+                            أسئلة الوضيفة
+                        </a>
+                    </li>
+
+                    </ul>
+                </div>
+                <form method="POST" enctype="multipart/form-data" >
+                    {% csrf_token %}
+                <div class="tab-content">
+                    <div class="tab-pane" id="about">
+                            <div class="row">
+
+
+
+
+                        
+                            
+                                     <div class="col-md-4">
+                                            <div class="input_field" >
+                                                <label >ألإسم <small>(مطلوب)</small></label>
+                             
+                                                {{ form.Name }}
+                                       
+                                                
+                                            </div>
+                                     </div>
+
+
+                            
+                                     <div class="col-md-4">
+                                            <div class="input_field" >
+                                                <label >ألإيميل <small>(مطلوب)</small></label>
+                                                {{ form.Email }}
+                                            </div>
+                                     </div>
+                            
+                                     <div class="col-md-4">
+                                            <div class="input_field" >
+                                                <label >رقم الهاتف <small>(مطلوب)</small></label>
+                                                {{ form.Phone_Num }}
+                                            </div>
+                                     </div>
+                            
+                                     <div class="col-md-4">
+                                            <div class="input_field" >
+                                                <label >الرقم الوطني <small>(مطلوب)</small></label>
+                                                {{ form.NID }}
+                                            </div>
+                                     </div>
+                            
+                            
+                            
+                                     <div class="col-md-4">
+                                            <div class="input_field" >
+                                                <label >الجنسية <small>(مطلوب)</small></label>
+                                                {{ form.Nationality }}
+                                            </div>
+                                     </div>
+                            
+                            
+                            
+                                     <div class="col-md-4">
+                                        <div class="input_field" >
+                                            <label >المحافظة <small>(مطلوب)</small></label>
+                                            {{ form.City }}
+                                        </div>
+                                    </div>
+                            
+                                    <div class="col-md-4">
+                                        <div class="input_field" >
+                                            <label >الموقع </label>
+                                           {{ form.Location }}
+                                        </div>
+                                    </div>
+                            
+                            
+                                    <div class="col-md-4">
+                                        <div class="input_field" >
+                                            <label >مكان الولادة <small>(مطلوب)</small></label>
+                                           {{ form.Birth_Location }}
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="col-md-4" >
+                                        <div class="input_field">
+                                            <label >تاريخ الولادة <small>(مطلوب)</small></label>
+                                           {{ form.Birth_Date }}
+       
+                                        </div>
+                                    </div>
+
+
+                            
+                                    <div class="col-md-4">
+                                        <div class="input_field" >
+                                            <label >الحالة ألإجتماعية </label>
+                                            {{ form.Socility_Status }}
+                                        </div>
+                                    </div>
+                            
+                                     <div class="col-md-4">
+                                        <div class="input_field" >
+                                            <label >هل تملك سيارة ؟ </label>
+                                           {{ form.Have_Car}} 
+                                        </div>
+                                     </div>
+                            
+                                     <div class="col-md-4">
+                                        <div class="input_field" >
+                                            <label >هل تمتلك رخصة سواقة ؟ </label>
+                                           {{ form.Car_License }}  
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                    <div class="col-md-4">
+                                        <div class="input_field" >
+                                            <label >فئة الرخصة التي تمتلكها</label>
+                                           {{ form.Car_License_Type }}  
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-4">
+                                        <div class="input_field" >
+                                            <label > إجمالي سنوات الخبرة التي تمتلكها</label>
+                                           {{ form.Experience_Years }}  
+                                        </div>
+                                    </div>
+
+
+                                    
+
+                                    
+
+                            
+                                     
+                            </div>
+                       
+                    </div>
+                    <div class="tab-pane" id="qualifications">
+                        <div class="row">
+
+                            <div class="col-md-12" style = "background: #F5F7FA;" >
+                                <div class="input_field">
+                                    <h3 style="float: right;"> المؤهلات العلمية</h3>
+
+                                </div>
+                            </div>
+                            {{ Qualification_form.management_form }}
+                            {{ Qualification_form.non_form_errors }}
+                            {% for formset in Qualification_form %}
+
+                        <div  class="inline {{ Qualification_form.prefix }}">
+                            <div id="wrapper" >
+
+                            <div class="col-md-3 ">
+                                <div class="input_field" >
+                                    <label >المؤهل العلمي </label>
+
+                                    {{ formset.Degree}} 
+
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >التخصص</label>
+                                   {{ formset.Major}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >اسم الجامعة/الكلية/المدرسة </label>
+                                   {{ formset.University}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >تاريخ التخرج </label>
+                                    {{ formset.Graduation_Date}} 
+                                </div>
+                             </div>
+
+                             
+
+
+                            </div>
+
+                            
+                          
+
+                        </div>
+
+
+            
+
+                             {% endfor %}
+
+                             
+                                <table class='no_error'>
+                                    {{ Qualification_form }}
+                                </table>
+                          
+                        
+
+                             <div class="col-md-12 col text-center">
+                                <input type='button' class='btn  btn-fill btn-warning btn-wd' name='addq' id="addq" value='إضافة مؤهل' />
+                                <input type="button" value="Add More" id="add_more">
+                             </div>
+
+
+                             <div class="col-md-12" style = "background: #F5F7FA;">
+                                <div class="input_field">
+                                   <h3 style="float: right;">  اللغات</h3>
+
+                                </div>
+                            </div>
+              
+                            {{ Language_Form.management_form }}
+                            {{ Language_Form.non_form_errors }}
+                            {% for formset in Language_Form %}
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >اللغة </label>
+                                   {{ formset.Language_Name}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >محادثة</label>
+                                   {{ formset.Type_Conversation}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >كتابة </label>
+                                   {{ formset.Type_Writing}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >قراءة </label>
+                                   {{ formset.Type_Reading}} 
+                                </div>
+                             </div>
+                             {% endfor %}
+
+                             <div class="col-md-12" style = "background: #F5F7FA;">
+                                <div class="input_field">
+                                   <h3 style="float: right;">  مهارات الحاسوب</h3>
+
+                                </div>
+                            </div>
+
+                            {{ Computer_Skill_Form.management_form }}
+                            {{ Computer_Skill_Form.non_form_errors }}
+                            {% for formset in Computer_Skill_Form %}
+
+                             <div class="col-md-6">
+                                <div class="input_field" >
+                                    <label >برامج الحاسوب </label>
+                                   {{ formset.Skill}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-6">
+                                <div class="input_field" >
+                                    <label >المهارة </label>
+                                   {{ formset.Level}} 
+                                </div>
+                             </div>
+                             {% endfor %}
+
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane" id="profile">
+                        <div class="row">
+
+                            <div class="col-md-12" style = "background: #F5F7FA;" >
+                                <div class="input_field">
+                                    <h3 style="float: right;"> السجل الوظيفي </h3>
+
+                                </div>
+                            </div>
+                            {{ Application_Previous_Company_Form.management_form }}
+                            {{ Application_Previous_Company_Form.non_form_errors }}
+                            {% for formset in Application_Previous_Company_Form %}
+
+                            <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >الاسم </label>
+                                   {{ formset.Name}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >العنوان</label>
+                                   {{ formset.Address}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >رقم الهاتف</label>
+                                   {{ formset.Phone}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >تاريخ بدء العمل</label>
+                                   {{ formset.Duration_From}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >تاريخ إنتهاء العمل</label>
+                                   {{ formset.Duration_To}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >المسمى الوظيفي</label>
+                                   {{ formset.Position}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >الراتب عند بداية التوظيف</label>
+                                   {{ formset.Start_Salary}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >الراتب عند نهاية التوظيف</label>
+                                   {{ formset.Last_Salary}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >إسم المدير </label>
+                                   {{ formset.Maneger}} 
+                                </div>
+                             </div>
+
+
+
+                             <div class="col-md-9">
+                                <div class="input_field" >
+                                    <label >سبب ترك الوظيفة</label>
+                                   {{ formset.Reason}} 
+                                </div>
+                             </div>
+
+                             {% endfor %}
+
+
+                             <div class="col-md-12" style = "background: #F5F7FA;" >
+                                <div class="input_field">
+                                    <h3 style="float: right;">  الدورات التدريبية</h3>
+
+                                </div>
+                            </div>
+
+                            {{ Application_Training_Form.management_form }}
+                            {{ Application_Training_Form.non_form_errors }}
+                            {% for formset in Application_Training_Form %}
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >ألإسم</label>
+                                   {{ formset.Name}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >الموقع</label>
+                                   {{ formset.Location}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-2">
+                                <div class="input_field" >
+                                    <label >الجهة التدريبية</label>
+                                   {{ formset.Institute}} 
+                                </div>
+                             </div>
+
+                            <div class="col-md-4">
+                             <div class="col-md-6">
+                                <div class="input_field" >
+                                    <label >تاريخ بدء الدورة</label>
+                                   {{ formset.Duration_From}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-6">
+                                <div class="input_field" >
+                                    <label >تاريخ  ألإنتهاء</label>
+                                   {{ formset.Duration_To}} 
+                                </div>
+                             </div>
+                            </div>
+
+                             {% endfor %}
+                             <div class="col-md-12" style = "background: #F5F7FA;" >
+                                <div class="input_field">
+                                    <h3 style="float: right;"> المعرفين  </h3>
+
+                                </div>
+                            </div>
+
+
+
+
+                            {{ Application_Previous_Coworker_Form.management_form }}
+                            {{ Application_Previous_Coworker_Form.non_form_errors }}
+                            {% for formset in Application_Previous_Coworker_Form %}
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >ألإسم</label>
+                                   {{ formset.Name}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >الموقع</label>
+                                   {{ formset.Address}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label > رقم الهاتف</label>
+                                   {{ formset.Phone}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >المسمى الوظيفي  </label>
+                                   {{ formset.Position}} 
+                                </div>
+                             </div>
+                             {% endfor %}
+
+                             <div class="col-md-6">
+                                <div class="input_field" >
+                                    <label > اشرح المهام الرئيسية التي كنت تؤديها في آخر وظيفة لك  </label>
+                                   {{ form.Last_Job_Desc}} 
+                                </div>
+                             </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane" id="GQ">
+                        <div class="row">
+
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label > الراتب الحالي  </label>
+                                   {{ form.Current_Salary}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label > الراتب المتوقع  </label>
+                                   {{ form.Expected_Salary}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label > التاريخ الذي تستطيع الالتحاق فيه بالعمل  </label>
+                                   {{ form.Available_Date}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label > هل تعاني من أي أمراض؟   </label>
+                                   {{ form.Diseases}} 
+                                </div>
+                             </div>
+
+
+                             <div class="col-md-6">
+                                <div class="input_field" >
+                                    <label >هل لديك مانع من سؤال المعرفين أو أصحاب العمل السابقين عنك ؟</label>
+                                   {{ form.Coworker_Ask}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-6">
+                                <div class="input_field" >
+                                    <label > هل لديك أقرباء يعملون في الشركة او كانوا يعملون في شركة مجموعة منير سختيان؟        </label>
+                                   {{ form.Relative_Frinds}} 
+                                </div>
+                             </div>
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label > إذا كان الجواب نعم ما هي الوظيفة؟   </label>
+                                   {{ form.Relative_Frinds_Job}} 
+                                </div>
+                             </div>
+
+                             <!-- dispaly and hide IF warrant is requered -->
+                    
+                             <div class="col-md-3" name="wdiv">
+                                <div class="input_field" >
+                                    <label > هل يمكنك إحضار كفالة عدلية ؟</label>
+                                   {{ form.Warranty}} 
+                                </div>
+                             </div>
+                  
+
+                             
+
+                             <div class="col-md-12" style=" text-align: right;">
+                                <div class='file-input'>
+                                   <h4 > تحميل السيرة الذاتية  (صيغة PDF ) </h4>
+                                   {{ form.resume }}
+                                   <span class='button'>إختار</span>
+                                   <span class='label' data-js-label>لم يتم إختيار ملف</label>
+                                 </div>
+                               </div>
+
+
+
+                             <div class="col-md-12">
+                                <div class="input_field" >
+
+                                    {{form.errors}}
+                                    
+                                </div>
+                             </div>
+
+                                
+                        </div>
+                    </div>
+                </div>
+
+                <script >
+                    $(".date").datepicker({
+                      format: "yyyy-mm-dd",
+                    });
+
+                    $('#add_more').click(function() {
+        var form_idx = $('#id_Qualification_form-0-Degree').val();
+        $('#wrapper').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_Qualification_form-0-Degree').val(parseInt(form_idx) + 1);
+    });
+                   // document.getElementById("addq").addEventListener("click", myFunction);
+                 //   var c = 1
+                   // function myFunction() {
+                        
+                        //var dummy = '<div class="inline Qualification_form"> <div class="col-md-3 "> <div class="input_field">  <label>المؤهل العلمي </label> <input type="text" name="Qualification_form-'+c+'-Degree" placeholder=" المؤهل العلمي " class="form-control" required="" maxlength="100" id="id_Qualification_form-'+c+'-Degree"> </div> </div> <div class="col-md-3"> <div class="input_field"> <label>التخصص</label><input type="text" name="Qualification_form-'+c+'-Major" placeholder="التخصص  " class="form-control" maxlength="100" id="id_Qualification_form-'+c+'-Major"> </div></div> <div class="col-md-3">  <div class="input_field">  <label>اسم الجامعة/الكلية/المدرسة </label> <input type="text" name="Qualification_form-'+c+'-University" placeholder="اسم الجامعة/الكلية/المدرسة " class="form-control" maxlength="100" id="id_Qualification_form-'+c+'-University">  </div> </div>  <div class="col-md-3"><div class="input_field">  <label>تاريخ التخرج </label> <input type="text" name="Qualification_form-'+c+'-Graduation_Date" value="2022-07-25" placeholder="تاريخ التخرج  " class="date form-control" id="id_Qualification_form-'+c+'-Graduation_Date"><input type="hidden" name="initial-Qualification_form-'+c+'-Graduation_Date" value="2022-07-25 12:13:03" id="initial-Qualification_form-'+c+'-id_Qualification_form-'+c+'-Graduation_Date"></div>   </div></div>'
+                       // document.getElementById('wrapper').innerHTML += dummy; 
+                       // c=c+1;
+
+                  //  }
+                  </script>
+
+
+                    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">  </script>
+                    <script src="{% static 'js/jquery.formset.js' %}"></script>
+                    <script type="text/javascript">
+                     //   $(function() {
+                      //      $(".inline.{{ Qualification_form.prefix }}").formset({
+                       //         prefix: "{{ Qualification_form.prefix }}",
+                        //    })
+
+                      //  })
+                    </script>
+                <div class="wizard-footer">
+                    <div class="pull-right">
+                        <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='التالي' />
+                        <input  type="submit" class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='تقديم'>    
+                       <!-- <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Finish' />-->
+                    </div>
+
+                    <div class="pull-left">
+                        <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='السابق' />
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+          
+        </div>
+    </div> <!-- wizard container -->
+</div>
+</div><!-- end row -->
+</div>
+</div>
+
+
+{% endblock content %}
