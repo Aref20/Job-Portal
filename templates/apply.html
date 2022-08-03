@@ -225,8 +225,7 @@ Apply
                             {{ Qualification_form.non_form_errors }}
                             {% for formset in Qualification_form %}
 
-                        <div  class="inline {{ Qualification_form.prefix }}">
-                            <div id="wrapper" >
+                        <div id="wrapperQ" >
 
                             <div class="col-md-3 ">
                                 <div class="input_field" >
@@ -259,14 +258,8 @@ Apply
                              </div>
 
                              
-
-
-                            </div>
-
-                            
-                          
-
                         </div>
+                     
 
 
             
@@ -274,15 +267,9 @@ Apply
                              {% endfor %}
 
                              
-                                <table class='no_error'>
-                                    {{ Qualification_form }}
-                                </table>
-                          
-                        
 
                              <div class="col-md-12 col text-center">
                                 <input type='button' class='btn  btn-fill btn-warning btn-wd' name='addq' id="addq" value='إضافة مؤهل' />
-                                <input type="button" value="Add More" id="add_more">
                              </div>
 
 
@@ -296,6 +283,8 @@ Apply
                             {{ Language_Form.management_form }}
                             {{ Language_Form.non_form_errors }}
                             {% for formset in Language_Form %}
+
+                        <div id="wrapperL" style="    width: 100%;">
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >اللغة </label>
@@ -323,7 +312,13 @@ Apply
                                    {{ formset.Type_Reading}} 
                                 </div>
                              </div>
+                        </div>
+
                              {% endfor %}
+
+                             <div class="col-md-12 col text-center">
+                                <input type='button' class='btn  btn-fill btn-warning btn-wd' name='addl' id="addl" value='إضافة لغة' />
+                             </div>
 
                              <div class="col-md-12" style = "background: #F5F7FA;">
                                 <div class="input_field">
@@ -335,7 +330,7 @@ Apply
                             {{ Computer_Skill_Form.management_form }}
                             {{ Computer_Skill_Form.non_form_errors }}
                             {% for formset in Computer_Skill_Form %}
-
+                            <div id="wrapperS" style="    width: 100%;">
                              <div class="col-md-6">
                                 <div class="input_field" >
                                     <label >برامج الحاسوب </label>
@@ -349,7 +344,12 @@ Apply
                                    {{ formset.Level}} 
                                 </div>
                              </div>
+                            </div>
                              {% endfor %}
+
+                             <div class="col-md-12 col text-center">
+                                <input type='button' class='btn  btn-fill btn-warning btn-wd' name='adds' id="adds" value='إضافة مهارة' />
+                             </div>
 
                         </div>
                     </div>
@@ -367,7 +367,7 @@ Apply
                             {{ Application_Previous_Company_Form.management_form }}
                             {{ Application_Previous_Company_Form.non_form_errors }}
                             {% for formset in Application_Previous_Company_Form %}
-
+                        <div id="wrapperH" style="width:100%;">
                             <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الاسم </label>
@@ -446,7 +446,12 @@ Apply
                                 </div>
                              </div>
 
+                        </div>
                              {% endfor %}
+                             
+                             <div class="col-md-12 col text-center">
+                                <input type='button' class='btn  btn-fill btn-warning btn-wd' name='addh' id="addh" value='إضافة سجل وظيفة' />
+                            </div>
 
 
                              <div class="col-md-12" style = "background: #F5F7FA;" >
@@ -460,7 +465,7 @@ Apply
                             {{ Application_Training_Form.non_form_errors }}
                             {% for formset in Application_Training_Form %}
 
-
+                        <div id="wrapperT" style="width:100%;">
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >ألإسم</label>
@@ -501,12 +506,18 @@ Apply
                             </div>
 
                              {% endfor %}
+                             
+                             <div class="col-md-12 col text-center">
+                                <input type='button' class='btn  btn-fill btn-warning btn-wd' name='addt' id="addt" value='إضافة دورة تدريبية ' />
+                            </div>
+
                              <div class="col-md-12" style = "background: #F5F7FA;" >
                                 <div class="input_field">
                                     <h3 style="float: right;"> المعرفين  </h3>
 
                                 </div>
                             </div>
+                        </div>
 
 
 
@@ -514,7 +525,7 @@ Apply
                             {{ Application_Previous_Coworker_Form.management_form }}
                             {{ Application_Previous_Coworker_Form.non_form_errors }}
                             {% for formset in Application_Previous_Coworker_Form %}
-
+                           <div id="wrapperA" style="width:100%;">
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >ألإسم</label>
@@ -546,6 +557,9 @@ Apply
                                 </div>
                              </div>
                              {% endfor %}
+                             <div class="col-md-12 col text-center">
+                                <input type='button' class='btn  btn-fill btn-warning btn-wd' name='addt' id="addt" value='إضافة دورة تدريبية ' />
+                            </div>
 
                              <div class="col-md-6">
                                 <div class="input_field" >
@@ -555,6 +569,7 @@ Apply
                              </div>
 
                         </div>
+                    </div>
                     </div>
 
 
@@ -654,20 +669,42 @@ Apply
                       format: "yyyy-mm-dd",
                     });
 
-                    $('#add_more').click(function() {
-        var form_idx = $('#id_Qualification_form-0-Degree').val();
-        $('#wrapper').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
-        $('#id_Qualification_form-0-Degree').val(parseInt(form_idx) + 1);
-    });
-                   // document.getElementById("addq").addEventListener("click", myFunction);
-                 //   var c = 1
-                   // function myFunction() {
-                        
-                        //var dummy = '<div class="inline Qualification_form"> <div class="col-md-3 "> <div class="input_field">  <label>المؤهل العلمي </label> <input type="text" name="Qualification_form-'+c+'-Degree" placeholder=" المؤهل العلمي " class="form-control" required="" maxlength="100" id="id_Qualification_form-'+c+'-Degree"> </div> </div> <div class="col-md-3"> <div class="input_field"> <label>التخصص</label><input type="text" name="Qualification_form-'+c+'-Major" placeholder="التخصص  " class="form-control" maxlength="100" id="id_Qualification_form-'+c+'-Major"> </div></div> <div class="col-md-3">  <div class="input_field">  <label>اسم الجامعة/الكلية/المدرسة </label> <input type="text" name="Qualification_form-'+c+'-University" placeholder="اسم الجامعة/الكلية/المدرسة " class="form-control" maxlength="100" id="id_Qualification_form-'+c+'-University">  </div> </div>  <div class="col-md-3"><div class="input_field">  <label>تاريخ التخرج </label> <input type="text" name="Qualification_form-'+c+'-Graduation_Date" value="2022-07-25" placeholder="تاريخ التخرج  " class="date form-control" id="id_Qualification_form-'+c+'-Graduation_Date"><input type="hidden" name="initial-Qualification_form-'+c+'-Graduation_Date" value="2022-07-25 12:13:03" id="initial-Qualification_form-'+c+'-id_Qualification_form-'+c+'-Graduation_Date"></div>   </div></div>'
-                       // document.getElementById('wrapper').innerHTML += dummy; 
-                       // c=c+1;
 
-                  //  }
+                    var c = 1
+                    $('#addq').click(function() {
+                        document.getElementById("id_Qualification-TOTAL_FORMS").value = c+1
+                        var dummy = '<div class="inline Qualification_form"> <div class="col-md-3 "> <div class="input_field">  <label>المؤهل العلمي </label> <input type="text" name="Qualification_form-'+c+'-Degree" placeholder=" المؤهل العلمي " class="form-control" required="" maxlength="100" id="id_Qualification_form-'+c+'-Degree"> </div> </div> <div class="col-md-3"> <div class="input_field"> <label>التخصص</label><input type="text" name="Qualification_form-'+c+'-Major" placeholder="التخصص  " class="form-control" maxlength="100" id="id_Qualification_form-'+c+'-Major"> </div></div> <div class="col-md-3">  <div class="input_field">  <label>اسم الجامعة/الكلية/المدرسة </label> <input type="text" name="Qualification_form-'+c+'-University" placeholder="اسم الجامعة/الكلية/المدرسة " class="form-control" maxlength="100" id="id_Qualification_form-'+c+'-University">  </div> </div>  <div class="col-md-3"><div class="input_field">  <label>تاريخ التخرج </label> <input type="text" name="Qualification_form-'+c+'-Graduation_Date" value="2022-07-25" placeholder="تاريخ التخرج  " class="date form-control" id="id_Qualification_form-'+c+'-Graduation_Date"><input type="hidden" name="initial-Qualification_form-'+c+'-Graduation_Date" value="2022-07-25 12:13:03" id="initial-Qualification_form-'+c+'-id_Qualification_form-'+c+'-Graduation_Date"></div>   </div></div>'
+                        document.getElementById('wrapperQ').innerHTML += dummy; 
+                        c=c+1;
+    });
+
+
+                    var cl = 1
+                    $('#addl').click(function() {
+                        document.getElementById("id_Language-TOTAL_FORMS").value = cl+1
+                        var dummy = '<div class="col-md-3"> <div class="input_field">  <label>اللغة </label>  <select name="Language-'+cl+'-Language_Name" class="form-select" id="id_Language-'+cl+'-Language_Name">  <option value="" selected="">---------</option>  <option value="1">Arabic</option>  <option value="2">English</option></select>                                 </div>  </div>  <div class="col-md-3">  <div class="input_field">     <label>محادثة</label> <select name="Language-'+cl+'-Type_Conversation" class="form-select" id="id_Language-'+cl+'-Type_Conversation">  <option value="Beginner" selected="">ضعيف</option>  <option value="Intermediate">متوسط</option>  <option value="Advanced">ممتاز</option></select>    </div>  </div> <div class="col-md-3">   <div class="input_field">   <label>كتابة </label> <select name="Language-'+cl+'-Type_Writing" class="form-select" id="id_Language-'+cl+'-Type_Writing">  <option value="Beginner" selected="">ضعيف</option>  <option value="Intermediate">متوسط</option>  <option value="Advanced">ممتاز</option></select> </div>                             </div> <div class="col-md-3">  <div class="input_field">                                    <label>قراءة </label> <select name="Language-'+cl+'-Type_Reading" class="form-select" id="id_Language-'+cl+'-Type_Reading">  <option value="Beginner" selected="">ضعيف</option>  <option value="Intermediate">متوسط</option>  <option value="Advanced">ممتاز</option></select>  </div>  </div> '
+                        document.getElementById('wrapperL').innerHTML += dummy; 
+                        cl=cl+1;
+    });
+
+
+                    var cs = 1
+                    $('#adds').click(function() {
+                        document.getElementById("id_Computer_Skill-TOTAL_FORMS").value = cs+1
+                        var dummy = '<div id="wrapperS" style="    width: 100%;">  <div class="col-md-6"> <div class="input_field"> <label>برامج الحاسوب </label><input type="text" name="Computer_Skill-0-Skill" class="form-control" maxlength="100" id="id_Computer_Skill-0-Skill">  </div>  </div> <div class="col-md-6"> <div class="input_field">  <label>المهارة </label>  <select name="Computer_Skill-0-Level" class="form-select" id="id_Computer_Skill-0-Level">  <option value="Beginner" selected="">ضعيف</option>  <option value="Intermediate">متوسط</option>  <option value="Advanced">ممتاز</option></select>   </div> </div>   </div>'
+                        document.getElementById('wrapperS').innerHTML += dummy; 
+                        cs=cs+1;
+    });
+
+                    var ch = 1
+                    $('#addh').click(function() {
+                        document.getElementById("id_Previous_Company-TOTAL_FORMS").value = ch+1
+                        var dummy = '<div id="wrapperH" style="width: 100%;">  <div class="col-md-6"> <div class="input_field"> <label>برامج الحاسوب </label><input type="text" name="Computer_Skill-0-Skill" class="form-control" maxlength="100" id="id_Computer_Skill-0-Skill">  </div>  </div> <div class="col-md-6"> <div class="input_field">  <label>المهارة </label>  <select name="Computer_Skill-0-Level" class="form-select" id="id_Computer_Skill-0-Level">  <option value="Beginner" selected="">ضعيف</option>  <option value="Intermediate">متوسط</option>  <option value="Advanced">ممتاز</option></select>   </div> </div>   </div>'
+                        document.getElementById('wrapperH').innerHTML += dummy; 
+                        ch=ch+1;
+    });
+
+
                   </script>
 
 

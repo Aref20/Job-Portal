@@ -246,7 +246,7 @@ class Previous_CoworkerForm(forms.ModelForm):
 
 ApplicationQualificationFormSet = inlineformset_factory(
      Application, Qualification, form=QualificationForm,
-      #extra=1, can_delete=True
+      extra=1, can_delete=True
      )
 
 ApplicationLanguageFormSet = inlineformset_factory(
