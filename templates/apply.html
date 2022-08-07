@@ -79,9 +79,6 @@ Apply
 
 
 
-
-                        
-                            
                                      <div class="col-md-4">
                                             <div class="input_field" >
                                                 <label >ألإسم <small>(مطلوب)</small></label>
@@ -203,11 +200,6 @@ Apply
                                     </div>
 
 
-                                    
-
-                                    
-
-                            
                                      
                             </div>
                        
@@ -226,20 +218,22 @@ Apply
                             {% for formset in Qualification_form %}
 
                         <div id="wrapperQ" >
+                            <div class="col-md-12">
 
-                            <div class="col-md-3 ">
-                                <div class="input_field" >
-                                    <label >المؤهل العلمي </label>
 
-                                    {{ formset.Degree}} 
-
-                                </div>
-                             </div>
 
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >التخصص</label>
                                    {{ formset.Major}} 
+                                </div>
+                             </div>
+
+                             
+                             <div class="col-md-3 ">
+                                <div class="input_field" >
+                                    <label >المؤهل العلمي </label>
+                                    {{ formset.Degree}} 
                                 </div>
                              </div>
 
@@ -250,14 +244,23 @@ Apply
                                 </div>
                              </div>
 
-                             <div class="col-md-3">
+                             <div class="col-md-2">
                                 <div class="input_field" >
                                     <label >تاريخ التخرج </label>
                                     {{ formset.Graduation_Date}} 
                                 </div>
                              </div>
 
-                             
+                             <div class="col-md-1">
+                                <div class="input_field" >
+                                    <label > احذف </label>
+                                    {{ formset.DELETE}} 
+                                </div>
+                             </div>
+
+
+
+                            </div>
                         </div>
                      
 
@@ -270,6 +273,41 @@ Apply
 
                              <div class="col-md-12 col text-center">
                                 <input type='button' class='btn  btn-fill btn-warning btn-wd' name='addq' id="addq" value='إضافة مؤهل' />
+                             </div>
+
+                             <div id="empty_formQ" style="display:none"> 
+                                <div class="col-md-12">
+                                {% for f in Qualification_form.empty_form %}  
+                                {%if f.label  != "المؤهلات الأكاديمية"   %}
+                                {%if f.label  != "Id"   %}
+                                {%if f.label  != "تاريخ التخرج"   %} 
+                                {%if f.label  != "احذف"   %} 
+                                <div class="col-md-3">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+                                 {%else%}
+                                 <div class="col-md-1">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+                                 {% endif %}
+                                 {%else%}
+                                 <div class="col-md-2">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+                                 {% endif %}
+                                 {% endif %}
+                                 {% endif %}
+                                {% endfor %}
+                               </div>
                              </div>
 
 
@@ -285,7 +323,8 @@ Apply
                             {% for formset in Language_Form %}
 
                         <div id="wrapperL" style="    width: 100%;">
-                             <div class="col-md-3">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >اللغة </label>
                                    {{ formset.Language_Name}} 
@@ -306,12 +345,22 @@ Apply
                                 </div>
                              </div>
 
-                             <div class="col-md-3">
+                             <div class="col-md-2">
                                 <div class="input_field" >
                                     <label >قراءة </label>
                                    {{ formset.Type_Reading}} 
                                 </div>
                              </div>
+
+                             
+                             <div class="col-md-1">
+                                <div class="input_field" >
+                                    <label >احذف</label>
+                                   {{ formset.DELETE}} 
+                                </div>
+                             </div>
+
+                        </div>
                         </div>
 
                              {% endfor %}
@@ -319,6 +368,49 @@ Apply
                              <div class="col-md-12 col text-center">
                                 <input type='button' class='btn  btn-fill btn-warning btn-wd' name='addl' id="addl" value='إضافة لغة' />
                              </div>
+
+
+                             <div id="empty_formL" style="display:none"> 
+                                <div class="col-md-12">
+                            
+                                {% for f in Language_Form.empty_form %}   
+                                {%if f.label  != "اللغات"   %}
+                                {%if f.label  != "Id"   %}
+                                {%if f.label  != "قراءة"   %}
+                                {%if f.label  != "احذف"   %}
+                                <div class="col-md-3">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+                                 {% else %}
+
+                                 <div class="col-md-1">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+
+                                 {% endif %}
+                                 {% else %}
+                                 <div class="col-md-2">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+
+                                 {% endif %}
+                                 {% endif %}
+                                 {% endif %}
+
+                                {% endfor %}
+                            </div>
+                 
+    
+                            </div>
 
                              <div class="col-md-12" style = "background: #F5F7FA;">
                                 <div class="input_field">
@@ -331,25 +423,84 @@ Apply
                             {{ Computer_Skill_Form.non_form_errors }}
                             {% for formset in Computer_Skill_Form %}
                             <div id="wrapperS" style="    width: 100%;">
-                             <div class="col-md-6">
-                                <div class="input_field" >
-                                    <label >برامج الحاسوب </label>
-                                   {{ formset.Skill}} 
-                                </div>
-                             </div>
 
-                             <div class="col-md-6">
-                                <div class="input_field" >
-                                    <label >المهارة </label>
-                                   {{ formset.Level}} 
+
+
+                                <div class="col-md-6">
+                                    <div class="input_field" >
+                                        <label >برامج الحاسوب </label>
+                                       {{ formset.Skill}} 
+                                    </div>
+                                 </div>
+
+
+                                 <div class="col-md-3">
+                                    <div class="input_field" >
+                                        <label >المهارة </label>
+                                       {{ formset.Level}} 
+                                    </div>
+                                 </div>
+    
+                                 <div class="col-md-3">
+                                    <div class="input_field" >
+                                        <label >احذف </label>
+                                       {{ formset.DELETE}} 
+                                    </div>
+                                 </div>
                                 </div>
-                             </div>
-                            </div>
+
+
+
+
+
                              {% endfor %}
 
                              <div class="col-md-12 col text-center">
                                 <input type='button' class='btn  btn-fill btn-warning btn-wd' name='adds' id="adds" value='إضافة مهارة' />
                              </div>
+
+
+
+                             <div id="empty_formS" style="display:none"> 
+                                <div class="col-md-12">
+                            
+                                {% for f in Computer_Skill_Form.empty_form %}   
+                                {%if f.label  != "Id"   %}
+                                {%if f.label  != "برامج الحاسوب"   %}
+                                {%if f.label  != "احذف"   %}
+                                {%if f.label  != "المهارة"   %}
+                                <div class="col-md-6">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+                                 {% else %}
+                                 <div class="col-md-3">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+                                 {% endif %}
+                                 {% else %}
+                                 <div class="col-md-3">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+                                
+                                 {% endif %}
+                                 {% endif %}
+                                 {% endif %}
+
+
+                                {% endfor %}
+                            </div>
+                 
+    
+                            </div>
 
                         </div>
                     </div>
@@ -439,12 +590,22 @@ Apply
 
 
 
-                             <div class="col-md-9">
+                             <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >سبب ترك الوظيفة</label>
                                    {{ formset.Reason}} 
                                 </div>
                              </div>
+
+
+                             <div class="col-md-3">
+                                <div class="input_field" >
+                                    <label >احذف</label>
+                                   {{ formset.DELETE}} 
+                                </div>
+                             </div>
+
+
 
                         </div>
                              {% endfor %}
@@ -452,6 +613,29 @@ Apply
                              <div class="col-md-12 col text-center">
                                 <input type='button' class='btn  btn-fill btn-warning btn-wd' name='addh' id="addh" value='إضافة سجل وظيفة' />
                             </div>
+
+                            <div id="empty_form" style="display:none"> 
+                                <div class="col-md-12">
+                            
+                                {% for f in Application_Previous_Company_Form.empty_form %}   
+                                {%if f.label  != "السجل الوظيفي"   %}
+                                {%if f.label  != "Id"   %}
+                                <div class="col-md-3">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+                                 {% endif %}
+                                 {% endif %}
+
+                                {% endfor %}
+                            </div>
+                 
+    
+                            </div>
+
+                             
 
 
                              <div class="col-md-12" style = "background: #F5F7FA;" >
@@ -466,7 +650,7 @@ Apply
                             {% for formset in Application_Training_Form %}
 
                         <div id="wrapperT" style="width:100%;">
-                             <div class="col-md-3">
+                             <div class="col-md-2">
                                 <div class="input_field" >
                                     <label >ألإسم</label>
                                    {{ formset.Name}} 
@@ -474,7 +658,7 @@ Apply
                              </div>
 
 
-                             <div class="col-md-3">
+                             <div class="col-md-2">
                                 <div class="input_field" >
                                     <label >الموقع</label>
                                    {{ formset.Location}} 
@@ -505,11 +689,42 @@ Apply
                              </div>
                             </div>
 
+                            <div class="col-md-2">
+                                <div class="input_field" >
+                                    <label > احذف</label>
+                                   {{ formset.DELETE}} 
+                                </div>
+                             </div>
+                            </div>
                              {% endfor %}
                              
                              <div class="col-md-12 col text-center">
                                 <input type='button' class='btn  btn-fill btn-warning btn-wd' name='addt' id="addt" value='إضافة دورة تدريبية ' />
                             </div>
+
+
+                            <div id="empty_formT" style="display:none"> 
+                                <div class="col-md-12">
+                            
+                                {% for f in Application_Training_Form.empty_form %}   
+                                {%if f.label  != "الدورات التدريبية"   %}
+                                {%if f.label  != "Id"   %}
+                                <div class="col-md-2">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+                                 {% endif %}
+                                 {% endif %}
+
+                                {% endfor %}
+                            </div>
+                 
+    
+                            </div>
+
+
 
                              <div class="col-md-12" style = "background: #F5F7FA;" >
                                 <div class="input_field">
@@ -517,7 +732,7 @@ Apply
 
                                 </div>
                             </div>
-                        </div>
+                     
 
 
 
@@ -525,7 +740,7 @@ Apply
                             {{ Application_Previous_Coworker_Form.management_form }}
                             {{ Application_Previous_Coworker_Form.non_form_errors }}
                             {% for formset in Application_Previous_Coworker_Form %}
-                           <div id="wrapperA" style="width:100%;">
+                        <div id="wrapperA" style="width:100%;">
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >ألإسم</label>
@@ -550,25 +765,73 @@ Apply
                              </div>
 
 
-                             <div class="col-md-3">
+                             <div class="col-md-2">
                                 <div class="input_field" >
                                     <label >المسمى الوظيفي  </label>
                                    {{ formset.Position}} 
                                 </div>
                              </div>
-                             {% endfor %}
-                             <div class="col-md-12 col text-center">
-                                <input type='button' class='btn  btn-fill btn-warning btn-wd' name='addt' id="addt" value='إضافة دورة تدريبية ' />
-                            </div>
 
-                             <div class="col-md-6">
+                             <div class="col-md-1">
                                 <div class="input_field" >
-                                    <label > اشرح المهام الرئيسية التي كنت تؤديها في آخر وظيفة لك  </label>
-                                   {{ form.Last_Job_Desc}} 
+                                    <label >احذف</label>
+                                   {{ formset.DELETE}} 
                                 </div>
                              </div>
+                             {% endfor %}
+                            </div>
+                             <div class="col-md-12 col text-center">
+                                <input type='button' class='btn  btn-fill btn-warning btn-wd' name='adda' id="adda" value='إضافة  معرف ' />
+                            </div>
 
+                            <div id="empty_formA" style="display:none"> 
+                                <div class="col-md-12">
+                            
+                                {% for f in Application_Previous_Coworker_Form.empty_form %}   
+                                {%if f.label  != "المعرفين"   %}
+                                {%if f.label  != "Id"   %}
+                                {%if f.label  != "المسمى الوظيفي"   %}
+                                {%if f.label  != "احذف"   %}
+                                <div class="col-md-3">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+                                 {% else %}
+                                 <div class="col-md-1">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+                                 {% endif %}
+                                 {% else %}
+                                 <div class="col-md-2">
+                                    <div class="input_field" >
+                                        <label >{{ f.label}}   </label>
+                                       {{ f}} 
+                                    </div>
+                                 </div>
+                                 {% endif %}
+                                 {% endif %}
+                                 {% endif %}
+
+                                {% endfor %}
+                            </div>
+                 
+    
                         </div>
+
+
+                       
+                        
+                        <div class="col-md-6">
+                            <div class="input_field" >
+                                <label > اشرح المهام الرئيسية التي كنت تؤديها في آخر وظيفة لك  </label>
+                               {{ form.Last_Job_Desc}} 
+                            </div>
+                         </div>
                     </div>
                     </div>
 
@@ -670,38 +933,60 @@ Apply
                     });
 
 
-                    var c = 1
                     $('#addq').click(function() {
-                        document.getElementById("id_Qualification-TOTAL_FORMS").value = c+1
-                        var dummy = '<div class="inline Qualification_form"> <div class="col-md-3 "> <div class="input_field">  <label>المؤهل العلمي </label> <input type="text" name="Qualification_form-'+c+'-Degree" placeholder=" المؤهل العلمي " class="form-control" required="" maxlength="100" id="id_Qualification_form-'+c+'-Degree"> </div> </div> <div class="col-md-3"> <div class="input_field"> <label>التخصص</label><input type="text" name="Qualification_form-'+c+'-Major" placeholder="التخصص  " class="form-control" maxlength="100" id="id_Qualification_form-'+c+'-Major"> </div></div> <div class="col-md-3">  <div class="input_field">  <label>اسم الجامعة/الكلية/المدرسة </label> <input type="text" name="Qualification_form-'+c+'-University" placeholder="اسم الجامعة/الكلية/المدرسة " class="form-control" maxlength="100" id="id_Qualification_form-'+c+'-University">  </div> </div>  <div class="col-md-3"><div class="input_field">  <label>تاريخ التخرج </label> <input type="text" name="Qualification_form-'+c+'-Graduation_Date" value="2022-07-25" placeholder="تاريخ التخرج  " class="date form-control" id="id_Qualification_form-'+c+'-Graduation_Date"><input type="hidden" name="initial-Qualification_form-'+c+'-Graduation_Date" value="2022-07-25 12:13:03" id="initial-Qualification_form-'+c+'-id_Qualification_form-'+c+'-Graduation_Date"></div>   </div></div>'
-                        document.getElementById('wrapperQ').innerHTML += dummy; 
-                        c=c+1;
+
+                       var form_idx = $("#id_Qualification-TOTAL_FORMS").val();
+                        $newform = $("#empty_formQ").clone(true,true)
+                        $("#wrapperQ").append($newform.html().replace(/__prefix__/g, form_idx)); 
+                        $("#id_Qualification-TOTAL_FORMS").val(parseInt(form_idx)+1); 
     });
 
 
-                    var cl = 1
+
                     $('#addl').click(function() {
-                        document.getElementById("id_Language-TOTAL_FORMS").value = cl+1
-                        var dummy = '<div class="col-md-3"> <div class="input_field">  <label>اللغة </label>  <select name="Language-'+cl+'-Language_Name" class="form-select" id="id_Language-'+cl+'-Language_Name">  <option value="" selected="">---------</option>  <option value="1">Arabic</option>  <option value="2">English</option></select>                                 </div>  </div>  <div class="col-md-3">  <div class="input_field">     <label>محادثة</label> <select name="Language-'+cl+'-Type_Conversation" class="form-select" id="id_Language-'+cl+'-Type_Conversation">  <option value="Beginner" selected="">ضعيف</option>  <option value="Intermediate">متوسط</option>  <option value="Advanced">ممتاز</option></select>    </div>  </div> <div class="col-md-3">   <div class="input_field">   <label>كتابة </label> <select name="Language-'+cl+'-Type_Writing" class="form-select" id="id_Language-'+cl+'-Type_Writing">  <option value="Beginner" selected="">ضعيف</option>  <option value="Intermediate">متوسط</option>  <option value="Advanced">ممتاز</option></select> </div>                             </div> <div class="col-md-3">  <div class="input_field">                                    <label>قراءة </label> <select name="Language-'+cl+'-Type_Reading" class="form-select" id="id_Language-'+cl+'-Type_Reading">  <option value="Beginner" selected="">ضعيف</option>  <option value="Intermediate">متوسط</option>  <option value="Advanced">ممتاز</option></select>  </div>  </div> '
-                        document.getElementById('wrapperL').innerHTML += dummy; 
-                        cl=cl+1;
+
+
+                        var form_idx = $("#id_Language-TOTAL_FORMS").val();
+                        $newform = $("#empty_formL").clone(true,true)
+                        $("#wrapperL").append($newform.html().replace(/__prefix__/g, form_idx)); 
+                        $("#id_Language-TOTAL_FORMS").val(parseInt(form_idx)+1); 
     });
 
 
-                    var cs = 1
+      
                     $('#adds').click(function() {
-                        document.getElementById("id_Computer_Skill-TOTAL_FORMS").value = cs+1
-                        var dummy = '<div id="wrapperS" style="    width: 100%;">  <div class="col-md-6"> <div class="input_field"> <label>برامج الحاسوب </label><input type="text" name="Computer_Skill-0-Skill" class="form-control" maxlength="100" id="id_Computer_Skill-0-Skill">  </div>  </div> <div class="col-md-6"> <div class="input_field">  <label>المهارة </label>  <select name="Computer_Skill-0-Level" class="form-select" id="id_Computer_Skill-0-Level">  <option value="Beginner" selected="">ضعيف</option>  <option value="Intermediate">متوسط</option>  <option value="Advanced">ممتاز</option></select>   </div> </div>   </div>'
-                        document.getElementById('wrapperS').innerHTML += dummy; 
-                        cs=cs+1;
+
+                        var form_idx = $("#id_Computer_Skill-TOTAL_FORMS").val();
+                        $newform = $("#empty_formS").clone(true,true)
+                        $("#wrapperS").append($newform.html().replace(/__prefix__/g, form_idx)); 
+                        $("#id_Computer_Skill-TOTAL_FORMS").val(parseInt(form_idx)+1); 
     });
 
-                    var ch = 1
+
                     $('#addh').click(function() {
-                        document.getElementById("id_Previous_Company-TOTAL_FORMS").value = ch+1
-                        var dummy = '<div id="wrapperH" style="width: 100%;">  <div class="col-md-6"> <div class="input_field"> <label>برامج الحاسوب </label><input type="text" name="Computer_Skill-0-Skill" class="form-control" maxlength="100" id="id_Computer_Skill-0-Skill">  </div>  </div> <div class="col-md-6"> <div class="input_field">  <label>المهارة </label>  <select name="Computer_Skill-0-Level" class="form-select" id="id_Computer_Skill-0-Level">  <option value="Beginner" selected="">ضعيف</option>  <option value="Intermediate">متوسط</option>  <option value="Advanced">ممتاز</option></select>   </div> </div>   </div>'
-                        document.getElementById('wrapperH').innerHTML += dummy; 
-                        ch=ch+1;
+                        var form_idx = $("#id_Previous_Company-TOTAL_FORMS").val();
+                        $newform = $("#empty_form").clone(true,true)
+                        $("#wrapperH").append($newform.html().replace(/__prefix__/g, form_idx)); 
+                        $("#id_Previous_Company-TOTAL_FORMS").val(parseInt(form_idx)+1); 
+
+    });
+
+
+                    $('#addt').click(function() {
+                        var form_idx = $("#id_Training-TOTAL_FORMS").val();
+                        $newform = $("#empty_formT").clone(true,true)
+                        $("#wrapperT").append($newform.html().replace(/__prefix__/g, form_idx)); 
+                        $("#id_Training-TOTAL_FORMS").val(parseInt(form_idx)+1); 
+
+    });
+
+
+                    $('#adda').click(function() {
+                        var form_idx = $("#id_Previous_Coworker-TOTAL_FORMS").val();
+                        $newform = $("#empty_formA").clone(true,true)
+                        $("#wrapperA").append($newform.html().replace(/__prefix__/g, form_idx)); 
+                        $("#id_Previous_Coworker-TOTAL_FORMS").val(parseInt(form_idx)+1); 
+
     });
 
 

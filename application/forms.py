@@ -118,7 +118,9 @@ class Previous_CompanyForm(forms.ModelForm):
 
         class Meta:
             model = Previous_Company
+            
             fields = '__all__'
+            exclude = ('Previous_Company_Application','id',)
             widgets = {
 
                 'Name': forms.TextInput(attrs={'placeholder':' إسم الشركة السابقة', 'class': 'form-control'}),
@@ -129,10 +131,10 @@ class Previous_CompanyForm(forms.ModelForm):
                 'Position': forms.TextInput(attrs={'placeholder':' المسمى الوظيفي', 'class': 'form-control'}),
                 'Start_Salary': forms.NumberInput(attrs={'placeholder':' الراتب عند البداية', 'class': 'form-control'}),
                 'Last_Salary': forms.NumberInput(attrs={'placeholder':' الراتب عند النهاية', 'class': 'form-control'}),
-                'Reason': forms.Textarea(attrs={'placeholder':' سبب ترك العمل', 'class': 'form-control'}),
                 'Maneger': forms.TextInput(attrs={'placeholder':' إسم المدير السابق', 'class': 'form-control'}),
-
+                'Reason': forms.Textarea(attrs={'placeholder':' سبب ترك العمل', 'class': 'form-control'}),
             }
+
 
 
 class TrainingForm(forms.ModelForm):
@@ -203,6 +205,7 @@ class Previous_CompanyForm(forms.ModelForm):
         class Meta:
             model = Previous_Company_Form
             fields = '__all__'
+            exclude = ('Previous_Company_Application','id',)
             widgets = {
 
                 'Name': forms.TextInput(attrs={'placeholder':' إسم الشركة السابقة', 'class': 'form-control'}),
@@ -213,8 +216,9 @@ class Previous_CompanyForm(forms.ModelForm):
                 'Position': forms.TextInput(attrs={'placeholder':' المسمى الوظيفي', 'class': 'form-control'}),
                 'Start_Salary': forms.NumberInput(attrs={'placeholder':' الراتب عند البداية', 'class': 'form-control'}),
                 'Last_Salary': forms.NumberInput(attrs={'placeholder':' الراتب عند النهاية', 'class': 'form-control'}),
-                'Reason': forms.Textarea(attrs={'placeholder':' سبب ترك العمل', 'class': 'form-control'}),
                 'Maneger': forms.TextInput(attrs={'placeholder':' إسم المدير السابق', 'class': 'form-control'}),
+                'Reason': forms.Textarea(attrs={'placeholder':' سبب ترك العمل', 'class': 'form-control'}),
+                
 
             }
 
