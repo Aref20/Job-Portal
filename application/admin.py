@@ -17,41 +17,53 @@ from django.forms import TextInput, Textarea
 
 
 class QualificationInline(admin.TabularInline):
+    extra = 0
     model = Qualification
 
 class LanguageInline(admin.TabularInline):
+    extra = 0
     model = Language
 
 class Computer_SkillInline(admin.TabularInline):
+    extra = 0
     model = Computer_Skill
 
 class Previous_CompanyInline(admin.StackedInline):
+    extra = 0
     model = Previous_Company
 
 class TrainingInline(admin.TabularInline):
+    extra = 0
     model = Training
 
 class Previous_CoworkerInline(admin.TabularInline):
+    extra = 0
     model =  Previous_Coworker
 
 
 
 class QualificationInlineForm(admin.TabularInline):
+    extra = 0
     model = Qualification_Form
 
 class LanguageInlineForm(admin.TabularInline):
+    extra = 0
     model = Language_Form
 
 class Computer_SkillInlineForm(admin.TabularInline):
+    extra = 0
     model = Computer_Skill_Form
 
 class Previous_CompanyInlineForm(admin.StackedInline):
+    extra = 0
     model = Previous_Company_Form
 
 class TrainingInlineForm(admin.TabularInline):
+    extra = 0
     model = Training_Form
 
 class Previous_CoworkerInlineForm(admin.TabularInline):
+    extra = 0
     model =  Previous_Coworker_Form
 
    
@@ -72,6 +84,7 @@ class ApplicationAdmin(NumericFilterModelAdmin):
     list_display = ('id','Name', 'NID','Email','Phone_Num','Job_App' ,'Socility_Status','Experience_Years','Birth_Location','Nationality','Car_License','Have_Car','Current_Salary','Expected_Salary','Available_Date','First_Approval','Second_Approval','Diseases', 'Create_Date')
     list_filter = [JobFilter,'Name', 'NID','Email','Job_App','Current_Salary' , 'Create_Date']
     search_fields = [JobFilter,'Name', 'NID','Email','Job_App','Current_Salary' , 'Create_Date']
+    
     #change_list_template = "admin/change_list_filter_confirm.html"
     #change_list_filter_template = "admin/filter_listing.html"
 
@@ -87,7 +100,7 @@ class ApplicationAdmin(NumericFilterModelAdmin):
       (' معلومات المتقدم', {
           'fields': ('id',('Name','NID','Phone_Num','Email'),('Birth_Date','Birth_Location','City','Location',)
           ,('Nationality','Have_Car','Car_License','Job_App'),('Current_Salary','Expected_Salary','Available_Date','Socility_Status')
-          ,('Relative_Frinds','Relative_Frinds_Job','Diseases','Coworker_Ask'),('Car_License_Type','Experience_Years','resume',))
+          ,('Relative_Frinds','Relative_Frinds_Job','Diseases','Coworker_Ask'),('Car_License_Type','Experience_Years','resume'))
       }),
 
 
@@ -107,21 +120,20 @@ class ApplicationAdmin(NumericFilterModelAdmin):
 
     
     def get_queryset(self, request):
-
+        
         qs = super(ApplicationAdmin, self).get_queryset(request)
         user = (User.objects.filter(id=request.user.id).values_list('username',flat=True)).first()
         dep = request.user.groups.values_list('name',flat = True).first()
+        depid = request.user.groups.values_list('id',flat = True).first()
         bl = list(map(int,Application.objects.filter(Black_List = True).values_list('NID',flat=True)))# get all black list national id
-        record = list(map(int,qs.values_list('NID',flat=True) ))
-
-
-       # if dep == 'HR':
-        #    return qs.get()
-            
-      #  else:
-            #return qs.filter(First_Approval = True)
-          #  return qs.filter(NID = bl)
-        return qs
+        record = list(map(int,qs.values_list('NID',flat=True)))
+   
+        #return first approval records only for the department
+        if dep == 'HR':
+            return qs
+        else:
+            qs2 = qs.filter(First_Approval = True) # show only first approvel and related department
+            return qs2.filter(department = depid)
 
         
 
@@ -135,21 +147,22 @@ class ApplicationAdmin(NumericFilterModelAdmin):
         loguserlist.append(loguser)
         job = Job.objects.filter(JA__id=appid).first() # get current job
         users = list(User.objects.filter(usertitle__name=job).values_list('id',flat=True)) # get all users related to thid job for this job
+        dep = request.user.groups.values_list('name',flat = True).first()
         
         form = super(ApplicationAdmin, self).get_form(request, obj, **kwargs)
-        if loguserlist in  users: # if current user defind for this job
+        # if current user defind for this job
+        if dep == "HR": 
 
-
-            form.base_fields["Second_Approval"].disabled = False
-            form.base_fields["Second_Approval_Note"].disabled = False
-            form.base_fields["HR_Interview_Approval"].disabled = False
-            form.base_fields["Black_List"].disabled = False 
-            
+            form.base_fields["Second_Approval"].disabled = True
+            form.base_fields["Second_Approval_Note"].disabled = True
 
         else:
 
-            form.base_fields["First_Approval"].disabled = False
-            form.base_fields["First_Approval_Note"].disabled = False
+            form.base_fields["First_Approval"].disabled = True
+            form.base_fields["First_Approval_Note"].disabled = True
+            form.base_fields["HR_Interview_Approval"].disabled = True
+            form.base_fields["Black_List"].disabled = True 
+            form.base_fields["Waiting_List"].disabled = True 
 
         return form
 
@@ -162,6 +175,7 @@ class ApplicationAdmin(NumericFilterModelAdmin):
         applicant_name = form.cleaned_data.get('Name')
         interview_date_hour = form.cleaned_data.get('Interview_Date').strftime("%H:%M:%S")
         interview_date = form.cleaned_data.get('Interview_Date').strftime("%m/%d/%Y")
+        
 
         loguserlist = []
         appid = request.resolver_match.kwargs['object_id'] # get current application id
@@ -253,49 +267,39 @@ class ApplicationFormAdmin(NumericFilterModelAdmin):
     def get_queryset(self, request):
 
         qs = super(ApplicationFormAdmin, self).get_queryset(request)
-       # user = (User.objects.filter(id=request.user.id).values_list('username',flat=True)).first()
-       # dep = request.user.groups.values_list('name',flat = True).first()
+        user = (User.objects.filter(id=request.user.id).values_list('username',flat=True)).first()
+        dep = request.user.groups.values_list('name',flat = True).first()
         #bl = list(map(int,ApplicationFormAdmin.objects.filter(Black_List = True).values_list('NID',flat=True)))# get all black list national id
         #record = list(map(int,qs.values_list('NID',flat=True) ))
 
+        #return first approval records only for the department
+        if dep == 'HR':
+            return qs   
+        else:
+            return qs.filter(First_Approval = True)
 
-       # if dep == 'HR':
-        #    return qs.get()
-            
-      #  else:
-            #return qs.filter(First_Approval = True)
-          #  return qs.filter(NID = bl)
-        return qs
 
         
-
-
 
     def get_form(self, request, obj, **kwargs):
-     #if self.pk is None:
-      #  loguserlist = []
-      #  appid = request.resolver_match.kwargs['object_id'] # get current application id
-      #  loguser = (request.user.id)
-      #  loguserlist.append(loguser)
-      #  job = Job.objects.filter(JA__id=appid).first() # get current job
-       # users = list(User.objects.filter(usertitle__name=job).values_list('id',flat=True)) # get all users related to thid job for this job
+
+        dep = request.user.groups.values_list('name',flat = True).first()
         
         form = super(ApplicationFormAdmin, self).get_form(request, obj, **kwargs)
-       # if loguserlist in  users: # if current user defind for this job
+        # if current user defind for this job
+        if dep == "HR": 
 
-
-         #   form.base_fields["Second_Approval"].disabled = False
-        #    form.base_fields["Second_Approval_Note"].disabled = False
-        #    form.base_fields["HR_Interview_Approval"].disabled = False
-        #    form.base_fields["Black_List"].disabled = False 
-            
-
-      #  else:
-
-       #     form.base_fields["First_Approval"].disabled = False
-       #     form.base_fields["First_Approval_Note"].disabled = False
+            form.base_fields["Second_Approval"].disabled = True
+            form.base_fields["Second_Approval_Note"].disabled = True
+        else:
+            form.base_fields["First_Approval"].disabled = True
+            form.base_fields["First_Approval_Note"].disabled = True
+            form.base_fields["HR_Interview_Approval"].disabled = True
+            form.base_fields["Black_List"].disabled = True 
+            form.base_fields["Waiting_List"].disabled = True 
 
         return form
+
 
 
     def save_form(self, request, form, change):

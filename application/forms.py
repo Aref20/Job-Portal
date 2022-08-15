@@ -85,9 +85,9 @@ class QualificationForm(forms.ModelForm):
             fields = '__all__'
             widgets = {
                 'Degree': forms.TextInput(attrs={'placeholder':' المؤهل العلمي ', 'class': 'form-control','required': True}),
-                'University': forms.TextInput(attrs={'placeholder':'اسم الجامعة/الكلية/المدرسة ', 'class': 'form-control'}),
-                'Graduation_Date': forms.DateInput(attrs={'placeholder':'تاريخ التخرج  ', 'class': 'date form-control'}),
-                'Major': forms.TextInput(attrs={'placeholder':'التخصص  ', 'class': 'form-control'}),
+                'University': forms.TextInput(attrs={'placeholder':'اسم الجامعة/الكلية/المدرسة ', 'class': 'form-control','required': True}),
+                'Graduation_Date': forms.DateInput(attrs={'placeholder':'تاريخ التخرج  ', 'class': 'date form-control','required': True}),
+                'Major': forms.TextInput(attrs={'placeholder':'التخصص  ', 'class': 'form-control','required': True}),
 
             }
 
@@ -97,7 +97,7 @@ class LanguageForm(forms.ModelForm):
             model = Language
             fields = '__all__'
             widgets = {
-                'Language_Name': forms.Select(attrs={'class': 'form-select'}),
+                'Language_Name': forms.Select(attrs={'class': 'form-select','required': True}),
                 'Type_Conversation': forms.Select(attrs={'class': 'form-select'}),
                 'Type_Writing': forms.Select(attrs={ 'class': 'form-select'}),
                 'Type_Reading': forms.Select(attrs={ 'class': 'form-select'}),
@@ -109,7 +109,7 @@ class Computer_SkillForm(forms.ModelForm):
             model = Computer_Skill
             fields = '__all__'
             widgets = {
-                'Skill': forms.TextInput(attrs={'class': 'form-control'}),
+                'Skill': forms.TextInput(attrs={'class': 'form-control','required': True}),
                 'Level': forms.Select(attrs={ 'class': 'form-select'}),
 
             }
@@ -123,16 +123,16 @@ class Previous_CompanyForm(forms.ModelForm):
             exclude = ('Previous_Company_Application','id',)
             widgets = {
 
-                'Name': forms.TextInput(attrs={'placeholder':' إسم الشركة السابقة', 'class': 'form-control'}),
-                'Address': forms.TextInput(attrs={'placeholder':' عنوان الشركة السابقة', 'class': 'form-control'}),
-                'Phone': forms.NumberInput(attrs={'placeholder':' رقم الهاتف', 'class': 'form-control'}),
-                'Duration_From':forms.DateInput(attrs={'class': 'date form-control'}),
-                'Duration_To': forms.DateInput(attrs={ 'class': 'date form-control'}),
-                'Position': forms.TextInput(attrs={'placeholder':' المسمى الوظيفي', 'class': 'form-control'}),
-                'Start_Salary': forms.NumberInput(attrs={'placeholder':' الراتب عند البداية', 'class': 'form-control'}),
-                'Last_Salary': forms.NumberInput(attrs={'placeholder':' الراتب عند النهاية', 'class': 'form-control'}),
-                'Maneger': forms.TextInput(attrs={'placeholder':' إسم المدير السابق', 'class': 'form-control'}),
-                'Reason': forms.Textarea(attrs={'placeholder':' سبب ترك العمل', 'class': 'form-control'}),
+                'Name': forms.TextInput(attrs={'placeholder':' إسم الشركة السابقة', 'class': 'form-control','required': True}),
+                'Address': forms.TextInput(attrs={'placeholder':' عنوان الشركة السابقة', 'class': 'form-control','required': True}),
+                'Phone': forms.NumberInput(attrs={'placeholder':' رقم الهاتف', 'class': 'form-control','required': True}),
+                'Duration_From':forms.DateInput(attrs={'class': 'date form-control','required': True}),
+                'Duration_To': forms.DateInput(attrs={ 'class': 'date form-control','required': True}),
+                'Position': forms.TextInput(attrs={'placeholder':' المسمى الوظيفي', 'class': 'form-control','required': True}),
+                'Start_Salary': forms.NumberInput(attrs={'placeholder':' الراتب عند البداية', 'class': 'form-control','required': True}),
+                'Last_Salary': forms.NumberInput(attrs={'placeholder':' الراتب عند النهاية', 'class': 'form-control','required': True}),
+                'Maneger': forms.TextInput(attrs={'placeholder':' إسم المدير السابق', 'class': 'form-control','required': True}),
+                'Reason': forms.Textarea(attrs={'placeholder':' سبب ترك العمل', 'class': 'form-control','required': True}),
             }
 
 
@@ -143,11 +143,11 @@ class TrainingForm(forms.ModelForm):
             model = Training
             fields = '__all__'
             widgets = {
-                'Name': forms.TextInput(attrs={'placeholder':' اسم الدورة التدريبية', 'class': 'form-control'}),
-                'Duration_From': forms.DateInput(attrs={'placeholder':' تاريخ بدء الدورة ', 'class': ' date form-control'}),
-                'Duration_To': forms.DateInput(attrs={'placeholder':'  تاريخ إنتهاء الدورة', 'class': ' date form-control'}),
-                'Location': forms.TextInput(attrs={'placeholder':' مكان انعقاد الدورة', 'class': 'form-control'}),
-                'Institute': forms.TextInput(attrs={'placeholder':' الجهة التدريبية', 'class': 'form-control'}),
+                'Name': forms.TextInput(attrs={'placeholder':' اسم الدورة التدريبية', 'class': 'form-control','required': True}),
+                'Duration_From': forms.DateInput(attrs={'placeholder':' تاريخ بدء الدورة ', 'class': ' date form-control','required': True}),
+                'Duration_To': forms.DateInput(attrs={'placeholder':'  تاريخ إنتهاء الدورة', 'class': ' date form-control','required': True}),
+                'Location': forms.TextInput(attrs={'placeholder':' مكان انعقاد الدورة', 'class': 'form-control','required': True}),
+                'Institute': forms.TextInput(attrs={'placeholder':' الجهة التدريبية', 'class': 'form-control','required': True}),
             }
 
 class Previous_CoworkerForm(forms.ModelForm):
@@ -156,10 +156,10 @@ class Previous_CoworkerForm(forms.ModelForm):
             model = Previous_Coworker
             fields = '__all__'
             widgets = {
-                'Name': forms.TextInput(attrs={ 'placeholder':'  إسم المعرف','class': 'form-control'}),
-                'Address': forms.TextInput(attrs={ 'placeholder':' عنوان لبمعرف','class': 'form-control'}),
-                'Phone': forms.NumberInput(attrs={ 'placeholder':' رقم  المعرف','class': 'form-control'}),
-                'Position': forms.TextInput(attrs={ 'placeholder':' المسمى الوظيفي للمعرف','class': 'form-control'}),
+                'Name': forms.TextInput(attrs={ 'placeholder':'  إسم المعرف','class': 'form-control','required': True}),
+                'Address': forms.TextInput(attrs={ 'placeholder':' عنوان لبمعرف','class': 'form-control','required': True}),
+                'Phone': forms.NumberInput(attrs={ 'placeholder':' رقم  المعرف','class': 'form-control','required': True}),
+                'Position': forms.TextInput(attrs={ 'placeholder':' المسمى الوظيفي للمعرف','class': 'form-control','required': True}),
             }
 
 
@@ -171,9 +171,9 @@ class QualificationForm(forms.ModelForm):
             fields = '__all__'
             widgets = {
                 'Degree': forms.TextInput(attrs={'placeholder':' المؤهل العلمي ', 'class': 'form-control','required': True}),
-                'University': forms.TextInput(attrs={'placeholder':'اسم الجامعة/الكلية/المدرسة ', 'class': 'form-control'}),
-                'Graduation_Date': forms.DateInput(attrs={'placeholder':'تاريخ التخرج  ', 'class': 'date form-control'}),
-                'Major': forms.TextInput(attrs={'placeholder':'التخصص  ', 'class': 'form-control'}),
+                'University': forms.TextInput(attrs={'placeholder':'اسم الجامعة/الكلية/المدرسة ', 'class': 'form-control','required': True}),
+                'Graduation_Date': forms.DateInput(attrs={'placeholder':'تاريخ التخرج  ', 'class': 'date form-control','required': True}),
+                'Major': forms.TextInput(attrs={'placeholder':'التخصص  ', 'class': 'form-control','required': True}),
 
             }
 
@@ -183,10 +183,10 @@ class LanguageForm(forms.ModelForm):
             model = Language_Form
             fields = '__all__'
             widgets = {
-                'Language_Name': forms.Select(attrs={'class': 'form-select'}),
-                'Type_Conversation': forms.Select(attrs={'class': 'form-select'}),
-                'Type_Writing': forms.Select(attrs={ 'class': 'form-select'}),
-                'Type_Reading': forms.Select(attrs={ 'class': 'form-select'}),
+                'Language_Name': forms.Select(attrs={'class': 'form-select','required': True}),
+                'Type_Conversation': forms.Select(attrs={'class': 'form-select','required': True}),
+                'Type_Writing': forms.Select(attrs={ 'class': 'form-select','required': True}),
+                'Type_Reading': forms.Select(attrs={ 'class': 'form-select','required': True}),
             }
 
 class Computer_SkillForm(forms.ModelForm):
@@ -195,8 +195,8 @@ class Computer_SkillForm(forms.ModelForm):
             model = Computer_Skill_Form
             fields = '__all__'
             widgets = {
-                'Skill': forms.TextInput(attrs={'class': 'form-control'}),
-                'Level': forms.Select(attrs={ 'class': 'form-select'}),
+                'Skill': forms.TextInput(attrs={'class': 'form-control','required': True}),
+                'Level': forms.Select(attrs={ 'class': 'form-select','required': True}),
 
             }
 
@@ -208,16 +208,16 @@ class Previous_CompanyForm(forms.ModelForm):
             exclude = ('Previous_Company_Application','id',)
             widgets = {
 
-                'Name': forms.TextInput(attrs={'placeholder':' إسم الشركة السابقة', 'class': 'form-control'}),
-                'Address': forms.TextInput(attrs={'placeholder':' عنوان الشركة السابقة', 'class': 'form-control'}),
-                'Phone': forms.NumberInput(attrs={'placeholder':' رقم الهاتف', 'class': 'form-control'}),
-                'Duration_From':forms.DateInput(attrs={'class': 'date form-control'}),
-                'Duration_To': forms.DateInput(attrs={ 'class': 'date form-control'}),
-                'Position': forms.TextInput(attrs={'placeholder':' المسمى الوظيفي', 'class': 'form-control'}),
-                'Start_Salary': forms.NumberInput(attrs={'placeholder':' الراتب عند البداية', 'class': 'form-control'}),
-                'Last_Salary': forms.NumberInput(attrs={'placeholder':' الراتب عند النهاية', 'class': 'form-control'}),
-                'Maneger': forms.TextInput(attrs={'placeholder':' إسم المدير السابق', 'class': 'form-control'}),
-                'Reason': forms.Textarea(attrs={'placeholder':' سبب ترك العمل', 'class': 'form-control'}),
+                'Name': forms.TextInput(attrs={'placeholder':' إسم الشركة السابقة', 'class': 'form-control','required': True}),
+                'Address': forms.TextInput(attrs={'placeholder':' عنوان الشركة السابقة', 'class': 'form-control','required': True}),
+                'Phone': forms.NumberInput(attrs={'placeholder':' رقم الهاتف', 'class': 'form-control','required': True}),
+                'Duration_From':forms.DateInput(attrs={'class': 'date form-control','required': True}),
+                'Duration_To': forms.DateInput(attrs={ 'class': 'date form-control','required': True}),
+                'Position': forms.TextInput(attrs={'placeholder':' المسمى الوظيفي', 'class': 'form-control','required': True}),
+                'Start_Salary': forms.NumberInput(attrs={'placeholder':' الراتب عند البداية', 'class': 'form-control','required': True}),
+                'Last_Salary': forms.NumberInput(attrs={'placeholder':' الراتب عند النهاية', 'class': 'form-control','required': True}),
+                'Maneger': forms.TextInput(attrs={'placeholder':' إسم المدير السابق', 'class': 'form-control','required': True}),
+                'Reason': forms.Textarea(attrs={'placeholder':' سبب ترك العمل', 'class': 'form-control','required': True}),
                 
 
             }
@@ -229,11 +229,11 @@ class TrainingForm(forms.ModelForm):
             model = Training_Form
             fields = '__all__'
             widgets = {
-                'Name': forms.TextInput(attrs={'placeholder':' اسم الدورة التدريبية', 'class': 'form-control'}),
-                'Duration_From': forms.DateInput(attrs={'placeholder':' تاريخ بدء الدورة ', 'class': ' date form-control'}),
-                'Duration_To': forms.DateInput(attrs={'placeholder':'  تاريخ إنتهاء الدورة', 'class': ' date form-control'}),
-                'Location': forms.TextInput(attrs={'placeholder':' مكان انعقاد الدورة', 'class': 'form-control'}),
-                'Institute': forms.TextInput(attrs={'placeholder':' الجهة التدريبية', 'class': 'form-control'}),
+                'Name': forms.TextInput(attrs={'placeholder':' اسم الدورة التدريبية', 'class': 'form-control','required': True}),
+                'Duration_From': forms.DateInput(attrs={'placeholder':' تاريخ بدء الدورة ', 'class': ' date form-control','required': True}),
+                'Duration_To': forms.DateInput(attrs={'placeholder':'  تاريخ إنتهاء الدورة', 'class': ' date form-control','required': True}),
+                'Location': forms.TextInput(attrs={'placeholder':' مكان انعقاد الدورة', 'class': 'form-control','required': True}),
+                'Institute': forms.TextInput(attrs={'placeholder':' الجهة التدريبية', 'class': 'form-control','required': True}),
             }
 
 class Previous_CoworkerForm(forms.ModelForm):
@@ -242,10 +242,10 @@ class Previous_CoworkerForm(forms.ModelForm):
             model = Previous_Coworker_Form
             fields = '__all__'
             widgets = {
-                'Name': forms.TextInput(attrs={ 'placeholder':'  إسم المعرف','class': 'form-control'}),
-                'Address': forms.TextInput(attrs={ 'placeholder':' عنوان لبمعرف','class': 'form-control'}),
-                'Phone': forms.NumberInput(attrs={ 'placeholder':' رقم  المعرف','class': 'form-control'}),
-                'Position': forms.TextInput(attrs={ 'placeholder':' المسمى الوظيفي للمعرف','class': 'form-control'}),
+                'Name': forms.TextInput(attrs={ 'placeholder':'  إسم المعرف','class': 'form-control','required': True}),
+                'Address': forms.TextInput(attrs={ 'placeholder':' عنوان لبمعرف','class': 'form-control','required': True}),
+                'Phone': forms.NumberInput(attrs={ 'placeholder':' رقم  المعرف','class': 'form-control','required': True}),
+                'Position': forms.TextInput(attrs={ 'placeholder':' المسمى الوظيفي للمعرف','class': 'form-control','required': True}),
             }
 
 ApplicationQualificationFormSet = inlineformset_factory(
@@ -286,7 +286,7 @@ ApplicationPrevious_CoworkerFormSet = inlineformset_factory(
 
 ApplicationQualificationFormSetForm = inlineformset_factory(
      Application_Form, Qualification_Form, form=QualificationForm,
-      #extra=1, can_delete=True
+      extra=1, can_delete=True
      )
 
 ApplicationLanguageFormSetForm = inlineformset_factory(

@@ -2,13 +2,17 @@ from pyexpat import model
 from django.contrib import admin
 from .models import *
 from django.forms import TextInput, Textarea
+from django.contrib.auth import get_user_model
+from import_export.admin import ImportExportModelAdmin
+from import_export import resources
+User = get_user_model()
 # Register your models here.
 
 
 class InterviewAdmin(admin.ModelAdmin):
 
     #readonly_fields = ('interview_application.id',)
-    readonly_fields = ('id',)
+    readonly_fields = ('id','interview_application',)
     list_display = ('id','get_ID','get_Name','get_NID','get_Email','hiring_Recommendation','expected_salary','work_time','post_date')
     list_filter = ('id','interview_application','hiring_Recommendation','post_date')
     change_list_template = "admin/change_list_filter_confirm.html"
@@ -54,6 +58,25 @@ class InterviewAdmin(admin.ModelAdmin):
     models.IntegerField: {'widget': TextInput(attrs={'size':'100'})},
 
     }
+
+
+#export and import
+class UserResource(resources.ModelResource):
+
+    class Meta:
+        model = User
+        fileds = ('username','first_name','last_name','email',)
+        export_order = ('username','first_name','last_name','email',)
+        exclude = ('id','password','user_permissions', 'date_joined','groups','is_staff','is_active','is_superuser','last_login')
+
+class UserAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    resource_class = UserResource
+    #list_display = '__all__'
+    #list_filter = '__all__'
+
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 
 admin.site.register(Interview,InterviewAdmin)
 

@@ -95,6 +95,7 @@ Apply
                                             <div class="input_field" >
                                                 <label >ألإيميل <small>(مطلوب)</small></label>
                                                 {{ form.Email }}
+                                               
                                             </div>
                                      </div>
                             
@@ -423,7 +424,7 @@ Apply
                             {{ Computer_Skill_Form.non_form_errors }}
                             {% for formset in Computer_Skill_Form %}
                             <div id="wrapperS" style="    width: 100%;">
-
+                                <div class="col-md-12">
 
 
                                 <div class="col-md-6">
@@ -448,6 +449,7 @@ Apply
                                     </div>
                                  </div>
                                 </div>
+                            </div>
 
 
 
@@ -463,7 +465,6 @@ Apply
 
                              <div id="empty_formS" style="display:none"> 
                                 <div class="col-md-12">
-                            
                                 {% for f in Computer_Skill_Form.empty_form %}   
                                 {%if f.label  != "Id"   %}
                                 {%if f.label  != "برامج الحاسوب"   %}
@@ -519,6 +520,7 @@ Apply
                             {{ Application_Previous_Company_Form.non_form_errors }}
                             {% for formset in Application_Previous_Company_Form %}
                         <div id="wrapperH" style="width:100%;">
+                            <div class="col-md-12">
                             <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >الاسم </label>
@@ -606,7 +608,7 @@ Apply
                              </div>
 
 
-
+                            </div>
                         </div>
                              {% endfor %}
                              
@@ -650,6 +652,7 @@ Apply
                             {% for formset in Application_Training_Form %}
 
                         <div id="wrapperT" style="width:100%;">
+                            <div class="col-md-12">
                              <div class="col-md-2">
                                 <div class="input_field" >
                                     <label >ألإسم</label>
@@ -696,6 +699,7 @@ Apply
                                 </div>
                              </div>
                             </div>
+                        </div>
                              {% endfor %}
                              
                              <div class="col-md-12 col text-center">
@@ -741,6 +745,7 @@ Apply
                             {{ Application_Previous_Coworker_Form.non_form_errors }}
                             {% for formset in Application_Previous_Coworker_Form %}
                         <div id="wrapperA" style="width:100%;">
+                            <div class="col-md-12">
                              <div class="col-md-3">
                                 <div class="input_field" >
                                     <label >ألإسم</label>
@@ -778,6 +783,7 @@ Apply
                                    {{ formset.DELETE}} 
                                 </div>
                              </div>
+                            </div>
                              {% endfor %}
                             </div>
                              <div class="col-md-12 col text-center">

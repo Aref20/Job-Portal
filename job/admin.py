@@ -13,7 +13,7 @@ from django.forms import TextInput, Textarea
    # model = Department_Person
 
 #export and import
-class BookResource(resources.ModelResource):
+class JobResource(resources.ModelResource):
 
     class Meta:
         model = Job
@@ -24,7 +24,7 @@ class BookResource(resources.ModelResource):
 class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
     # displaying posts with title slug and created time
     
-    resource_class = BookResource
+    resource_class = JobResource
     #change_list_template = "admin/change_list_filter_confirm.html"
     readonly_fields = ('id',)
     list_display = ('id','title','department','nature','salary','experience_min','experience_max','location','vacancy','Education','status', 'expiration_date','post_date')
@@ -58,16 +58,13 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
         dep = request.user.groups.values_list('name',flat = True).first()
         
 
-
         form = super(jobadmin, self).get_form(request, obj, **kwargs)
 
         #Each user apply for his group and disable fields if not HR
-        if not(dep=='IT'):
+        if not(dep=='HR'):
             form.base_fields["department"].queryset =  request.user.groups
             form.base_fields["status"].disabled = True
             form.base_fields["expiration_date"].disabled = True
-
-
         return form
 
 
@@ -76,14 +73,11 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
         user = (User.objects.filter(id=request.user.id).values_list('username',flat=True)).first()
         dep = request.user.groups.values_list('name',flat = True).first()
         
-        #id = request.resolver_match.kwargs['object_id']
-        #print(""+user+ " from "+dep+" department has request new job "+str(dep)+" ")
-
-        # send email for HR
-        if not(dep=='HR'):
+        # send email for HR if not HR and on insert
+        if (not (dep=='HR') and not(change)):
             subject = 'New Job'
-            message = ""+user+" from "+dep+" department  add new job"
-            recipient_list = ['citaga9237@galotv.com']
+            message = ""+user+" from "+dep+" department request new job"
+            recipient_list = ['paypal31877@yahoo.com']
             my_host = 'mail.sukhtian.com.jo'
             my_port = 587
             my_username = 'jobs@sukhtian.com.jo'

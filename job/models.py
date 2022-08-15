@@ -43,7 +43,7 @@ class Job(models.Model):
     nature = models.ForeignKey('Nature', on_delete=models.SET_NULL, null=True,verbose_name='طبيعة العمل ')
     langs =  models.ManyToManyField(Language, null=True,verbose_name='اللغات ')
     status = models.CharField(max_length=255, choices=[('ACTIVE', 'ACTIVE'),('INACTIVE', 'INACTIVE')],default='INACTIVE',verbose_name='حالة الوظيفة ')
-    expiration_date = models.DateTimeField(default=datetime.now,verbose_name='تاريخ إنتهاء الوظيفة ')
+    expiration_date = models.DateField(default=datetime.now,verbose_name='تاريخ إنتهاء الوظيفة ')
     required_competencies = models.TextField(max_length=3000,verbose_name='المهارات المطلوبة ')
     other = models.TextField(max_length=3000,verbose_name=' مهارات أخرى ')
     

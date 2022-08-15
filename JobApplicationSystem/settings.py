@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'import_export',
     'django_admin_filter',
     'fieldsets_with_inlines',
+    'django_cleanup.apps.CleanupConfig',
 
 
 

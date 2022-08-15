@@ -112,10 +112,12 @@ class ApplicationCreateView(CreateView):#CreateWithInlinesView):
 # set job for application by id
     def dispatch(self, request, *args, **kwargs):
      self.Job_App = Job.objects.values_list('id').filter(pk=kwargs['job_id'])
+     self.department = Job.objects.values_list('department').filter(pk=kwargs['job_id'])
      return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form,Qualification_form, Language_Form , Computer_Skill_Form , Application_Previous_Company_Form , Application_Training_Form , Application_Previous_Coworker_Form):
      form.instance.Job_App_id =self.Job_App 
+     form.instance.department =self.department 
      messages.add_message(self.request, messages.SUCCESS,'لقد تم تقديم الطلب بنجاح')
 
      # get email from the form
