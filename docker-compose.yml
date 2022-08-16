@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+    django:
+        build: .
+        container_name: JobBoard
+        
+        command: python manage.py runserver 0.0.0.0:8000
+        volumes:
+            - ./:/app
+        ports:
+            - "8000:8000"
+        depends_on:
+            - sqlserver
+    
+    sqlserver:
+        image: mcr.microsoft.com/mssql/server
+        container_name: sqlserver
+        hostname: localhost
+        environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=Aaaa@1234
+        ports:
+            - '1433:1433'
+        volumes:
+            - sqlserver-data:/var/opt/mssql
+volumes:
+  sqlserver-data:
+    driver: local
+            
+          
+
+
+
