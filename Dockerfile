@@ -3,7 +3,8 @@
 
 FROM python:3.8-slim-buster
 ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONNUNBUFFERED 1
+ENV PYTHONUNBUFFERED 1
+ENV PATH="/scripts:${PATH}"
 WORKDIR /app
 COPY requirements5.txt ./
 RUN python -m pip install --upgrade pip
@@ -26,3 +27,24 @@ RUN apt-get update \
  && rm -rf /tmp/*
 RUN pip3 install -r requirements5.txt
 COPY . .
+
+COPY ./scripts /scripts
+
+RUN chmod +x /scripts/*
+
+# folder to serve media files by nginx
+RUN mkdir -p /vol/web/media
+# folder to serve static files by nginx
+RUN mkdir -p /vol/web/static
+
+# always good to run our source code with a different user other than root user
+RUN useradd user
+RUN chown -R user:user /vol
+# chmod 755 means full access to owner and read-access to everyone else
+RUN chmod -R 755 /vol/web
+RUN chown -R user:user /app
+RUN chmod -R 755 /app
+# switch to our user
+USER user
+
+CMD ["entrypoint.sh"]

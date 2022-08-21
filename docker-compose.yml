@@ -4,7 +4,7 @@ services:
     django:
         build: .
         container_name: JobBoard
-        command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+        command: bash -c "python manage.py makemigrations && python manage.py migrate" #&& python manage.py runserver 0.0.0.0:8000"
         volumes:
             - ./:/app
         ports:
@@ -23,7 +23,23 @@ services:
             - '1433:1433'
         volumes:
             - sqlserver-data:/var/opt/mssql
+
+
+
+    proxy:
+        build:
+            context: ./nginx
+        volumes:
+            - production_static_data:/vol/static
+        restart: always
+        ports:
+            - 443:443
+            - 81:80
+        depends_on:
+            - django
+
 volumes:
+  production_static_data:
   sqlserver-data:
     driver: local
             
