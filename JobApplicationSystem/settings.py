@@ -110,8 +110,7 @@ DATABASES = {
         "NAME": "JBDB",
         "USER": "sa",
         "PASSWORD":  config('SQLPASS'),
-        "HOST": "localhost",
-        "PORT": "",
+        "HOST": "sqlserver",
         "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 
         },
     },
@@ -135,7 +134,7 @@ DATABASES = {
    # }
 
 }
-
+DATABASE_CONNECTION_POOLING = False
 #{
  #   'default': {
   #      'ENGINE': 'django.db.backends.sqlite3',
