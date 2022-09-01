@@ -37,7 +37,7 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
           'fields': ('id',('title'))
       }),
       ('معلومات الوظيفة ', {
-          'fields': (('department','Education'), ('salary', 'vacancy','nature'),('experience_min','experience_max','location'),('status','expiration_date','langs'))
+          'fields': (('department','Education'), ('salary', 'vacancy','nature'),('experience_min','experience_max','location'),('status','expiration_date','Career_Level','langs'))
       }),
 
         ('المهارات المطلوبة ', {
@@ -46,9 +46,9 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
    )
 
     formfield_overrides = {
-    models.CharField: {'widget': TextInput(attrs={'size':'100'})},
-    models.DateField: {'widget': TextInput(attrs={'size':'100'})},
-    models.IntegerField: {'widget': TextInput(attrs={'size':'100'})},
+    models.CharField: {'widget': TextInput(attrs={'size':'50'})},
+ 
+    models.IntegerField: {'widget': TextInput(attrs={'size':'50'})},
 
     }
 
@@ -63,6 +63,7 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
         #Each user apply for his group and disable fields if not HR
         if not(dep=='HR'):
             form.base_fields["department"].queryset =  request.user.groups
+            form.base_fields["title"].queryset = Title.objects.filter(department__name = dep)
             form.base_fields["status"].disabled = True
             form.base_fields["expiration_date"].disabled = True
         return form
@@ -81,9 +82,9 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
             my_host = 'mail.sukhtian.com.jo'
             my_port = 587
             my_username = 'jobs@sukhtian.com.jo'
-            my_password = config('EMAILJOBSPASS')
+            my_password =config('EMAILJOBSPASS')
             my_use_tls = True
-            connection = get_connection(host=my_host, 
+            connection = get_connection(host=my_host,
                                                         port=my_port, 
                                                         username=my_username, 
                                                         password=my_password, 
@@ -95,8 +96,127 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
 
 
 
+#export and import Career_Level
+class Career_LevelResource(resources.ModelResource):
+
+    class Meta:
+        model = Career_Level
+        fileds = ('id','level',)
+        export_order = ('id','level',)
+
+class Career_Leveladmin(ImportExportModelAdmin, admin.ModelAdmin):
+    # displaying posts with title slug and created time
+    resource_class = Career_LevelResource
+    readonly_fields = ('id',)
+    list_display = ('id','level',)
+    list_filter = ('id','level',)
+    search_fields = ['id','level',]
 
 
+
+#export and import TitleResource
+class TitleResource(resources.ModelResource):
+
+    class Meta:
+        model = Title
+        fileds = ('id','name','department')
+        export_order = ('id','name','department')
+
+class Titleadmin(ImportExportModelAdmin, admin.ModelAdmin):
+    # displaying posts with title slug and created time
+    resource_class = TitleResource
+    readonly_fields = ('id',)
+    list_display = ('id','name','department')
+    list_filter = ('id','name','department')
+    search_fields = ['id','name','department']
+
+
+    def get_queryset(self, request):
+        
+        qs = super(Titleadmin, self).get_queryset(request)
+        dep = request.user.groups.values_list('name',flat = True).first()
+        depid = request.user.groups.values_list('id',flat = True).first()
+   
+        #return first approval records only for the department
+        if dep == 'HR':
+            return qs
+        else:
+            return qs.filter(department = depid)
+
+
+
+#export and import Nature
+class NatureResource(resources.ModelResource):
+
+    class Meta:
+        model = Nature
+        fileds = ('id','Nature_name')
+        export_order = ('id','Nature_name')
+
+class Natureadmin(ImportExportModelAdmin, admin.ModelAdmin):
+    # displaying posts with title slug and created time
+    resource_class = NatureResource
+    readonly_fields = ('id',)
+    list_display = ('id','Nature_name')
+    list_filter = ('id','Nature_name')
+    search_fields = ['id','Nature_name']
+
+
+
+
+#export and import Location
+class NatureResource(resources.ModelResource):
+
+    class Meta:
+        model = Location
+        fileds = ('id','location_name')
+        export_order = ('id','location_name')
+
+class Locationadmin(ImportExportModelAdmin, admin.ModelAdmin):
+    # displaying posts with title slug and created time
+    resource_class = NatureResource
+    readonly_fields = ('id',)
+    list_display = ('id','location_name')
+    list_filter = ('id','location_name')
+    search_fields = ['id','location_name']
+
+
+
+#export and import Language
+class LanguageResource(resources.ModelResource):
+
+    class Meta:
+        model = Language
+        fileds = ('id','name')
+        export_order = ('id','name')
+
+class Languageadmin(ImportExportModelAdmin, admin.ModelAdmin):
+    # displaying posts with title slug and created time
+    resource_class = NatureResource
+    readonly_fields = ('id',)
+    list_display = ('id','name')
+    list_filter = ('id','name')
+    search_fields = ['id','name']
+
+
+
+
+
+#export and import Degree
+class DegreeResource(resources.ModelResource):
+
+    class Meta:
+        model = Degree
+        fileds = ('id','name')
+        export_order = ('id','name')
+
+class Degreeadmin(ImportExportModelAdmin, admin.ModelAdmin):
+    # displaying posts with title slug and created time
+    resource_class = DegreeResource
+    readonly_fields = ('id',)
+    list_display = ('id','name')
+    list_filter = ('id','name')
+    search_fields = ['id','name']
 
 
 
@@ -107,12 +227,12 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
 
   
 admin.site.register(Job, jobadmin)
-admin.site.register(Location)
-admin.site.register(Nature)
-admin.site.register(Title)
-admin.site.register(Language)
-admin.site.register(Degree)
-admin.site.register(Career_Level)
+admin.site.register(Location,Locationadmin)
+admin.site.register(Nature,Natureadmin)
+admin.site.register(Title,Titleadmin)
+admin.site.register(Language,Languageadmin)
+admin.site.register(Degree,Degreeadmin)
+admin.site.register(Career_Level,Career_Leveladmin)
 
 
 #admin.site.register(Department,DepartmentPersonadmin)

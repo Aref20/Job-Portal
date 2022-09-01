@@ -4,7 +4,7 @@ services:
     django:
         build: .
         container_name: JobBoard
-        command: bash -c " python manage.py migrate   && gunicorn JobApplicationSystem.wsgi:application --bind 0.0.0.0:8000 " #&& python manage.py runserver 0.0.0.0:8000"
+        command: bash -c " python manage.py makemigrations && python manage.py migrate   && gunicorn JobApplicationSystem.wsgi:application --bind 0.0.0.0:8000 " #&& python manage.py runserver 0.0.0.0:8000"
         volumes:
             - static_volume:/app/static
             - media_volume:/app/media
@@ -22,9 +22,9 @@ services:
         hostname: sqlserver
         environment:
             - ACCEPT_EULA=Y
-            - MSSQL_SA_PASSWORD=Aaaa@12345 #${SQL_DB_PASS}
+            - MSSQL_SA_PASSWORD=${SQL_DB_PASS}
         ports:
-            - '1433:1433'
+            - 1433:1433
         volumes:
             - sqlserver-data:/var/opt/mssql
 

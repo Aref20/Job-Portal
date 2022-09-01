@@ -29,6 +29,16 @@ class Degree(models.Model):
     def __str__(self):
         return self.name
 
+class Career_Level(models.Model):
+    level = models.CharField(max_length=300,verbose_name='  مستوى الخبرة')
+
+    class Meta:
+        verbose_name = _('مستوى الخبرة ')
+        verbose_name_plural = _(' مستوى الخبرة ')
+
+    def __str__(self):
+        return self.level
+
 class Job(models.Model):
 
     title = models.ForeignKey('Title', on_delete=models.SET_NULL, null=True,verbose_name='عنوان الوظيفة ')
@@ -43,9 +53,10 @@ class Job(models.Model):
     nature = models.ForeignKey('Nature', on_delete=models.SET_NULL, null=True,verbose_name='طبيعة العمل ')
     langs =  models.ManyToManyField(Language, null=True,verbose_name='اللغات ')
     status = models.CharField(max_length=255, choices=[('ACTIVE', 'ACTIVE'),('INACTIVE', 'INACTIVE')],default='INACTIVE',verbose_name='حالة الوظيفة ')
-    expiration_date = models.DateField(default=datetime.now,verbose_name='تاريخ إنتهاء الوظيفة ')
+    expiration_date = models.DateField(verbose_name='تاريخ إنتهاء الوظيفة ')
     required_competencies = models.TextField(max_length=3000,verbose_name='المهارات المطلوبة ')
-    other = models.TextField(max_length=3000,verbose_name=' مهارات أخرى ')
+    Career_Level = models.ForeignKey(Career_Level,on_delete=models.SET_NULL, null=True,verbose_name='مستوى الخبرة ')
+    other = models.TextField(blank=True, max_length=3000,verbose_name=' مهارات أخرى ')
     
     def __str__(self):
         return self.title.name
@@ -99,15 +110,7 @@ class Title(models.Model):
         verbose_name_plural = _(' عنوان الوظيفة ')
 
 
-class Career_Level(models.Model):
-    level = models.CharField(max_length=300,verbose_name='  مستوى الخبرة')
 
-    class Meta:
-        verbose_name = _('مستوى الخبرة ')
-        verbose_name_plural = _(' مستوى الخبرة ')
-
-    def __str__(self):
-        return self.level
 
 
 

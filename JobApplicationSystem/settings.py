@@ -34,11 +34,17 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+GRAPPELLI_INDEX_DASHBOARD = 'Job-Portal.dashboard.CustomIndexDashboard'
+#GRAPPELLI_INDEX_DASHBOARD = {  # alternative method
+ #   'JobApplicationSystem.admin.admin_site': 'JobApplicationSystem.my_dashboard.CustomIndexDashboard',}
+
 # Application definition
 
 INSTALLED_APPS = [
     'admin_numeric_filter',
-    'grappelli',
+    #'grappelli',
+    'jet.dashboard',
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -67,6 +73,8 @@ INSTALLED_APPS = [
 
 
 ]
+
+
 USE_DJANGO_JQUERY = True
 
 MIDDLEWARE = [
@@ -77,6 +85,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'JobApplicationSystem.urls'
@@ -110,7 +119,8 @@ DATABASES = {
         "NAME": "JBDB",
         "USER": "sa",
         "PASSWORD":  config('SQLPASS'),
-        "HOST": "sqlserver",
+        "HOST": "localhost", #sqlserver",
+        #"HOST":  "sqlserver:,
         "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 
         },
     },
@@ -176,7 +186,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'ar'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 

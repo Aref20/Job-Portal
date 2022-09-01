@@ -29,8 +29,9 @@ admin.site.site_title = ' نظام التوظيف'
 admin.site.index_title = ' نظام التوظيف'
 
 urlpatterns = [
-
-    path('grappelli/', include('grappelli.urls')), # grappelli URLS
+    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    #path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin/', include('django_admin_filter.urls')),
     path('admin/', admin.site.urls),
     path('apply/',ApplicationFormCreateView.as_view() ,name='applyform'),

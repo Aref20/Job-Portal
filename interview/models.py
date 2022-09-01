@@ -29,7 +29,7 @@ class Interview(models.Model):
     expected_salary = models.IntegerField(max_length=100,default=0,verbose_name='الراتب المتوقع')
     work_time = models.DateTimeField(default=datetime.now,verbose_name='أقرب وقت للإلتحاق بالعمل')
     note = models.TextField(max_length=3000,blank=True,verbose_name='ملاحظات عامة')
-    hiring_Recommendation = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name='التوصية بالتعين')
+    hiring_Recommendation = models.CharField(choices=[('Pending', 'قيد الإنتظار'),('Yes', 'نعم'),('No', 'لا'),('Waiting', 'قائمة الإنتظار'),('Second_Interview', 'مقابلة ثانية ')],default='Pending',max_length=16,verbose_name='التوصية بالتعين')
 
 
       

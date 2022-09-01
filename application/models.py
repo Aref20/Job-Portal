@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from job.models import Language as Lang
 from django.utils.html import format_html
+from django.utils.timezone import now
 # Create your models here.
 
 class License_Type(models.Model):
@@ -48,13 +49,14 @@ class Application(models.Model):
     Second_Approval = models.BooleanField(default=False,verbose_name='موافقة رئيس القسم ')
     Second_Approval_Note = models.TextField(blank=True,max_length=5000,verbose_name=' ملاحظات رئيس القسم')
     Coworker_Ask = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name=' هل لديك مانع من سؤال المعرفين أو أصحاب العمل السابقين عنك ؟  ')
-    Interview_Date = models.DateTimeField(blank=True,default=datetime.now,verbose_name=' تحديد تاريخ المقابلة')
+    Interview_Date = models.DateField(blank=True,default=now ,verbose_name=' تحديد تاريخ المقابلة')
     HR_Interview_Approval = models.BooleanField(default=False,verbose_name=' موافقة الموارد البشرية لتاريخ المقابلة ')
-    Warranty = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name=' هل يمكنك إحضار كفالة عدلية ', null=True)
-    Car_License_Type = models.ForeignKey(License_Type, on_delete=models.SET_NULL, null=True,verbose_name=' فئة الرخصة')
+    Warranty = models.CharField(blank=True,choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name=' هل يمكنك إحضار كفالة عدلية ', null=True)
+    Car_License_Type = models.ForeignKey(License_Type, on_delete=models.SET_NULL, null=True,blank=True,verbose_name=' فئة الرخصة')
     Experience_Years = models.IntegerField(verbose_name='عدد سنوات الخبرة')
     Waiting_List = models.BooleanField(default=False,verbose_name='قائمة ألإنتظار ')
     resume = models.FileField(upload_to='documents/',verbose_name='السيرة الذاتية ')
+    Visit = models.BooleanField(default=False,verbose_name=' تمت رؤيته ')
     
 
 
@@ -204,13 +206,14 @@ class Application_Form(models.Model):
     Second_Approval = models.BooleanField(default=False,verbose_name='موافقة رئيس القسم ')
     Second_Approval_Note = models.TextField(blank=True,max_length=5000,verbose_name=' ملاحظات رئيس القسم')
     Coworker_Ask = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name=' هل لديك مانع من سؤال المعرفين أو أصحاب العمل السابقين عنك ؟  ')
-    Interview_Date = models.DateTimeField(blank=True,default=datetime.now,verbose_name=' تحديد تاريخ المقابلة')
+    Interview_Date = models.DateTimeField(blank=True,default=now,verbose_name=' تحديد تاريخ المقابلة')
     HR_Interview_Approval = models.BooleanField(default=False,verbose_name=' موافقة الموارد البشرية لتاريخ المقابلة ')
     Warranty = models.CharField(blank=True,choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name=' هل يمكنك إحضار كفالة عدلية', null=True)
-    Car_License_Type = models.ForeignKey(License_Type, on_delete=models.SET_NULL, null=True,verbose_name=' فئة الرخصة')
+    Car_License_Type = models.ForeignKey(License_Type, on_delete=models.SET_NULL,blank=True, null=True,verbose_name=' فئة الرخصة')
     Experience_Years = models.IntegerField(verbose_name='عدد سنوات الخبرة')
     Waiting_List = models.BooleanField(default=False,verbose_name='قائمة ألإنتظار ')
     resume = models.FileField(upload_to='documents/',verbose_name='السيرة الذاتية ')
+    Visit = models.BooleanField(default=False,verbose_name=' تمت رؤيته ')
     
 
 
