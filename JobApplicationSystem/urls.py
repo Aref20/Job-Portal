@@ -20,7 +20,7 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from application.views import *
-
+from django.conf.urls.i18n import i18n_patterns
 
 
 # customizing admin interface
@@ -29,8 +29,7 @@ admin.site.site_title = ' نظام التوظيف'
 admin.site.index_title = ' نظام التوظيف'
 
 urlpatterns = [
-    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+
     #path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin/', include('django_admin_filter.urls')),
     path('admin/', admin.site.urls),
@@ -46,3 +45,6 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
+
+

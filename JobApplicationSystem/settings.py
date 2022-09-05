@@ -43,8 +43,7 @@ GRAPPELLI_INDEX_DASHBOARD = 'Job-Portal.dashboard.CustomIndexDashboard'
 INSTALLED_APPS = [
     'admin_numeric_filter',
     #'grappelli',
-    'jet.dashboard',
-    'jet',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,7 +75,6 @@ INSTALLED_APPS = [
 
 
 USE_DJANGO_JQUERY = True
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -186,7 +184,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ar-jo'
 
 TIME_ZONE = 'UTC'
 
@@ -224,3 +222,29 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 SUMMERNOTE_THEME = 'bs4'
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
+
+
+
+
+JAZZMIN_SETTINGS = {
+
+"changeform_format": "collapsible",
+"hide_apps": ["django_summernote"],
+    "icons": {
+        "Application.Application": "far fa-window-maximize",
+        "Application.Application_Form": "far fa-sticky-note",
+        "Application.License_Type": "fas fa-car",
+        "Interview.Interview": "fas fa-people-arrows",
+        "Job.Degree": "fas fa-certificate",
+        "Job.Language": "fas fa-language",
+        "Job.Location": "fas fa-globe-americas",
+        "Job.Job": "fas fa-briefcase",
+        "Job.Nature": "fas fa-laptop-house",
+        "Job.Title": "fas fa-heading",
+        "Job.Career_Level": "fas fa-sort-numeric-up-alt",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+    },
+"site_title": "",
+    
+}

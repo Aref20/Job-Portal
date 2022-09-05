@@ -41,14 +41,14 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
       }),
 
         ('المهارات المطلوبة ', {
-          'fields': ((),('required_competencies','other'))
+          'fields': ((),('required_competencies'),('other'))
       }),
    )
 
     formfield_overrides = {
-    models.CharField: {'widget': TextInput(attrs={'size':'50'})},
+   #models.CharField: {'widget': TextInput(attrs={'size':'50'})},
  
-    models.IntegerField: {'widget': TextInput(attrs={'size':'50'})},
+   # models.IntegerField: {'widget': TextInput(attrs={'size':'50'})},
 
     }
 

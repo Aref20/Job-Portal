@@ -91,25 +91,25 @@ class ApplicationAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
     readonly_fields = ('id',)
     inlines = [QualificationInline,LanguageInline,Computer_SkillInline,Previous_CompanyInline,TrainingInline,Previous_CoworkerInline]
     list_display = ('id','Name','Email','Phone_Num','Job_App' ,'Socility_Status','Experience_Years','Nationality','Car_License','Have_Car','Current_Salary','Expected_Salary','Available_Date','First_Approval','Second_Approval', 'Create_Date','Visit')
-    list_filter = [JobFilter,'Experience_Years','Name','Have_Car','Car_License','Car_License_Type','Name','Qualification__Major' ,'Qualification__Degree','Visit', 'Create_Date']
-    search_fields = [JobFilter,'Name', 'NID','Email','Job_App','Current_Salary' , 'Create_Date']
+    list_filter = ['Job_App','Experience_Years','Name','Have_Car','Car_License','Car_License_Type','Name','Qualification__Major' ,'Qualification__Degree','Visit', 'Create_Date']
+    search_fields = ['Job_App','Name', 'NID','Email','Job_App','Current_Salary' , 'Create_Date']
     
     #change_list_template = "admin/change_list_filter_confirm.html"
     #change_list_filter_template = "admin/filter_listing.html"
 
     formfield_overrides = {
-    models.CharField: {'widget': TextInput(attrs={'size':'20'})},
+    #models.CharField: {'widget': TextInput(attrs={'size':'20'})},
     #models.DateField: {'widget': TextInput(attrs={'size':'100'})},
-    models.IntegerField: {'widget': TextInput(attrs={'size':'20'})},
+    #models.IntegerField: {'widget': TextInput(attrs={'size':'20'})},
 
     }
 
 
     fieldsets = (
       (' معلومات المتقدم', {
-          'fields': ('id',('Name','NID','Phone_Num','Email'),('Birth_Date','Birth_Location','City','Location',)
-          ,('Nationality','Have_Car','Car_License','Job_App'),('Current_Salary','Expected_Salary','Available_Date','Socility_Status')
-          ,('Relative_Frinds','Relative_Frinds_Job','Diseases','Coworker_Ask'),('Car_License_Type','Experience_Years','Warranty','resume'))
+          'fields': ('id',('Name','NID','Phone_Num',),('Email','Birth_Date','Birth_Location',),('City','Location','Nationality',)
+          ,('Have_Car','Car_License','Job_App'),('Current_Salary','Expected_Salary','Available_Date',)
+          ,('Relative_Frinds','Relative_Frinds_Job','Diseases'),('Socility_Status','Coworker_Ask','Car_License_Type',),('Experience_Years','Warranty','resume'))
       }),
 
 
@@ -167,18 +167,18 @@ class ApplicationAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
         # if current user defind for this job
         if dep == "HR": 
 
-            form.base_fields["Second_Approval"].disabled = True
-            form.base_fields["Second_Approval_Note"].disabled = True
-            Application.objects.filter(pk=appid).update(Visit = True)
+        #    form.base_fields["Second_Approval"].disabled = True
+        #    form.base_fields["Second_Approval_Note"].disabled = True
+             Application.objects.filter(pk=appid).update(Visit = True)
             
 
-        else:
+        #else:
 
-            form.base_fields["First_Approval"].disabled = True
-            form.base_fields["First_Approval_Note"].disabled = True
-            form.base_fields["HR_Interview_Approval"].disabled = True
-            form.base_fields["Black_List"].disabled = True 
-            form.base_fields["Waiting_List"].disabled = True 
+        #    form.base_fields["First_Approval"].disabled = True
+        #    form.base_fields["First_Approval_Note"].disabled = True
+        #    form.base_fields["HR_Interview_Approval"].disabled = True
+        #    form.base_fields["Black_List"].disabled = True 
+        #    form.base_fields["Waiting_List"].disabled = True 
 
         return form
 
@@ -263,9 +263,9 @@ class ApplicationFormAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
     #change_list_filter_template = "admin/filter_listing.html"
 
     formfield_overrides = {
-    models.CharField: {'widget': TextInput(attrs={'size':'100'})},
+    #models.CharField: {'widget': TextInput(attrs={'size':'100'})},
     #models.DateField: {'widget': TextInput(attrs={'size':'100'})},
-    models.IntegerField: {'widget': TextInput(attrs={'size':'100'})},
+    #models.IntegerField: {'widget': TextInput(attrs={'size':'100'})},
 
     }
 
@@ -274,7 +274,7 @@ class ApplicationFormAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
       (' معلومات المتقدم', {
           'fields': ('id',('Name','NID','Phone_Num','Email'),('Birth_Date','Birth_Location','City','Location',)
           ,('Nationality','Have_Car','Car_License','Experience_Years'),('Current_Salary','Expected_Salary','Available_Date','Socility_Status')
-          ,('Relative_Frinds','Relative_Frinds_Job','Diseases','Coworker_Ask'),('Car_License_Type','resume',))
+          ,('Relative_Frinds','Relative_Frinds_Job','Diseases',),('Coworker_Ask','Car_License_Type','resume',))
       }),
 
 

@@ -18,13 +18,17 @@ from django.core.mail import get_connection, send_mail
 from django.core.mail.message import EmailMessage
 from django.db import transaction
 from django.template import RequestContext
-
+from django.template.response import TemplateResponse
 
 # Create your views here.
 
 
 
-
+def testdex(request, template_name="jazzmin/templates/admin/index.html"):
+    args = {}
+    text = "hello world"
+    args['mytext'] = text
+    return TemplateResponse(request, template_name, args)
 
 #class QualificationInline(InlineFormSetFactory):
  #   model = Qualification
