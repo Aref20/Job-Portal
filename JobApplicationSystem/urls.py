@@ -20,7 +20,12 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from application.views import *
+from userprofile.views import *
+from userauth.views import *
 from django.conf.urls.i18n import i18n_patterns
+
+
+
 
 
 # customizing admin interface
@@ -30,15 +35,22 @@ admin.site.index_title = ' نظام التوظيف'
 
 urlpatterns = [
 
-    #path('grappelli/', include('grappelli.urls')), # grappelli URLS
+
     path('admin/', include('django_admin_filter.urls')),
     path('admin/', admin.site.urls),
-    path('apply/',ApplicationFormCreateView.as_view() ,name='applyform'),
     path('jobs/', include('job.urls')),
     path('application/', include('application.urls')),
     path('', RedirectView.as_view(url='jobs/', permanent=True)),
     path('editor/', include('django_summernote.urls')),
     path('chaining/', include('smart_selects.urls')),
+    path('login/', include('userauth.urls')),
+    path('signup/', SignUpView.as_view(),name='signup' ),
+    path('', include('django.contrib.auth.urls')),
+    path('profile/<int:id>', Profile.as_view(),name="Profile"),
+
+
+    
+    
 
 
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

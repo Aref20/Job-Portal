@@ -34,9 +34,11 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-GRAPPELLI_INDEX_DASHBOARD = 'Job-Portal.dashboard.CustomIndexDashboard'
-#GRAPPELLI_INDEX_DASHBOARD = {  # alternative method
- #   'JobApplicationSystem.admin.admin_site': 'JobApplicationSystem.my_dashboard.CustomIndexDashboard',}
+
+
+DJANGO_EASY_AUDIT_WATCH_AUTH_EVENTS = False
+DJANGO_EASY_AUDIT_WATCH_REQUEST_EVENTS = False
+DJANGO_EASY_AUDIT_UNREGISTERED_CLASSES_EXTRA = ['auth.user','auth.group',]
 
 # Application definition
 
@@ -65,6 +67,9 @@ INSTALLED_APPS = [
     'django_admin_filter',
     'fieldsets_with_inlines',
     'django_cleanup.apps.CleanupConfig',
+    'easyaudit',
+    'userauth',
+    'userprofile'
 
 
 
@@ -73,6 +78,9 @@ INSTALLED_APPS = [
 
 ]
 
+LOGIN_REDIRECT_URL = "jobs"
+LOGOUT_REDIRECT_URL = "jobs"
+LOGIN_URL = "login"
 
 USE_DJANGO_JQUERY = True
 MIDDLEWARE = [
@@ -83,6 +91,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'easyaudit.middleware.easyaudit.EasyAuditMiddleware',
 
 ]
 
@@ -118,7 +127,7 @@ DATABASES = {
         "USER": "sa",
         "PASSWORD":  config('SQLPASS'),
         "HOST": "localhost", #sqlserver",
-        #"HOST":  "sqlserver:,
+        #"HOST":  "sqlserver",
         "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 
         },
     },
@@ -152,12 +161,12 @@ DATABASE_CONNECTION_POOLING = False
 
 # Email Config
 
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_HOST = 'mail.sukhtian.com.jo'
-#EMAIL_USE_TLS = True
-#EMAIL_PORT = 587 
-#EMAIL_HOST_USER = 'hr@sukhtian.com.jo'
-#EMAIL_HOST_PASSWORD = config('EMAILPASS')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.sukhtian.com.jo'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587 
+EMAIL_HOST_USER = 'hr@sukhtian.com.jo'
+EMAIL_HOST_PASSWORD = config('EMAILPASS')
 
 
 
@@ -229,7 +238,8 @@ DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 JAZZMIN_SETTINGS = {
 
 "changeform_format": "collapsible",
-"hide_apps": ["django_summernote"],
+"hide_apps": ["django_summernote",],
+"hide_models": ["easyaudit.LoginEvent","easyaudit.RequestEvent"],
     "icons": {
         "Application.Application": "far fa-window-maximize",
         "Application.Application_Form": "far fa-sticky-note",

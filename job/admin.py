@@ -36,14 +36,21 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
       ('ألإسم والوصف', {
           'fields': ('id',('title'))
       }),
+
+
+      ('المهارات المطلوبة ', {
+          'fields': ((),('required_competencies'),('other'))
+      }),
+
+
       ('معلومات الوظيفة ', {
           'fields': (('department','Education'), ('salary', 'vacancy','nature'),('experience_min','experience_max','location'),('status','expiration_date','Career_Level','langs'))
       }),
 
-        ('المهارات المطلوبة ', {
-          'fields': ((),('required_competencies'),('other'))
-      }),
+
    )
+
+
 
     formfield_overrides = {
    #models.CharField: {'widget': TextInput(attrs={'size':'50'})},

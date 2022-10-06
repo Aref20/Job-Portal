@@ -147,11 +147,35 @@
                             </div>
                             <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                                 <div class="Appointment">
-  
-                                    <div class="d-none d-lg-block">
-                                        <a class="boxed-btn3" href="{% url 'admin:index'  %}">Log in</a>
+
+
+
+
+                                    {% if user.is_authenticated %}
+                                    
+                                    <div class="d-none d-lg-block mr-5">
+                                        <a class="boxed-btn3" href="{% url 'userauth:logout'  %}">Log out</a>
                                     </div>
+
+                                    <div class="d-none d-lg-block">
+                                        <a class="boxed-btn3" href="{% url 'Profile'  user.id %}">Profile </a>
+                                    </div>
+                                    {%else%}
+
+                                    <div class="d-none d-lg-block mr-5">
+                                        <a class="boxed-btn3" href="{% url 'signup'  %}">signup</a>
+                                    </div>
+
+                                    <div class="d-none d-lg-block ">
+                                        <a class="boxed-btn3" href="{% url 'userauth:login'  %}">Log in</a>
+                                    </div>
+
+
+                                    {%endif%}
+
                                 </div>
+
+                                
                             </div>
                             <div class="col-12">
                                 <div class="mobile_menu d-block d-lg-none"></div>
@@ -175,9 +199,7 @@
                             <h5 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".2s">4536+ Jobs listed</h5>
                             <h3 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".3s">Find your Dream Job</h3>
                             <p class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".4s">We provide online instant cash loans with quick approval that suit your term length</p>
-                            <div class="sldier_btn wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
-                                <a href="{% url 'applyform' %}" class="boxed-btn3">قدم طلب توظيف</a>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -210,6 +232,7 @@
 
             </div>
         </div>
+
     </footer>
     <!--/ footer end  -->
 

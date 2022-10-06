@@ -51,25 +51,44 @@ class InterviewAdmin(admin.ModelAdmin):
 
 
     fieldsets = (
+  
       (' معلومات المتقدم', {
           'fields': ('interview_application',)
       }),
-      (' مجال التقييم ', {
-          'fields': ( ('commitment', 'MSG_knowledge','MSG_comp_knowledge','self_exp_skill','eng_lang_skill'),('body_exp_skill','behaviour','listening_skills','asked_q_level','computer_skill'))
+
+      (' تقييم رئيس القسم  ', {
+          'fields': ( ('commitment', 'MSG_knowledge','MSG_comp_knowledge',),('self_exp_skill','eng_lang_skill','body_exp_skill'),('behaviour','listening_skills','asked_q_level','computer_skill'))
       }),
-      (' التعليق', {
-          'fields': (('working_experience','management_leading_cap'),('tech_cap','personality'),('prev_work_leave','achievements'),('pros','cons'),('note'),('expected_salary','work_time','hiring_Recommendation'))
+      (' تعليق رئيس القسم', {
+          'fields': (('working_experience','management_leading_cap','tech_cap'),('personality','prev_work_leave','achievements'),('pros','cons','note'))
       }),
-   )
+
+
+      ('التوصية بالتعيين', {
+          'fields': ((),('expected_salary','work_time','hiring_Recommendation'))
+      }),
+
+      (' تقييم الموارد البشرية  ', {
+          'fields': ( ('HRcommitment', 'HRMSG_knowledge','HRMSG_comp_knowledge',),('HRself_exp_skill','HReng_lang_skill','HRbody_exp_skill'),('HRbehaviour','HRlistening_skills','HRasked_q_level','HRcomputer_skill'))
+      }),
+      
+      (' تعليق الموارد البشرية', {
+          'fields': (('HRworking_experience','HRmanagement_leading_cap','HRtech_cap'),('HRpersonality','HRprev_work_leave','HRachievements'),('HRpros','HRcons','HRnote'))
+      }),
+
+
+
+        
+    )
 
 
    
 
     formfield_overrides = {
-    models.CharField: {'widget': TextInput(attrs={'size':'20'})},
-    models.TextField: {'widget': Textarea(attrs={'rows':8, 'cols':50})},
-    models.DateField: {'widget': TextInput(attrs={'size':'100'})},
-    models.IntegerField: {'widget': TextInput(attrs={'size':'50'})},
+    #models.CharField: {'widget': TextInput(attrs={'size':'20'})},
+    #models.TextField: {'widget': Textarea(attrs={'rows':8, 'cols':50})},
+   # models.DateField: {'widget': TextInput(attrs={'size':'100'})},
+    #models.IntegerField: {'widget': TextInput(attrs={'size':'50'})},
 
     }
 
@@ -86,6 +105,62 @@ class InterviewAdmin(admin.ModelAdmin):
             return qs.filter(interview_application__department = depid)
 
 
+    def get_form(self, request, obj, **kwargs):
+        loguserlist = []
+        appid = request.resolver_match.kwargs['object_id'] # get current application id
+        loguser = (request.user.id)
+        loguserlist.append(loguser)
+        job = Job.objects.filter(JA__id=appid).first() # get current job
+        users = list(User.objects.filter(usertitle__name=job).values_list('id',flat=True)) # get all users related to thid job for this job
+        dep = request.user.groups.values_list('name',flat = True).first()
+        
+        form = super(InterviewAdmin, self).get_form(request, obj, **kwargs)
+        # if current user defind for this job
+        if dep == "HR": 
+
+            form.base_fields["working_experience"].disabled = True
+            form.base_fields["management_leading_cap"].disabled = True
+            form.base_fields["tech_cap"].disabled = True
+            form.base_fields["personality"].disabled = True
+            form.base_fields["prev_work_leave"].disabled = True
+            form.base_fields["achievements"].disabled = True
+            form.base_fields["pros"].disabled = True
+            form.base_fields["cons"].disabled = True
+            form.base_fields["note"].disabled = True
+            form.base_fields["commitment"].disabled = True
+            form.base_fields["MSG_knowledge"].disabled = True
+            form.base_fields["MSG_comp_knowledge"].disabled = True
+            form.base_fields["self_exp_skill"].disabled = True
+            form.base_fields["eng_lang_skill"].disabled = True
+            form.base_fields["body_exp_skill"].disabled = True
+            form.base_fields["behaviour"].disabled = True
+            form.base_fields["listening_skills"].disabled = True
+            form.base_fields["asked_q_level"].disabled = True
+            form.base_fields["computer_skill"].disabled = True
+ 
+
+        else:
+            form.base_fields["HRworking_experience"].disabled = True
+            form.base_fields["HRmanagement_leading_cap"].disabled = True
+            form.base_fields["HRtech_cap"].disabled = True
+            form.base_fields["HRpersonality"].disabled = True
+            form.base_fields["HRprev_work_leave"].disabled = True
+            form.base_fields["HRachievements"].disabled = True
+            form.base_fields["HRpros"].disabled = True
+            form.base_fields["HRcons"].disabled = True
+            form.base_fields["HRnote"].disabled = True
+            form.base_fields["HRcommitment"].disabled = True
+            form.base_fields["HRMSG_knowledge"].disabled = True
+            form.base_fields["HRMSG_comp_knowledge"].disabled = True
+            form.base_fields["HRself_exp_skill"].disabled = True
+            form.base_fields["HReng_lang_skill"].disabled = True
+            form.base_fields["HRbody_exp_skill"].disabled = True
+            form.base_fields["HRbehaviour"].disabled = True
+            form.base_fields["HRlistening_skills"].disabled = True
+            form.base_fields["HRasked_q_level"].disabled = True
+            form.base_fields["HRcomputer_skill"].disabled = True
+
+        return form
 
 
 #export and import
