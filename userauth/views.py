@@ -1,5 +1,4 @@
 from imaplib import _Authenticator
-from application.forms import *
 from django.views.generic import View
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login,logout
@@ -14,9 +13,14 @@ from django.views.generic.edit import *
 
 class SignUpView(CreateView):
   template_name = 'register.html'
-  success_url = reverse_lazy('login')
+
   form_class = UserRegisterForm
   success_message = "Your profile was created successfully"
+  def get_success_url(self):
+          #Profile.objects.create(UserID = User.objects.filter(id=self.object.id,))
+          return reverse_lazy('userprofile:Profile',args=(self.object.id,))
+
+
 
 
 class Login(LoginView):

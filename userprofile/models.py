@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from django.db import models
 from job.models import Job
 from datetime import date, datetime    
@@ -11,8 +12,8 @@ from django.dispatch import receiver #add this
 from django.db.models.signals import post_save #add this
 # Create your models here.
 
-class Profile(models.Model):
-    UserID = models.OneToOneField(User, on_delete=models.CASCADE,null=True,blank=True)
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     NID = models.CharField(max_length=10,verbose_name='الرقم الوطني',error_messages={'required': 'Please let us know what to call you!'})
     Email = models.EmailField(max_length=100,verbose_name='البريد الإلكتروني ')
     Birth_Date = models.DateField(default=datetime.now,verbose_name='  تاريخ الميلاد')
@@ -22,7 +23,7 @@ class Profile(models.Model):
     Birth_Location = models.CharField(max_length=100,verbose_name=' مكان الولادة')
     City = models.CharField(max_length=100,verbose_name=' المدينة')
     Location = models.CharField(max_length=100,verbose_name='الموقع ')
-    Phone_Num = models.IntegerField(verbose_name='الخلوي ')
+    Phone_Num = models.IntegerField(verbose_name='الخلوي ',null = True)
     Nationality = models.CharField(max_length=100,verbose_name='الجنسية ')
     Car_License = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name=' هل لديك رخصة سواقة')
     Have_Car = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name=' هل تملك سيارة')
@@ -36,18 +37,24 @@ class Profile(models.Model):
     Coworker_Ask = models.CharField(choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name=' هل لديك مانع من سؤال المعرفين أو أصحاب العمل السابقين عنك ؟  ')
     Warranty = models.CharField(blank=True,choices=[('Yes', 'نعم'),('No', 'لا')],default='No',max_length=3,verbose_name=' هل يمكنك إحضار كفالة عدلية ', null=True)
     Car_License_Type = models.ForeignKey('License_Type', on_delete=models.SET_NULL, null=True,blank=True,verbose_name=' فئة الرخصة')
-    Experience_Years = models.IntegerField(verbose_name='عدد سنوات الخبرة')
+    Experience_Years = models.IntegerField(verbose_name='عدد سنوات الخبرة',null = True)
     resume = models.FileField(upload_to='documents/',verbose_name='السيرة الذاتية ')
+
+
+
+
+
 
 
     @receiver(post_save, sender=User) #add this
     def create_user_profile(sender, instance, created, **kwargs):
             if created:
-                Profile.objects.create(UserID=instance)
+                UserProfile.objects.create(user=instance)
 
-    @receiver(post_save, sender=User) #add this
-    def save_user_profile(sender, instance, **kwargs):
-            instance.profile.save()
+    #@receiver(post_save, sender=User) #add this
+    #def save_user_profile(sender, instance, **kwargs):
+      #      instance.userprofile.save()
+            
     
     
 
@@ -63,7 +70,7 @@ class Profile(models.Model):
 
 
 class Qualification(models.Model):
-    Qualification_Profile= models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True,related_name='Qualification',verbose_name='المؤهلات الأكاديمية')
+    Qualification_Profile= models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True,related_name='Qualification',verbose_name='المؤهلات الأكاديمية')
     Major = models.CharField(max_length=100,verbose_name='التخصص ')
     Degree = models.CharField(max_length=100,verbose_name=' المؤهل العلمي')
     University = models.CharField(max_length=100,verbose_name=' اسم الجامعة')
@@ -81,7 +88,7 @@ class Qualification(models.Model):
 
 
 class Language(models.Model):
-    Language_Profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True,related_name='Language',verbose_name='اللغات')
+    Language_Profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True,related_name='Language',verbose_name='اللغات')
     Language_Name = models.ForeignKey(Lang, on_delete=models.SET_NULL, null=True,verbose_name='اللغة ')
     Type_Conversation = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12,verbose_name='محادثة')
     Type_Writing = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12,verbose_name=' كتابة')
@@ -95,7 +102,7 @@ class Language(models.Model):
         verbose_name_plural = _('اللغات ')
 
 class Computer_Skill(models.Model):
-    Computer_Skill_Profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True,related_name='Computer_Skill',verbose_name='برامج الحاسوب')
+    Computer_Skill_Profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True,related_name='Computer_Skill',verbose_name='برامج الحاسوب')
     Skill = models.CharField(max_length=100,verbose_name=' برنامج الحاسوب')
     Level = models.CharField(choices=[('Beginner', 'ضعيف'),('Intermediate', 'متوسط'),('Advanced', 'ممتاز')],default='Beginner',max_length=12,verbose_name='المهارة')
 
@@ -108,7 +115,7 @@ class Computer_Skill(models.Model):
 
 
 class Previous_Company(models.Model):
-    Previous_Company_Profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True,related_name='Previous_Company',verbose_name='السجل الوظيفي')
+    Previous_Company_Profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True,related_name='Previous_Company',verbose_name='السجل الوظيفي')
     Name = models.CharField(max_length=100,verbose_name=' إسم الشركة السابقة')
     Address = models.CharField(max_length=100,verbose_name=' عنوان الشركة')
     Phone = models.IntegerField( null=True,verbose_name=' رقم هاتف الشركة')
@@ -129,7 +136,7 @@ class Previous_Company(models.Model):
 
 
 class Training(models.Model):
-    Training_Profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True,related_name='Training',verbose_name='الدورات التدريبية')
+    Training_Profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True,related_name='Training',verbose_name='الدورات التدريبية')
     Name = models.CharField(max_length=100,verbose_name='اسم الدورة التدريبية ')
     Location = models.CharField( null=True,max_length=100,verbose_name=' مكان انعقاد الدورة')
     Institute = models.CharField(max_length=100,verbose_name='الجهة التدريبية ')
@@ -146,7 +153,7 @@ class Training(models.Model):
         verbose_name_plural = _(' الدورات التدريبية  ')
 
 class Previous_Coworker(models.Model):
-    Previous_Coworker_Profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True,related_name='Previous_Coworker',verbose_name='المعرفين')
+    Previous_Coworker_Profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True,related_name='Previous_Coworker',verbose_name='المعرفين')
     Name = models.CharField(max_length=100,verbose_name='الاسم ')
     Address = models.CharField(max_length=100,verbose_name='مكان العمل ')
     Phone = models.IntegerField( null=True,verbose_name='رقم الهاتف ')

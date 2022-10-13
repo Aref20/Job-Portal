@@ -1,26 +1,72 @@
-from django.shortcuts import render
-from imaplib import _Authenticator
-from .forms import *
-from django.views.generic import View
-from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth import authenticate, login,logout
-from django.conf import settings
+
 from .forms import *
 from django.contrib.auth.views import *
-from django.urls import reverse_lazy
 from .views import *
-from django.views.generic.edit import *
 from .models import *
 from django.contrib import messages
 from django.core.mail import get_connection, send_mail
 from decouple import config
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+
 # Create your views here.
 
+
+#@login_required
 class Profile(UpdateView):
     template_name = 'profile.html'
-    model = Profile
+    model = UserProfile
+    context_object_name = 'form'
     form_class = ProfileForm
     success_url = '/'
+
+
+
+
+    def get_context_data(self, **kwargs):
+        context = super(Profile, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['Qualification_form'] = ProfileQualificationFormSet(self.request.POST, instance=self.object)
+            context['Language_Form'] = ProfileLanguageFormSet(self.request.POST, instance=self.object)
+            context['Computer_Skill_Form'] = ProfileComputer_SkillFormSet(self.request.POST, instance=self.object)
+            context['Profile_Previous_Company_Form'] = ProfilePrevious_CompanyFormSet(self.request.POST, instance=self.object)
+            context['Profile_Training_Form'] = ProfileTrainingFormSet(self.request.POST, instance=self.object)
+            context['Profile_Previous_Coworker_Form'] = ProfilePrevious_CoworkerFormSet(self.request.POST, instance=self.object)
+        else:
+            context['Qualification_form'] = ProfileQualificationFormSet(instance=self.object)
+            context['Language_Form'] = ProfileLanguageFormSet( instance=self.object)
+            context['Computer_Skill_Form'] = ProfileComputer_SkillFormSet( instance=self.object)
+            context['Profile_Previous_Company_Form'] = ProfilePrevious_CompanyFormSet(instance=self.object)
+            context['Profile_Training_Form'] = ProfileTrainingFormSet( instance=self.object)
+            context['Profile_Previous_Coworker_Form'] = ProfilePrevious_CoworkerFormSet( instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        Qualification_form = context['Qualification_form']
+        Language_Form = context['Language_Form']
+        Computer_Skill_Form = context['Computer_Skill_Form']
+        Profile_Previous_Company_Form = context['Profile_Previous_Company_Form']
+        Profile_Training_Form = context['Profile_Training_Form']
+        Profile_Previous_Coworker_Form = context['Profile_Previous_Coworker_Form']
+        if (Qualification_form.is_valid() and Language_Form.is_valid() and Computer_Skill_Form.is_valid() and \
+        Profile_Previous_Company_Form.is_valid() and Profile_Training_Form.is_valid() and Profile_Previous_Coworker_Form.is_valid()):
+
+            self.object = form.save()
+            Qualification_form.instance = self.object
+            Qualification_form.save()
+            Language_Form.instance = self.object
+            Language_Form.save()
+            Computer_Skill_Form.instance = self.object
+            Computer_Skill_Form.save()
+            Profile_Previous_Company_Form.instance = self.object
+            Profile_Previous_Company_Form.save()
+            Profile_Training_Form.instance = self.object
+            Profile_Training_Form.save()
+            Profile_Previous_Coworker_Form.instance = self.object
+            Profile_Previous_Coworker_Form.save()
+        return self.render_to_response(self.get_context_data(form=form))
 
     def get(self, request, *args, **kwargs):
         """
@@ -46,6 +92,7 @@ class Profile(UpdateView):
                                   ,Profile_Training_Form=Profile_Training_Form
                                   ,Profile_Previous_Coworker_Form=Profile_Previous_Coworker_Form
                                   ))
+                               
 
     def post(self, request, *args, **kwargs):
         """
@@ -85,7 +132,14 @@ class Profile(UpdateView):
      messages.add_message(self.request, messages.SUCCESS,'لقد تم تقديم الطلب بنجاح')
 
      # get email from the form
-     email = form.cleaned_data['Email'] 
+     email = form.cleaned_data['Email']
+
+    ## profile = form.save()
+    # user = profile.user
+    # user.first_name = form.cleaned_data['first_name']
+     #user.username = form.cleaned_data['username']
+    # user.email = form.cleaned_data['email']
+    # user.save()
 
      # send success email for applicatent
      subject = 'welcome to GFG world'

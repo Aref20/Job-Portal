@@ -101,6 +101,8 @@ class InterviewAdmin(admin.ModelAdmin):
         #return first approval records only for the department
         if dep == 'HR':
             return qs
+        elif dep == 'MANAGEMENT':
+            return qs.filter(hiring_Recommendation =  'Second_Interview')
         else:
             return qs.filter(interview_application__department = depid)
 

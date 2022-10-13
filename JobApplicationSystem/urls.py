@@ -20,7 +20,7 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from application.views import *
-from userprofile.views import *
+from userprofile.views import Profile
 from userauth.views import *
 from django.conf.urls.i18n import i18n_patterns
 
@@ -46,7 +46,7 @@ urlpatterns = [
     path('login/', include('userauth.urls')),
     path('signup/', SignUpView.as_view(),name='signup' ),
     path('', include('django.contrib.auth.urls')),
-    path('profile/<int:id>', Profile.as_view(),name="Profile"),
+    path('',include('userprofile.urls')),
 
 
     

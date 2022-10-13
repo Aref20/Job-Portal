@@ -61,7 +61,7 @@ class ApplicationAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
 
 
 
-"""
+
     
     def get_queryset(self, request):
         
@@ -69,8 +69,9 @@ class ApplicationAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
         user = (User.objects.filter(id=request.user.id).values_list('username',flat=True)).first()
         dep = request.user.groups.values_list('name',flat = True).first()
         depid = request.user.groups.values_list('id',flat = True).first()
-        bl = list(map(int,Application.objects.filter(Black_List = True).values_list('NID',flat=True)))# get all black list national id
-        record = list(map(int,qs.values_list('NID',flat=True)))
+        #bl = list(map(int,Application.objects.filter(Black_List = True).values_list('UserProfile_App__NID',flat=True)))# get all black list national id
+        #print(qs.filter(First_Approval = True))
+        #record = list(map(int,qs.values_list('UserProfile_App__NID',flat=True)))
    
         #return first approval records only for the department
         if dep == 'HR':
@@ -90,25 +91,28 @@ class ApplicationAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
         loguser = (request.user.id)
         loguserlist.append(loguser)
         job = Job.objects.filter(JA__id=appid).first() # get current job
-        users = list(User.objects.filter(usertitle__name=job).values_list('id',flat=True)) # get all users related to thid job for this job
+        users = list(User.objects.filter(usertitle__name=job).values_list('id',flat=True)) # get all users related to this job for this job
         dep = request.user.groups.values_list('name',flat = True).first()
         
         form = super(ApplicationAdmin, self).get_form(request, obj, **kwargs)
-        # if current user defind for this job
+        # if current user defined for this job
+        form.base_fields["UserProfile_App"].disabled = True
+        form.base_fields["Job_App"].disabled = True
         if dep == "HR": 
 
-        #    form.base_fields["Second_Approval"].disabled = True
-        #    form.base_fields["Second_Approval_Note"].disabled = True
-             Application.objects.filter(pk=appid).update(Visit = True)
+            form.base_fields["Second_Approval"].disabled = True
+            form.base_fields["Second_Approval_Note"].disabled = True
+            Application.objects.filter(pk=appid).update(Visit = True)
             
 
-        #else:
+        else:
 
-        #    form.base_fields["First_Approval"].disabled = True
-        #    form.base_fields["First_Approval_Note"].disabled = True
-        #    form.base_fields["HR_Interview_Approval"].disabled = True
-        #    form.base_fields["Black_List"].disabled = True 
-        #    form.base_fields["Waiting_List"].disabled = True 
+            form.base_fields["First_Approval"].disabled = True
+            form.base_fields["First_Approval_Note"].disabled = True
+            form.base_fields["HR_Interview_Approval"].disabled = True
+            form.base_fields["Black_List"].disabled = True 
+            form.base_fields["Waiting_List"].disabled = True
+            
 
         return form
 
@@ -118,7 +122,7 @@ class ApplicationAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
         first_app = form.cleaned_data.get('First_Approval')
         secound_app = form.cleaned_data.get('Second_Approval')
         HR_App = form.cleaned_data.get('HR_Interview_Approval')
-        applicant_name = form.cleaned_data.get('Name')
+        applicant_name = 'aref'#form.cleaned_data.get('UserProfile_App__Name')
         interview_date_hour = form.cleaned_data.get('Interview_Date').strftime("%H:%M:%S")
         interview_date = form.cleaned_data.get('Interview_Date').strftime("%m/%d/%Y")
         
@@ -171,6 +175,6 @@ class ApplicationAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
 
 
 
-"""
+
 
 admin.site.register(Application,ApplicationAdmin)

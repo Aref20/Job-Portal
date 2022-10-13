@@ -43,7 +43,7 @@ class Previous_CoworkerInline(admin.TabularInline):
 class ProfileResource(resources.ModelResource):
 
     class Meta:
-        model = Profile
+        model = UserProfile
         fileds = ('id','Name', 'NID','Email','Phone_Num', 'Socility_Status','Experience_Years','Birth_Location','Nationality','Car_License','Have_Car','Current_Salary','Expected_Salary','Available_Date','First_Approval','Second_Approval','Diseases', 'Create_Date')
         export_order = ('id','Name', 'NID','Email','Phone_Num', 'Socility_Status','Experience_Years','Birth_Location','Nationality','Car_License','Have_Car','Current_Salary','Expected_Salary','Available_Date','Diseases', 'Create_Date')
 
@@ -51,7 +51,7 @@ class ProfileResource(resources.ModelResource):
 
 class ProfileAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
     resource_class = ProfileResource
-    readonly_fields = ('id','UserID')
+    readonly_fields = ('id','user')
     inlines = [QualificationInline,Computer_SkillInline,Previous_CompanyInline,TrainingInline,Previous_CoworkerInline]#,LanguageInline]
     list_display = ('id','Name','Email','Phone_Num' ,'Socility_Status','Experience_Years','Nationality','Car_License','Have_Car','Current_Salary','Expected_Salary','Available_Date', 'Create_Date')
     list_filter = ['Experience_Years','Name','Have_Car','Car_License','Car_License_Type','Name','Qualification__Major' ,'Qualification__Degree', 'Create_Date']
@@ -68,7 +68,7 @@ class ProfileAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
 
     fieldsets = (
       (' معلومات المتقدم', {
-          'fields': ('id','UserID',('Name','NID','Phone_Num',),('Email','Birth_Date','Birth_Location',),('City','Location','Nationality',)
+          'fields': ('id','user',('Name','NID','Phone_Num',),('Email','Birth_Date','Birth_Location',),('City','Location','Nationality',)
           ,('Have_Car','Car_License'),('Current_Salary','Expected_Salary','Available_Date',)
           ,('Relative_Frinds','Relative_Frinds_Job','Diseases'),('Socility_Status','Coworker_Ask','Car_License_Type',),('Experience_Years','Warranty','resume'))
       }),
@@ -99,4 +99,4 @@ class License_Typeadmin(ImportExportModelAdmin, admin.ModelAdmin):
 
 
 admin.site.register(License_Type,License_Typeadmin)
-admin.site.register(Profile,ProfileAdmin)
+admin.site.register(UserProfile,ProfileAdmin)

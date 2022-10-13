@@ -9,9 +9,11 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 class ProfileForm(forms.ModelForm):
-
+    #username = forms.CharField(max_length=32,widget=forms.TextInput(attrs={'disabled': True}))
+    #first_name = forms.CharField(max_length=32,widget=forms.TextInput(attrs={'placeholder':' الاسم: (ثلاث مقاطع) ', 'class': 'form-control'}))
+    #email = forms.EmailField(max_length=64,widget=forms.TextInput(attrs={'placeholder':' البريد الإلكتروني ', 'class': 'form-control','type':'email'}))
     class Meta:
-        model = Profile
+        model = UserProfile
         fields = '__all__'
         User = forms.CharField(disabled=True)
         widgets = {
@@ -134,32 +136,32 @@ class Previous_CoworkerForm(forms.ModelForm):
 
 
 ProfileQualificationFormSet = inlineformset_factory(
-     Profile, Qualification, form=QualificationForm,
+     UserProfile, Qualification, form=QualificationForm,
       extra=1, can_delete=True
      )
 
 ProfileLanguageFormSet = inlineformset_factory(
-     Profile, Language, form=LanguageForm,
+     UserProfile, Language, form=LanguageForm,
       extra=1, can_delete=True
      )
 
 ProfileComputer_SkillFormSet = inlineformset_factory(
-     Profile, Computer_Skill, form=Computer_SkillForm,
+     UserProfile, Computer_Skill, form=Computer_SkillForm,
       extra=1, can_delete=True
      )
 
 ProfilePrevious_CompanyFormSet = inlineformset_factory(
-     Profile, Previous_Company, form=Previous_CompanyForm,
+     UserProfile, Previous_Company, form=Previous_CompanyForm,
       extra=1, can_delete=True
      )
 
 ProfileTrainingFormSet = inlineformset_factory(
-     Profile, Training, form=TrainingForm,
+     UserProfile, Training, form=TrainingForm,
      extra=1, can_delete=True
      )
 
 ProfilePrevious_CoworkerFormSet = inlineformset_factory(
-     Profile, Previous_Coworker, form=Previous_CoworkerForm,
+     UserProfile, Previous_Coworker, form=Previous_CoworkerForm,
       extra=1, can_delete=True
      )
 
