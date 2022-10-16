@@ -43,20 +43,20 @@ class Job(models.Model):
 
     title = models.ForeignKey('Title', on_delete=models.SET_NULL, null=True,verbose_name='عنوان الوظيفة ')
     post_date = models.DateField(auto_now_add=True,verbose_name=' تاريخ الانشاء')
-    vacancy = models.IntegerField(blank=True,verbose_name='الشواغر ')
+    vacancy = models.IntegerField(blank=True,verbose_name='الشواغر ',null=True)
     salary = models.IntegerField( blank=True,verbose_name='الراتب ',null=True)
     Education = models.ForeignKey(Degree,on_delete=models.SET_NULL, null=True,verbose_name='الدرجة العلمية ')
     department = models.ForeignKey(Group,on_delete=models.SET_NULL, null=True,verbose_name=' القسم')
     location = models.ForeignKey('Location', on_delete=models.SET_NULL, null=True,verbose_name='الموقع ')
-    experience_min = models.IntegerField(blank=True,verbose_name='الخبرة من')
-    experience_max = models.IntegerField(blank=True,verbose_name='الخبرة الى ')
+    experience_min = models.IntegerField(blank=True,verbose_name='الخبرة من',null=True)
+    experience_max = models.IntegerField(blank=True,verbose_name='الخبرة الى ',null=True)
     nature = models.ForeignKey('Nature', on_delete=models.SET_NULL, null=True,verbose_name='طبيعة العمل ')
     langs =  models.ManyToManyField(Language, null=True,verbose_name='اللغات ')
     status = models.CharField(max_length=255, choices=[('ACTIVE', 'ACTIVE'),('INACTIVE', 'INACTIVE')],default='INACTIVE',verbose_name='حالة الوظيفة ')
     expiration_date = models.DateField(blank=True,null=True,verbose_name='تاريخ إنتهاء الوظيفة ')
-    required_competencies = models.TextField(max_length=3000,verbose_name='المهارات المطلوبة ')
+    required_competencies = models.TextField(max_length=3000,verbose_name='المهارات المطلوبة ',null=True)
     Career_Level = models.ForeignKey(Career_Level,on_delete=models.SET_NULL, null=True,verbose_name='مستوى الخبرة ')
-    other = models.TextField(blank=True, max_length=3000,verbose_name=' مهارات أخرى ')
+    other = models.TextField(blank=True, max_length=3000,verbose_name=' مهارات أخرى ',null=True)
     
     def __str__(self):
         return self.title.name

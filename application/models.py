@@ -12,8 +12,8 @@ from django.contrib.auth.models import User
 
 
 class Application(models.Model):
-    UserProfile_App = models.ForeignKey(UserProfile, on_delete=models.CASCADE,null=True,blank =True)
-    Job_App = models.ForeignKey(Job, on_delete=models.CASCADE,null=True,blank =True,related_name="JA")
+    UserProfile_App = models.ForeignKey(UserProfile, on_delete=models.CASCADE,null=True,blank =True,verbose_name=' الملف الشخصي')
+    Job_App = models.ForeignKey(Job, on_delete=models.CASCADE,null=True,blank =True,related_name="JA",verbose_name=' الوظيفة')
     Visit = models.BooleanField(default=False,verbose_name=' تمت رؤيته ')
     Waiting_List = models.BooleanField(default=False,verbose_name='قائمة ألإنتظار ')
     department =  models.CharField(max_length=100,verbose_name='القسم',null=True,blank=True)

@@ -1,3 +1,4 @@
+from tokenize import group
 from django.contrib import admin
 from job.models import *
 from decouple import config
@@ -65,6 +66,7 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
         dep = request.user.groups.values_list('name',flat = True).first()
         
 
+
         form = super(jobadmin, self).get_form(request, obj, **kwargs)
 
         #Each user apply for his group and disable fields if not HR
@@ -75,17 +77,29 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
             form.base_fields["expiration_date"].disabled = True
         return form
 
+    def get_queryset(self, request):
+
+        qs = super(jobadmin, self).get_queryset(request)
+        dep = request.user.groups.values_list('name',flat = True).first()
+        depid = request.user.groups.values_list('id',flat = True).first()
+
+        if dep == 'HR':
+            return qs
+        else:
+            return qs.filter(department = depid)
+
+
 
 
     def save_form(self, request, form, change):
         user = (User.objects.filter(id=request.user.id).values_list('username',flat=True)).first()
         dep = request.user.groups.values_list('name',flat = True).first()
-        
+        HRUsers = list(User.objects.filter(groups__name = 'HR').values_list('email',flat=True))
         # send email for HR if not HR and on insert
         if (not (dep=='HR') and not(change)):
             subject = 'New Job'
             message = ""+user+" from "+dep+" department request new job"
-            recipient_list = ['paypal31877@yahoo.com']
+            recipient_list = HRUsers # send to all HR group
             my_host = 'mail.sukhtian.com.jo'
             my_port = 587
             my_username = 'jobs@sukhtian.com.jo'

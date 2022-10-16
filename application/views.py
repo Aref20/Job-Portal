@@ -13,6 +13,7 @@ from django.db import transaction
 from django.template import RequestContext
 from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
+from .emailmessages import Emessage
 # Create your views here.
 
 # send success email for applicatent
@@ -33,7 +34,7 @@ connection = get_connection(host=my_host,
 
 
 
-class ApplicationCreateView(CreateView):#CreateWithInlinesView):
+class ApplicationCreateView(CreateView,Emessage):#CreateWithInlinesView):
     model = Application
     #template_name = 'job_detail.html'
     success_url = '../'
@@ -57,11 +58,12 @@ class ApplicationCreateView(CreateView):#CreateWithInlinesView):
      form.instance.department =self.department 
      form.instance.UserProfile_App = self.UserProfile_App
      messages.add_message(self.request, messages.SUCCESS,'لقد تم تقديم الطلب بنجاح')
-
+     message = Emessage('aref','alhamad')
+     m2 = message.welcomemessage()
      # get email from the form
      email = [self.UserProfile_App.user.email]
 
-     send_mail( subject, message, my_username, email, connection=connection )
+     send_mail( subject,m2, my_username, email, connection=connection )
      
 
      return super().form_valid(form)

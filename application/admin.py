@@ -20,6 +20,7 @@ class JobFilter(AutocompleteFilter):
     field_name = 'Job_App' # name of the foreign key field
 
 
+
 #export and import License_Type
 class ApplicationResource(resources.ModelResource):
 
@@ -33,11 +34,34 @@ class ApplicationResource(resources.ModelResource):
 class ApplicationAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
     resource_class = ApplicationResource
     readonly_fields = ('id',)
-    list_display = ('id','Job_App' ,'First_Approval','Second_Approval', 'Create_Date','Visit')
-    list_filter = ['Job_App','Visit', 'Create_Date']
-    search_fields = ['Job_App','Email','Job_App', 'Create_Date']
+    list_display = ('id','Job_App' ,'get_Name','get_EXP','get_NID','get_Email','First_Approval','Second_Approval', 'Create_Date','Visit')
+    list_filter = ['Job_App','UserProfile_App__NID','UserProfile_App__Qualification__Major','UserProfile_App__Training__Name',
+    'Waiting_List','UserProfile_App__Experience_Years','UserProfile_App__Qualification__Degree','UserProfile_App__Qualification__Graduation_Date',
+    'First_Approval','Second_Approval', 'Create_Date','Visit']
+    search_fields = ['Job_App','Email','Job_App', 'Create_Date','get_NID']
     
+    # to get relation data
+    @admin.display( ordering='UserProfile_App__NID',description='الرقم الوطني')
+    def get_NID(self, obj):
+            return obj.UserProfile_App.NID
 
+
+    @admin.display( ordering='UserProfile_App__Experience_Years',description='سنوات الخبرة ')
+    def get_EXP(self, obj):
+            return obj.UserProfile_App.Experience_Years
+
+
+    @admin.display( ordering='UserProfile_App__Name',description='إسم المرشح')
+    def get_Name(self, obj):
+            return obj.UserProfile_App.Name
+
+    @admin.display( ordering='UserProfile_App__Email',description='البريد ألإلكتروني')
+    def get_Email(self, obj):
+            return obj.UserProfile_App.Email
+
+    @admin.display( ordering='UserProfile_App__department',description=' القسم')
+    def get_Dep(self, obj):
+            return Group.objects.get(id = obj.UserProfile_App.department).name
     fieldsets = (
       (' معلومات المتقدم', {
           'fields': ('id',('Job_App','UserProfile_App',))

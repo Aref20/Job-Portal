@@ -19,28 +19,28 @@ class InterviewAdmin(admin.ModelAdmin):
 
     readonly_fields = ('id','interview_application',)
     list_display = ('id','get_ID','get_Name','get_NID','get_Email','hiring_Recommendation','expected_salary','work_time','get_Dep','post_date')
-    list_filter = ('id','interview_application','hiring_Recommendation','post_date')
+    list_filter = ('id','interview_application','interview_application__department','hiring_Recommendation','post_date')
     #change_list_template = "admin/change_list_filter_confirm.html"
     #change_list_filter_template = "admin/filter_listing.html"
 
     # to get relation data
-    @admin.display( ordering='interview_application__NID',description='الرقم الوطني')
+    @admin.display( ordering='interview_application__UserProfile_App__NID',description='الرقم الوطني')
     def get_NID(self, obj):
-        return obj.interview_application.NID
+        return obj.interview_application.UserProfile_App.NID
 
 
-    @admin.display( ordering='interview_application__id',description='رقم الطلب')
+    @admin.display( ordering='interview_application__UserProfile_App__id',description='رقم الطلب')
     def get_ID(self, obj):
-        return obj.interview_application.id
+        return obj.interview_application.UserProfile_App.id
 
 
-    @admin.display( ordering='interview_application__Name',description='إسم المرشح')
+    @admin.display( ordering='interview_application__UserProfile_App__Name',description='إسم المرشح')
     def get_Name(self, obj):
-        return obj.interview_application.Name
+        return obj.interview_application.UserProfile_App.Name
 
-    @admin.display( ordering='interview_application__Email',description='البريد ألإلكتروني')
+    @admin.display( ordering='interview_application__UserProfile_App__Email',description='البريد ألإلكتروني')
     def get_Email(self, obj):
-        return obj.interview_application.Email
+        return obj.interview_application.UserProfile_App.Email
 
     @admin.display( ordering='interview_application__department',description=' القسم')
     def get_Dep(self, obj):

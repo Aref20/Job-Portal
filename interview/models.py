@@ -59,7 +59,7 @@ class Interview(models.Model):
 
       
     def __str__(self):
-        return self.interview_application.Name
+        return self.interview_application.UserProfile_App.Name
 
     class Meta:
         verbose_name = _('المقابلات')
