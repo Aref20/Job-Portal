@@ -1,3 +1,4 @@
+from cProfile import Profile
 from django.shortcuts import render, redirect
 from importlib.resources import path
 from django.contrib import admin
@@ -11,7 +12,8 @@ from interview.models import *
 from admin_numeric_filter.admin import NumericFilterModelAdmin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-
+from .emailmessages import Emessage
+import arabic_reshaper
 
 # Register your models here.
 
@@ -110,6 +112,7 @@ class ApplicationAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
 
     def get_form(self, request, obj, **kwargs):
      #if self.pk is None:
+        
         loguserlist = []
         appid = request.resolver_match.kwargs['object_id'] # get current application id
         loguser = (request.user.id)
@@ -117,8 +120,11 @@ class ApplicationAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
         job = Job.objects.filter(JA__id=appid).first() # get current job
         users = list(User.objects.filter(usertitle__name=job).values_list('id',flat=True)) # get all users related to this job for this job
         dep = request.user.groups.values_list('name',flat = True).first()
+        message = Emessage('aref','alhamad','ss','2022','4:5')
+        m2 = message.firstinterview()
         
         form = super(ApplicationAdmin, self).get_form(request, obj, **kwargs)
+        
         # if current user defined for this job
         form.base_fields["UserProfile_App"].disabled = True
         form.base_fields["Job_App"].disabled = True
@@ -142,11 +148,15 @@ class ApplicationAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
 
 
     def save_form(self, request, form, change):
+
+        profile = form.cleaned_data.get('UserProfile_App')
+        job = form.cleaned_data.get('Job_App')
         appid = request.resolver_match.kwargs['object_id']
+        applicanetemail = User.objects.filter(userprofile = profile).values_list('email',flat=True)[0] #get email for user
         first_app = form.cleaned_data.get('First_Approval')
         secound_app = form.cleaned_data.get('Second_Approval')
         HR_App = form.cleaned_data.get('HR_Interview_Approval')
-        applicant_name = 'aref'#form.cleaned_data.get('UserProfile_App__Name')
+        applicant_name = User.objects.filter(userprofile = profile).values_list('username',flat=True)[0] #get email for user
         interview_date_hour = form.cleaned_data.get('Interview_Date').strftime("%H:%M:%S")
         interview_date = form.cleaned_data.get('Interview_Date').strftime("%m/%d/%Y")
         
@@ -154,13 +164,15 @@ class ApplicationAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
         loguserlist = []
         appid = request.resolver_match.kwargs['object_id'] # get current application id
         job = Job.objects.filter(JA__id=appid).first() # get current job
-        users = list(User.objects.filter(usertitle__name=job).values_list('email',flat=True))
+        users = list(User.objects.filter(usertitle__name=job).values_list('email',flat=True))# get all users email related to this job for this job
+        message = Emessage(str(applicant_name),'',str(job),interview_date,interview_date_hour)
+        m2 = message.firstinterview()
         if first_app and secound_app and HR_App :
                     # send email for users and HR
                     subject = 'مقابلة'
                     message = 'رابط المقابلة الساعة '+interview_date_hour+' '+interview_date+' في تاريخ  '+applicant_name+' تم تحدديد مقابلة للسيد '
                     recipient_list = users
-                    #recipient_list.append('hr@sukhtian.com.jo')
+                    recipient_list.append('adsa19836@gmail.com')
                     my_host = 'mail.sukhtian.com.jo'
                     my_port = 587
                     my_username = 'jobs@sukhtian.com.jo'
@@ -175,9 +187,9 @@ class ApplicationAdmin(ImportExportModelAdmin,NumericFilterModelAdmin):
 
 
                     # send email for applicanet
-                    subject2 = 'welcome to GFG world'
-                    message2 = 'Hبيليلي.'
-                    recipient_list2 = [form.cleaned_data.get('Email')]
+                    subject2 = 'مقابلة'
+                    message2 = m2
+                    recipient_list2 = [applicanetemail,] #[form.cleaned_data.get('Email')]
                     my_host2 = 'mail.sukhtian.com.jo'
                     my_port2 = 587
                     my_username2 = 'hr@sukhtian.com.jo'

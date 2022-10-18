@@ -34,7 +34,7 @@ connection = get_connection(host=my_host,
 
 
 
-class ApplicationCreateView(CreateView,Emessage):#CreateWithInlinesView):
+class ApplicationCreateView(CreateView):#CreateWithInlinesView):
     model = Application
     #template_name = 'job_detail.html'
     success_url = '../'
@@ -58,7 +58,7 @@ class ApplicationCreateView(CreateView,Emessage):#CreateWithInlinesView):
      form.instance.department =self.department 
      form.instance.UserProfile_App = self.UserProfile_App
      messages.add_message(self.request, messages.SUCCESS,'لقد تم تقديم الطلب بنجاح')
-     message = Emessage('aref','alhamad')
+     message = Emessage('aref','alhamad',"","","")
      m2 = message.welcomemessage()
      # get email from the form
      email = [self.UserProfile_App.user.email]
