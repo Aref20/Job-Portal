@@ -22,7 +22,7 @@ services:
         hostname: sqlserver
         environment:
             - ACCEPT_EULA=Y
-            - MSSQL_SA_PASSWORD=${SQL_DB_PASS}
+            - MSSQL_SA_PASSWORD=Aaaa@12345
         ports:
             - 1433:1433
         volumes:

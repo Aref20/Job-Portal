@@ -1,2 +1,2 @@
 #!/bin/bash 
-export SQL_DB_PASS='Aaaa@12345' 
+export SQL_DB_PASS="Aaaa@12345"

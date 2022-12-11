@@ -19,11 +19,11 @@ from django.urls import path
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
-from application.views import *
-from userprofile.views import Profile
-from userauth.views import *
+from apps.application.views import *
+from apps.userprofile.views import Profile
+from apps.userauth.views import *
 from django.conf.urls.i18n import i18n_patterns
-
+from drf_spectacular.views import SpectacularAPIView,SpectacularSwaggerView
 
 
 
@@ -38,15 +38,23 @@ urlpatterns = [
 
     path('admin/', include('django_admin_filter.urls')),
     path('admin/', admin.site.urls),
-    path('jobs/', include('job.urls')),
-    path('application/', include('application.urls')),
+    path('jobs/', include('apps.job.urls')),
+    path('application/', include('apps.application.urls')),
     path('', RedirectView.as_view(url='jobs/', permanent=True)),
     path('editor/', include('django_summernote.urls')),
     path('chaining/', include('smart_selects.urls')),
-    path('login/', include('userauth.urls')),
+    path('login/', include('apps.userauth.urls')),
     path('signup/', SignUpView.as_view(),name='signup' ),
     path('', include('django.contrib.auth.urls')),
-    path('',include('userprofile.urls')),
+    path('',include('apps.userprofile.urls')),
+    #path("api/", include("apps.api.urls")),
+    #path("api/dj-rest-auth/", include("dj_rest_auth.urls")),
+    #path("api-auth/", include("rest_framework.urls")),
+    #path("api/dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")),
+    #path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    #path("api/schema/swagger-ui/", SpectacularSwaggerView.as_view(
+    #url_name="schema"), name="swagger-ui"),
+    
 
 
     
@@ -57,6 +65,7 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    
 
 
 

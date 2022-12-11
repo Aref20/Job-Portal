@@ -1,12 +1,3 @@
-{
-	"version": 3,
-	"file": "candidates.css",
-	"sources": [
-		"../scss/candidates.scss"
-	],
-	"sourcesContent": [
-		""
-	],
-	"names": [],
-	"mappings": ""
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:92c1fd8fc2664d9928492cb4d6a91dff34eae34ec2a2555558ecf6f27980dc37
+size 162

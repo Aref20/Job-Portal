@@ -5,10 +5,11 @@ Job Detail
 {% endblock title %}
 
 {% block content %}
-<div class="job_details_area">
+
+{% if STATUS == 'ACTIVE' %}
+<div class="job_details_area" style=" background: #f4f4f4;">
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-    <div class="container">
         <div class="row">
             <div class="col-lg-8">
                 <div class="job_details_header">
@@ -25,6 +26,8 @@ Job Detail
                                     </div>
                                     <div class="location">
                                         <p> <i class="fa fa-clock-o"></i>{{ job.nature }}</p>
+                                        
+                                
                                     </div>
                                 </div>
                             </div>
@@ -41,9 +44,71 @@ Job Detail
                     <h4>Apply for the job</h4>
 
                         <div class="row">
+                           
                             <div class="col-md-12">
                                 <div class="submit_btn">
-                                    <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
+                                    {% if request.user.is_authenticated  %}
+                                    {% if  user.userprofile.NID  and  user.userprofile.Phone_Num %}
+                                    <button class="boxed-btn3 w-100" type="submit">Apply</button>
+
+                                    {% elif user.userprofile.NID|length == 0 or user.userprofile.Experience_Years|length == 0 %}
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="boxed-btn3 w-100" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Apply
+ 
+                                    </button>
+                                    
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header" >
+                                            
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h5 class="modal-title"  id="exampleModalLongTitle">إنشاء ملف شخصي </h5>
+                                            </div>
+                                            <div class="modal-body " style="text-align: right">
+                                            .يجب إنشاء ملف شخصي مع مراعاة تعبئة جميع الحقول لكي تتمكن من من التقديم للوظيفة
+                                            </div>
+                                            <div class="modal-footer">
+                                            <a class="btn btn-primary" href="{% url 'apps.userprofile:Profile' user.id %}" >إنشاء ملف شخصي </a>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    {%endif%}
+                                    {%else%}
+
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="boxed-btn3 w-100" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Apply
+ 
+                                    </button>
+                                    
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header" >
+                                            
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h5 class="modal-title"  id="exampleModalLongTitle">تسجيل الدخول </h5>
+                                            </div>
+                                            <div class="modal-body " style="text-align: right">
+                                            .يجب تسجيل الدخول أو إنشاء حساب بالإضافة لملف شخصي لتتمكن من التقديم للوظيفة
+                                            </div>
+                                            <div class="modal-footer">
+                                            <a class="btn btn-secondary" href="{% url 'apps.userauth:login'  %}" >دخول</a>
+                                            <a class="btn btn-primary" href="{% url 'signup'  %}" >إنشاء حساب </a>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    {%endif%}
  
                                 </div>
                             </div>
@@ -72,6 +137,12 @@ Job Detail
             </div>
         </div>
     </form>
-    </div>
+
 </div>
+
+{%else%}
+
+<h1 style="text-align: center;">.هذه الوظيفة غير متاحة في الوقت الحالي</h1>
+
+{%endif%}
 {% endblock content %}

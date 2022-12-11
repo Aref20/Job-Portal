@@ -31,36 +31,70 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1",'10.0.0.127']
 
 
+REST_FRAMEWORK = { 
+"DEFAULT_PERMISSION_CLASSES": [
+    "rest_framework.permissions.IsAuthenticated",
+],
 
+"DEFAULT_AUTHENTICATION_CLASSES": [ # new
+    "rest_framework.authentication.SessionAuthentication",
+    "rest_framework.authentication.TokenAuthentication",
+],
+"DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema", 
+}
 
 DJANGO_EASY_AUDIT_WATCH_AUTH_EVENTS = False
 DJANGO_EASY_AUDIT_WATCH_REQUEST_EVENTS = False
 DJANGO_EASY_AUDIT_UNREGISTERED_CLASSES_EXTRA = ['auth.user','auth.group',]
 
+
+
+SPECTACULAR_SETTINGS = {
+"TITLE": "Jobs API Project",
+"DESCRIPTION": "MSG Job Board",
+"VERSION": "1.0.0",
+# OTHER SETTINGS
+}
+
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
+    "rest_framework.authtoken",
+    "dj_rest_auth",
+    "allauth",
+    "allauth.account", 
+    "allauth.socialaccount",
+    "drf_spectacular",
+    "dj_rest_auth.registration", 
     'admin_numeric_filter',
-    #'grappelli',
     'jazzmin',
+    "whitenoise.runserver_nostatic",
+    # Django modules
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'job',
-    'application',
+    "django.contrib.sites", 
+     # Local Apps
+    'apps.job',
+    'apps.application',
+    'apps.api',
+    'apps.userauth',
+    'apps.userprofile',
+    'apps.interview',
+    #
     'django_summernote',
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'admin_auto_filters',
-    'extra_views',
+
     'crispy_forms',
-    'interview',
     'smart_selects',
     'djangoql',
     'import_export',
@@ -68,23 +102,23 @@ INSTALLED_APPS = [
     'fieldsets_with_inlines',
     'django_cleanup.apps.CleanupConfig',
     'easyaudit',
-    'userauth',
-    'userprofile'
+    'django_seed',
+    'admin_extra_buttons',
 
-
-
+    
 
 
 
 ]
 
-LOGIN_REDIRECT_URL = "jobs"
-LOGOUT_REDIRECT_URL = "jobs"
+LOGIN_REDIRECT_URL = "/jobs"
+LOGOUT_REDIRECT_URL = "/jobs"
 LOGIN_URL = "login"
 
 USE_DJANGO_JQUERY = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -108,11 +142,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "django.template.context_processors.request",
             ],
         },
     },
 ]
-
+SITE_ID = 1
 WSGI_APPLICATION = 'JobApplicationSystem.wsgi.application'
 
 
@@ -126,7 +161,7 @@ DATABASES = {
         "NAME": "JBDB",
         "USER": "sa",
         "PASSWORD":  config('SQLPASS'),
-        "HOST": "localhost", #sqlserver",
+        "HOST": "localhost",
         #"HOST":  "sqlserver",
         "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 
         },
@@ -134,30 +169,9 @@ DATABASES = {
 
 
 
-    #'default': {
-
-       # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-       # 'NAME': 'JADB',
-
-      #  'USER': 'aref',
-
-      #  'PASSWORD': 'a',
-
-      #  'HOST': 'localhost',
-
-     #   'PORT': '5432',
-
-   # }
-
 }
 DATABASE_CONNECTION_POOLING = False
-#{
- #   'default': {
-  #      'ENGINE': 'django.db.backends.sqlite3',
-   #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    #}
-#}
+
 
 # Email Config
 
@@ -167,6 +181,8 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587 
 EMAIL_HOST_USER = 'hr@sukhtian.com.jo'
 EMAIL_HOST_PASSWORD = config('EMAILPASS')
+#DEFAULT_FROM_EMAIL = 'hr@sukhtian.com.jo'
+
 
 
 
@@ -211,6 +227,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'templates/static'),
 )
+STATICFILES_STORAGE ="whitenoise.storage.CompressedManifestStaticFilesStorage" # new
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'

@@ -1,0 +1,1519 @@
+openapi: 3.0.3
+info:
+  title: Jobs API Project
+  version: 1.0.0
+  description: MSG Job Board
+paths:
+  /api/dj-rest-auth/login/:
+    post:
+      operationId: api_dj_rest_auth_login_create
+      description: |-
+        Check the credentials and return the REST Token
+        if the credentials are valid and authenticated.
+        Calls Django Auth login method to register User ID
+        in Django session framework
+
+        Accept the following POST parameters: username, password
+        Return the REST Framework Token Object's key.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Login'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: ''
+  /api/dj-rest-auth/logout/:
+    post:
+      operationId: api_dj_rest_auth_logout_create
+      description: |-
+        Calls Django logout method and delete the Token object
+        assigned to the current User object.
+
+        Accepts/Returns nothing.
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestAuthDetail'
+          description: ''
+  /api/dj-rest-auth/password/change/:
+    post:
+      operationId: api_dj_rest_auth_password_change_create
+      description: |-
+        Calls Django Auth SetPasswordForm save method.
+
+        Accepts the following POST parameters: new_password1, new_password2
+        Returns the success/fail message.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordChange'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordChange'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordChange'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestAuthDetail'
+          description: ''
+  /api/dj-rest-auth/password/reset/:
+    post:
+      operationId: api_dj_rest_auth_password_reset_create
+      description: |-
+        Calls Django Auth PasswordResetForm save method.
+
+        Accepts the following POST parameters: email
+        Returns the success/fail message.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordReset'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordReset'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordReset'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestAuthDetail'
+          description: ''
+  /api/dj-rest-auth/password/reset/confirm/:
+    post:
+      operationId: api_dj_rest_auth_password_reset_confirm_create
+      description: |-
+        Password reset e-mail link is confirmed, therefore
+        this resets the user's password.
+
+        Accepts the following POST parameters: token, uid,
+            new_password1, new_password2
+        Returns the success/fail message.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirm'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestAuthDetail'
+          description: ''
+  /api/dj-rest-auth/registration/:
+    post:
+      operationId: api_dj_rest_auth_registration_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Register'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Register'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: ''
+  /api/dj-rest-auth/registration/resend-email/:
+    post:
+      operationId: api_dj_rest_auth_registration_resend_email_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResendEmailVerification'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ResendEmailVerification'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ResendEmailVerification'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestAuthDetail'
+          description: ''
+  /api/dj-rest-auth/registration/verify-email/:
+    post:
+      operationId: api_dj_rest_auth_registration_verify_email_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyEmail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VerifyEmail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifyEmail'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestAuthDetail'
+          description: ''
+  /api/dj-rest-auth/user/:
+    get:
+      operationId: api_dj_rest_auth_user_retrieve
+      description: |-
+        Reads and updates UserModel fields
+        Accepts GET, PUT, PATCH methods.
+
+        Default accepted fields: username, first_name, last_name
+        Default display fields: pk, username, email, first_name, last_name
+        Read-only fields: pk, email
+
+        Returns UserModel fields.
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetails'
+          description: ''
+    put:
+      operationId: api_dj_rest_auth_user_update
+      description: |-
+        Reads and updates UserModel fields
+        Accepts GET, PUT, PATCH methods.
+
+        Default accepted fields: username, first_name, last_name
+        Default display fields: pk, username, email, first_name, last_name
+        Read-only fields: pk, email
+
+        Returns UserModel fields.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDetails'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserDetails'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserDetails'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetails'
+          description: ''
+    patch:
+      operationId: api_dj_rest_auth_user_partial_update
+      description: |-
+        Reads and updates UserModel fields
+        Accepts GET, PUT, PATCH methods.
+
+        Default accepted fields: username, first_name, last_name
+        Default display fields: pk, username, email, first_name, last_name
+        Read-only fields: pk, email
+
+        Returns UserModel fields.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserDetails'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserDetails'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserDetails'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetails'
+          description: ''
+  /api/jobs/:
+    get:
+      operationId: api_jobs_list
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Job'
+          description: ''
+    post:
+      operationId: api_jobs_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Job'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Job'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+          description: ''
+  /api/jobs/{id}/:
+    get:
+      operationId: api_jobs_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this  الوظائف .
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+          description: ''
+    put:
+      operationId: api_jobs_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this  الوظائف .
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Job'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Job'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+          description: ''
+    patch:
+      operationId: api_jobs_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this  الوظائف .
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedJob'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedJob'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedJob'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+          description: ''
+    delete:
+      operationId: api_jobs_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this  الوظائف .
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/profile/{id}:
+    get:
+      operationId: api_profile_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+    put:
+      operationId: api_profile_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+    patch:
+      operationId: api_profile_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProfile'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+components:
+  schemas:
+    BlankEnum:
+      enum:
+      - ''
+    CarLicenseEnum:
+      enum:
+      - 'Yes'
+      - 'No'
+      type: string
+    Computer_Skill:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        Skill:
+          type: string
+          title: ' برنامج الحاسوب'
+          maxLength: 100
+        Level:
+          allOf:
+          - $ref: '#/components/schemas/LevelEnum'
+          title: المهارة
+        Computer_Skill_Profile:
+          type: integer
+          nullable: true
+          title: برامج الحاسوب
+      required:
+      - Skill
+      - id
+    CoworkerAskEnum:
+      enum:
+      - 'Yes'
+      - 'No'
+      type: string
+    DiseasesEnum:
+      enum:
+      - 'Yes'
+      - 'No'
+      type: string
+    HaveCarEnum:
+      enum:
+      - 'Yes'
+      - 'No'
+      type: string
+    Job:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        post_date:
+          type: string
+          format: date
+          readOnly: true
+          title: ' تاريخ الانشاء'
+        vacancy:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: 'الشواغر '
+        salary:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: 'الراتب '
+        experience_min:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: الخبرة من
+        experience_max:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: 'الخبرة الى '
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          title: 'حالة الوظيفة '
+        expiration_date:
+          type: string
+          format: date
+          nullable: true
+          title: 'تاريخ إنتهاء الوظيفة '
+        required_competencies:
+          type: string
+          nullable: true
+          title: 'المهارات المطلوبة '
+          maxLength: 3000
+        other:
+          type: string
+          nullable: true
+          title: ' مهارات أخرى '
+          maxLength: 3000
+        title:
+          type: integer
+          nullable: true
+          title: 'عنوان الوظيفة '
+        Education:
+          type: integer
+          nullable: true
+          title: 'الدرجة العلمية '
+        department:
+          type: integer
+          nullable: true
+          title: ' القسم'
+        location:
+          type: integer
+          nullable: true
+          title: 'الموقع '
+        nature:
+          type: integer
+          nullable: true
+          title: 'طبيعة العمل '
+        Career_Level:
+          type: integer
+          nullable: true
+          title: 'مستوى الخبرة '
+        created_by:
+          type: integer
+          nullable: true
+          title: ' أنشأت بواسطة'
+        langs:
+          type: array
+          items:
+            type: integer
+            nullable: true
+            title: 'اللغات '
+          title: 'اللغات '
+      required:
+      - id
+      - post_date
+    LevelEnum:
+      enum:
+      - Beginner
+      - Intermediate
+      - Advanced
+      type: string
+    Login:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+      - password
+    NullEnum:
+      enum:
+      - null
+    PasswordChange:
+      type: object
+      properties:
+        new_password1:
+          type: string
+          maxLength: 128
+        new_password2:
+          type: string
+          maxLength: 128
+      required:
+      - new_password1
+      - new_password2
+    PasswordReset:
+      type: object
+      description: Serializer for requesting a password reset e-mail.
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+      - email
+    PasswordResetConfirm:
+      type: object
+      description: Serializer for confirming a password reset attempt.
+      properties:
+        new_password1:
+          type: string
+          maxLength: 128
+        new_password2:
+          type: string
+          maxLength: 128
+        uid:
+          type: string
+        token:
+          type: string
+      required:
+      - new_password1
+      - new_password2
+      - token
+      - uid
+    PatchedJob:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        post_date:
+          type: string
+          format: date
+          readOnly: true
+          title: ' تاريخ الانشاء'
+        vacancy:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: 'الشواغر '
+        salary:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: 'الراتب '
+        experience_min:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: الخبرة من
+        experience_max:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: 'الخبرة الى '
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          title: 'حالة الوظيفة '
+        expiration_date:
+          type: string
+          format: date
+          nullable: true
+          title: 'تاريخ إنتهاء الوظيفة '
+        required_competencies:
+          type: string
+          nullable: true
+          title: 'المهارات المطلوبة '
+          maxLength: 3000
+        other:
+          type: string
+          nullable: true
+          title: ' مهارات أخرى '
+          maxLength: 3000
+        title:
+          type: integer
+          nullable: true
+          title: 'عنوان الوظيفة '
+        Education:
+          type: integer
+          nullable: true
+          title: 'الدرجة العلمية '
+        department:
+          type: integer
+          nullable: true
+          title: ' القسم'
+        location:
+          type: integer
+          nullable: true
+          title: 'الموقع '
+        nature:
+          type: integer
+          nullable: true
+          title: 'طبيعة العمل '
+        Career_Level:
+          type: integer
+          nullable: true
+          title: 'مستوى الخبرة '
+        created_by:
+          type: integer
+          nullable: true
+          title: ' أنشأت بواسطة'
+        langs:
+          type: array
+          items:
+            type: integer
+            nullable: true
+            title: 'اللغات '
+          title: 'اللغات '
+    PatchedProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        Qualification:
+          type: array
+          items:
+            $ref: '#/components/schemas/Qualification'
+        UserLanguage:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserLanguage'
+        Computer_Skill:
+          type: array
+          items:
+            $ref: '#/components/schemas/Computer_Skill'
+        Previous_Company:
+          type: array
+          items:
+            $ref: '#/components/schemas/Previous_Company'
+        Training:
+          type: array
+          items:
+            $ref: '#/components/schemas/Training'
+        Previous_Coworker:
+          type: array
+          items:
+            $ref: '#/components/schemas/Previous_Coworker'
+        NID:
+          type: string
+          title: الرقم الوطني
+          maxLength: 10
+        image:
+          type: string
+          format: uri
+          nullable: true
+          title: الصورة الشخصية
+        Birth_Date:
+          type: string
+          format: date
+          title: '  تاريخ الميلاد'
+        Create_Date:
+          type: string
+          format: date
+          readOnly: true
+          title: ' تاريخ ألإنشاء'
+        Socility_Status:
+          allOf:
+          - $ref: '#/components/schemas/SocilityStatusEnum'
+          title: 'الحالة الاجتماعية '
+        Birth_Location:
+          type: string
+          title: ' مكان الولادة'
+          maxLength: 100
+        City:
+          type: string
+          title: ' المدينة'
+          maxLength: 100
+        Location:
+          type: string
+          title: 'الموقع '
+          maxLength: 100
+        Phone_Num:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: 'الخلوي '
+        Nationality:
+          type: string
+          title: 'الجنسية '
+          maxLength: 100
+        Car_License:
+          allOf:
+          - $ref: '#/components/schemas/CarLicenseEnum'
+          title: ' هل لديك رخصة سواقة'
+        Have_Car:
+          allOf:
+          - $ref: '#/components/schemas/HaveCarEnum'
+          title: ' هل تملك سيارة'
+        Last_Job_Desc:
+          type: string
+          title: ' شرح أخر وظيفة'
+          maxLength: 5000
+        Current_Salary:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: ' الراتب الحالي'
+        Expected_Salary:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: 'الراتب المطلوب '
+        Available_Date:
+          type: string
+          format: date
+          title: ' التاريخ الذي تستطيع الالتحاق فيه بالعمل'
+        Relative_Frinds:
+          allOf:
+          - $ref: '#/components/schemas/RelativeFrindsEnum'
+          title: 'هل لديك اصدقاء او معارف يعملون او كانوا يعملون في شركة مجموعة منير
+            سختيان   '
+        Relative_Frinds_Job:
+          type: string
+          nullable: true
+          title: 'إذا كان الجواب نعم ما هي الوظيفة؟  '
+          maxLength: 100
+        Diseases:
+          allOf:
+          - $ref: '#/components/schemas/DiseasesEnum'
+          title: 'هل تعاني من أي أمراض؟  '
+        Coworker_Ask:
+          allOf:
+          - $ref: '#/components/schemas/CoworkerAskEnum'
+          title: ' هل لديك مانع من سؤال المعرفين أو أصحاب العمل السابقين عنك ؟  '
+        Warranty:
+          nullable: true
+          title: ' هل يمكنك إحضار كفالة عدلية '
+          oneOf:
+          - $ref: '#/components/schemas/WarrantyEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        Experience_Years:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: عدد سنوات الخبرة
+        Position:
+          type: string
+          nullable: true
+          title: المسمى الوظيفي
+          maxLength: 100
+        resume:
+          type: string
+          format: uri
+          title: 'السيرة الذاتية '
+        user:
+          type: integer
+          nullable: true
+          title: ' ألإسم'
+        Car_License_Type:
+          type: integer
+          nullable: true
+          title: ' فئة الرخصة'
+    PatchedUserDetails:
+      type: object
+      description: User model w/o password
+      properties:
+        pk:
+          type: integer
+          readOnly: true
+          title: ID
+        username:
+          type: string
+          title: اسم المستخدم
+          description: مطلوب. 150 رمزاً أو أقل، مكونة من حروف وأرقام و @/./+/-/_ فقط
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          readOnly: true
+          title: عنوان بريد الكتروني
+        first_name:
+          type: string
+          title: الاسم الأول
+          maxLength: 150
+        last_name:
+          type: string
+          title: الاسم الأخير
+          maxLength: 150
+    Previous_Company:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        Name:
+          type: string
+          title: ' إسم الشركة السابقة'
+          maxLength: 100
+        Address:
+          type: string
+          title: ' عنوان الشركة'
+          maxLength: 100
+        Phone:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: ' رقم هاتف الشركة'
+        Duration_From:
+          type: string
+          format: date
+          title: ' تاريخ بدءالعمل '
+        Duration_To:
+          type: string
+          format: date
+          title: ' تاريخ إنتهاء العمل'
+        Position:
+          type: string
+          title: ' المسمى الوظيفي'
+          maxLength: 100
+        Start_Salary:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: ' الراتب عند البداية'
+        Last_Salary:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: 'الراتب عند النهاية '
+        Maneger:
+          type: string
+          title: ' المدير المباشر '
+          maxLength: 100
+        Reason:
+          type: string
+          title: 'سبب ترك العمل '
+          maxLength: 5000
+        Previous_Company_Profile:
+          type: integer
+          nullable: true
+          title: السجل الوظيفي
+      required:
+      - Address
+      - Maneger
+      - Name
+      - Position
+      - Reason
+      - id
+    Previous_Coworker:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        Name:
+          type: string
+          title: 'الاسم '
+          maxLength: 100
+        Address:
+          type: string
+          title: 'مكان العمل '
+          maxLength: 100
+        Phone:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: 'رقم الهاتف '
+        Position:
+          type: string
+          title: المسمى الوظيفي
+          maxLength: 100
+        Previous_Coworker_Profile:
+          type: integer
+          nullable: true
+          title: المعرفين
+      required:
+      - Address
+      - Name
+      - Position
+      - id
+    Profile:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        Qualification:
+          type: array
+          items:
+            $ref: '#/components/schemas/Qualification'
+        UserLanguage:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserLanguage'
+        Computer_Skill:
+          type: array
+          items:
+            $ref: '#/components/schemas/Computer_Skill'
+        Previous_Company:
+          type: array
+          items:
+            $ref: '#/components/schemas/Previous_Company'
+        Training:
+          type: array
+          items:
+            $ref: '#/components/schemas/Training'
+        Previous_Coworker:
+          type: array
+          items:
+            $ref: '#/components/schemas/Previous_Coworker'
+        NID:
+          type: string
+          title: الرقم الوطني
+          maxLength: 10
+        image:
+          type: string
+          format: uri
+          nullable: true
+          title: الصورة الشخصية
+        Birth_Date:
+          type: string
+          format: date
+          title: '  تاريخ الميلاد'
+        Create_Date:
+          type: string
+          format: date
+          readOnly: true
+          title: ' تاريخ ألإنشاء'
+        Socility_Status:
+          allOf:
+          - $ref: '#/components/schemas/SocilityStatusEnum'
+          title: 'الحالة الاجتماعية '
+        Birth_Location:
+          type: string
+          title: ' مكان الولادة'
+          maxLength: 100
+        City:
+          type: string
+          title: ' المدينة'
+          maxLength: 100
+        Location:
+          type: string
+          title: 'الموقع '
+          maxLength: 100
+        Phone_Num:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: 'الخلوي '
+        Nationality:
+          type: string
+          title: 'الجنسية '
+          maxLength: 100
+        Car_License:
+          allOf:
+          - $ref: '#/components/schemas/CarLicenseEnum'
+          title: ' هل لديك رخصة سواقة'
+        Have_Car:
+          allOf:
+          - $ref: '#/components/schemas/HaveCarEnum'
+          title: ' هل تملك سيارة'
+        Last_Job_Desc:
+          type: string
+          title: ' شرح أخر وظيفة'
+          maxLength: 5000
+        Current_Salary:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: ' الراتب الحالي'
+        Expected_Salary:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: 'الراتب المطلوب '
+        Available_Date:
+          type: string
+          format: date
+          title: ' التاريخ الذي تستطيع الالتحاق فيه بالعمل'
+        Relative_Frinds:
+          allOf:
+          - $ref: '#/components/schemas/RelativeFrindsEnum'
+          title: 'هل لديك اصدقاء او معارف يعملون او كانوا يعملون في شركة مجموعة منير
+            سختيان   '
+        Relative_Frinds_Job:
+          type: string
+          nullable: true
+          title: 'إذا كان الجواب نعم ما هي الوظيفة؟  '
+          maxLength: 100
+        Diseases:
+          allOf:
+          - $ref: '#/components/schemas/DiseasesEnum'
+          title: 'هل تعاني من أي أمراض؟  '
+        Coworker_Ask:
+          allOf:
+          - $ref: '#/components/schemas/CoworkerAskEnum'
+          title: ' هل لديك مانع من سؤال المعرفين أو أصحاب العمل السابقين عنك ؟  '
+        Warranty:
+          nullable: true
+          title: ' هل يمكنك إحضار كفالة عدلية '
+          oneOf:
+          - $ref: '#/components/schemas/WarrantyEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        Experience_Years:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: عدد سنوات الخبرة
+        Position:
+          type: string
+          nullable: true
+          title: المسمى الوظيفي
+          maxLength: 100
+        resume:
+          type: string
+          format: uri
+          title: 'السيرة الذاتية '
+        user:
+          type: integer
+          nullable: true
+          title: ' ألإسم'
+        Car_License_Type:
+          type: integer
+          nullable: true
+          title: ' فئة الرخصة'
+      required:
+      - Birth_Location
+      - City
+      - Computer_Skill
+      - Create_Date
+      - Last_Job_Desc
+      - Location
+      - NID
+      - Nationality
+      - Previous_Company
+      - Previous_Coworker
+      - Qualification
+      - Training
+      - UserLanguage
+      - id
+      - resume
+    Qualification:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        Major:
+          type: string
+          title: 'التخصص '
+          maxLength: 100
+        Degree:
+          type: string
+          title: ' المؤهل العلمي'
+          maxLength: 100
+        University:
+          type: string
+          title: ' اسم الجامعة'
+          maxLength: 100
+        Graduation_Date:
+          type: string
+          format: date
+          title: تاريخ التخرج
+        Qualification_Profile:
+          type: integer
+          nullable: true
+          title: المؤهلات الأكاديمية
+      required:
+      - Degree
+      - Major
+      - University
+      - id
+    Register:
+      type: object
+      properties:
+        username:
+          type: string
+          maxLength: 150
+          minLength: 1
+        email:
+          type: string
+          format: email
+        password1:
+          type: string
+          writeOnly: true
+        password2:
+          type: string
+          writeOnly: true
+      required:
+      - password1
+      - password2
+      - username
+    RelativeFrindsEnum:
+      enum:
+      - 'Yes'
+      - 'No'
+      type: string
+    ResendEmailVerification:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+    RestAuthDetail:
+      type: object
+      properties:
+        detail:
+          type: string
+          readOnly: true
+      required:
+      - detail
+    SocilityStatusEnum:
+      enum:
+      - Married
+      - Single
+      type: string
+    StatusEnum:
+      enum:
+      - ACTIVE
+      - INACTIVE
+      type: string
+    Token:
+      type: object
+      description: Serializer for Token model.
+      properties:
+        key:
+          type: string
+          title: المفتاح
+          maxLength: 40
+      required:
+      - key
+    Training:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        Name:
+          type: string
+          title: 'اسم الدورة التدريبية '
+          maxLength: 100
+        Location:
+          type: string
+          nullable: true
+          title: ' مكان انعقاد الدورة'
+          maxLength: 100
+        Institute:
+          type: string
+          title: 'الجهة التدريبية '
+          maxLength: 100
+        Duration_From:
+          type: string
+          format: date
+          title: ' تاريخ بدء الدورة'
+        Duration_To:
+          type: string
+          format: date
+          title: 'تاريخ الانتهاء '
+        Training_Profile:
+          type: integer
+          nullable: true
+          title: الدورات التدريبية
+      required:
+      - Institute
+      - Name
+      - id
+    TypeConversationEnum:
+      enum:
+      - Beginner
+      - Intermediate
+      - Advanced
+      type: string
+    TypeReadingEnum:
+      enum:
+      - Beginner
+      - Intermediate
+      - Advanced
+      type: string
+    TypeWritingEnum:
+      enum:
+      - Beginner
+      - Intermediate
+      - Advanced
+      type: string
+    UserDetails:
+      type: object
+      description: User model w/o password
+      properties:
+        pk:
+          type: integer
+          readOnly: true
+          title: ID
+        username:
+          type: string
+          title: اسم المستخدم
+          description: مطلوب. 150 رمزاً أو أقل، مكونة من حروف وأرقام و @/./+/-/_ فقط
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          readOnly: true
+          title: عنوان بريد الكتروني
+        first_name:
+          type: string
+          title: الاسم الأول
+          maxLength: 150
+        last_name:
+          type: string
+          title: الاسم الأخير
+          maxLength: 150
+      required:
+      - email
+      - pk
+      - username
+    UserLanguage:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        Type_Conversation:
+          allOf:
+          - $ref: '#/components/schemas/TypeConversationEnum'
+          title: محادثة
+        Type_Writing:
+          allOf:
+          - $ref: '#/components/schemas/TypeWritingEnum'
+          title: ' كتابة'
+        Type_Reading:
+          allOf:
+          - $ref: '#/components/schemas/TypeReadingEnum'
+          title: قراءة
+        Language_Profile:
+          type: integer
+          nullable: true
+          title: اللغات
+        Language_Name:
+          type: integer
+          nullable: true
+          title: 'اللغة '
+      required:
+      - id
+    VerifyEmail:
+      type: object
+      properties:
+        key:
+          type: string
+      required:
+      - key
+    WarrantyEnum:
+      enum:
+      - 'Yes'
+      - 'No'
+      type: string
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

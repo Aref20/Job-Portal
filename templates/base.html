@@ -16,7 +16,7 @@
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
-
+    
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
     <link rel="stylesheet"  href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" media="all">
     <link rel="stylesheet"  href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" media="all">
+
 
 
 
@@ -61,156 +62,42 @@
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
 
 
-
-
-
-
-
-<style>
-    * {
-  box-sizing: border-box;
-}
-
-
-
-.file-input {
-  display: inline-block;
-  text-align: right;
-  background: #fff;
- 
-  width: 450px;
-  position: relative;
-  border-radius: 3px;
-}
-
-.file-input > [type='file'] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  z-index: 10;
-  cursor: pointer;
-}
-
-.file-input > .button {
-  display: inline-block;
-  cursor: pointer;
-  background: #eee;
-  padding: 8px 16px;
-  border-radius: 2px;
-  margin-right: 8px;
-}
-
-.file-input:hover > .button {
-  background: dodgerblue;
-  color: white;
-}
-
-.file-input > .label {
-  color: #333;
-  white-space: nowrap;
-  opacity: .3;
-}
-
-.file-input.-chosen > .label {
-  opacity: 1;
-}
-</style>
-
 </head>
 
 
-<body>
-    <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
+<body style=" background: #f4f4f4;">
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
 
-    <!-- header-start -->
-    <header>
-
-        <div class="header-area ">
-            <div id="sticky-header" class="main-header-area">
-                <div class="container-fluid ">
-                    <div class="header_bottom_border">
-                        <div class="row align-items-center">
-                            <div class="col-xl-3 col-lg-2">
-                                <div class="logo">
-                                    <a href="{% url 'jobs'  %}">
-                                        <img src="{% static 'img/svg_icon/logo2.png' %}" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-7">
-
-                            </div>
-                            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
-                                <div class="Appointment">
-
-
-
-
-                                    {% if user.is_authenticated %}
-                                    
-                                    <div class="d-none d-lg-block mr-5">
-                                        <a class="boxed-btn3" href="{% url 'userauth:logout'  %}">Log out</a>
-                                    </div>
-
-                                    <div class="d-none d-lg-block">
-                                        <a class="boxed-btn3" href="{% url 'userprofile:Profile' user.id %}">Profile </a>
-                                    </div>
-                                    {%else%}
-
-                                    <div class="d-none d-lg-block mr-5">
-                                        <a class="boxed-btn3" href="{% url 'signup'  %}">signup</a>
-                                    </div>
-
-                                    <div class="d-none d-lg-block ">
-                                        <a class="boxed-btn3" href="{% url 'userauth:login'  %}">Log in</a>
-                                    </div>
-
-
-                                    {%endif%}
-
-                                </div>
-
-                                
-                            </div>
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+        <div class="my-0 mr-md-auto font-weight-normal">
+          <a href="{% url 'apps.job:jobs'  %}">
+              <img src="{% static 'img/svg_icon/logo2.png' %}" alt="">
+          </a>
         </div>
-    </header>
-    <!-- header-end -->
 
-    <!-- slider_area_start -->
-    <div class="slider_area">
-        <div class="single_slider  d-flex align-items-center slider_bg_1">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-7 col-md-6">
-                        <div class="slider_text">
-                            <h5 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".2s">4536+ Jobs listed</h5>
-                            <h3 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".3s">Find your Dream Job</h3>
-                            <p class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".4s">We provide online instant cash loans with quick approval that suit your term length</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="ilstration_img wow fadeInRight d-none d-lg-block text-right" data-wow-duration="1s" data-wow-delay=".2s">
-            <img src="{% static 'img/banner/illustration.png'%}" alt="">
-        </div>
-    </div>
+        {% if user.is_authenticated %}
+  
+          <div class="d-none d-lg-block mr-5">
+              <a class="btn btn-outline-primary" href="{% url 'apps.userauth:logout'  %}"><i class="fa fa-sign-out" aria-hidden="true">&nbsp;تسجيل الخروج</i></a>
+          </div>
+  
+          <div class="d-none d-lg-block">
+              <a class="btn btn-outline-primary" href="{% url 'apps.userprofile:Profile' user.id %}"><i class="fa fa-user" aria-hidden="true">&nbsp;الملف الشخصي</i></a>
+          </div>
+          {%else%}
+  
+          <div class="d-none d-lg-block mr-5">
+              <a class="btn btn-outline-primary" href="{% url 'signup'  %}"><i class="fa fa-user-plus" aria-hidden="true">&nbsp;إنشاء حساب</i></a>
+          </div>
+  
+          <div class="d-none d-lg-block ">
+              <a class="btn btn-outline-primary" href="{% url 'apps.userauth:login'  %}"><i class="fa fa-sign-in" aria-hidden="true">&nbsp;تسجيل الدخول</i></a>
+          </div>
+  
+        {%endif%}
+  
+      </div>
     <!-- slider_area_end -->
-
+    <div class="container" >
     <!-- content_start -->
     {% block content %}
 
@@ -220,20 +107,66 @@
 
 
     <!-- footer start -->
-    <footer class="footer">
-        <div class="footer_top">
-            <div class="container">
-                
-            </div>
-        </div>
-        <div class="copy-right_text wow fadeInUp" data-wow-duration="1.4s" data-wow-delay=".3s">
-            <div class="container">
-                <div class="footer_border"></div>
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-12 col-md">
+            <img class="mb-2" src="../../assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
+            <small class="d-block mb-3 text-muted">© 2022-2023</small>
+            <a class="text-muted" href="https://sukhtian.com/en/section/terms-conditions">Terms & Conditions</a>
+          </div>
 
-            </div>
-        </div>
 
-    </footer>
+          <div class="col-6 col-md">
+            <h5>About</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/map/about-us/global-presence">Global Presence</a></li>
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/about-us/letter-chairman">Letter of Chairman</a></li>
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/about-us/our-history">Our History</a></li>
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/about-us/vision-and-mission">Vision and Mission</a></li>
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/about-us/who-we-are">Who We Are</a></li>
+            </ul>
+          </div>
+
+
+          <div class="col-6 col-md">
+            <h5>business Lines</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/business-lines/agriculture">Agriculture</a></li>
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/business-lines/chemical">Chemical</a></li>
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/business-lines/communication-security">Communication</a></li>
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/business-lines/environmental-water-sciences">Environmental </a></li>
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/business-lines/legal-0">Legal</a></li>
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/business-lines/medical">Medical</a></li>
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/business-lines/pharma">Pharma</a></li>
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/business-lines/professional-hair-beauty-care">Professional Hair &amp; Beauty Care</a></li>
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/business-lines/trading">Trading </a></li>
+              <li><a class="text-muted" href="https://sukhtian.com/en/section/business-lines/veterinary">Veterinary</a></li>
+            </ul>
+          </div>
+
+
+
+
+            <section id="block-block-10" class="block block-block clearfix">
+            <h5>Contact Us</h5> 
+            <p>Headquarters of Munir Sukhtian</p>
+            <p>Group Trading Co.</p>
+            <p>P.O.Box 1027 Amman - Jordan&nbsp;<br>
+            Location: Amman, Al - Abdali area</p>
+            <p>Opposite the Ministry of Education</p>
+            <p><a href="tel:96265688888">Tel: 962 6 5688888</a><br>
+            Fax: 962 6 5601568</p>
+            <p><a href="https://www.facebook.com/Munir-Sukhtain-Trading-Group-194563367877249/" target="_blank">Facebook</a></p>
+            <p><a href="https://www.linkedin.com/company/munir-sukhtian-group---ms-group/" target="_blank">LinkedIn</a></p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            
+            </section>
+
+          
+        </div>
+      </footer>
+    </div>
     <!--/ footer end  -->
 
 

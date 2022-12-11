@@ -15,3 +15,4 @@ with cursor.execute(tsql):
         row = cursor.fetchone()
         print (str(row[0]))
         
+
