@@ -60,7 +60,11 @@ class Interview(models.Model):
 
       
     def __str__(self):
+<<<<<<< HEAD:apps/interview/models.py
         return self.interview_application.UserProfile_App.user.username
+=======
+        return self.interview_application.UserProfile_App.Name
+>>>>>>> 6d1e5612c55e23af9fe877b39e477031198ffd69:interview/models.py
 
     class Meta:
         verbose_name = _('المقابلات')

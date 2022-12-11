@@ -51,7 +51,11 @@ class Job(models.Model):
     required_competencies = models.TextField(max_length=3000,verbose_name='المهارات المطلوبة ',null=True)
     Career_Level = models.ForeignKey(Career_Level,on_delete=models.SET_NULL, null=True,verbose_name='مستوى الخبرة ')
     other = models.TextField(blank=True, max_length=3000,verbose_name=' مهارات أخرى ',null=True)
+<<<<<<< HEAD:apps/job/models.py
     created_by = models.ForeignKey(User,on_delete=models.SET_NULL, null=True,verbose_name=' أنشأت بواسطة')
+=======
+    
+>>>>>>> 6d1e5612c55e23af9fe877b39e477031198ffd69:job/models.py
     def __str__(self):
         return self.title.name
 

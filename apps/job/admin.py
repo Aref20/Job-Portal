@@ -82,6 +82,38 @@ class jobadmin(ImportExportModelAdmin,SummernoteModelAdmin , admin.ModelAdmin):
         dep = request.user.groups.values_list('name',flat = True).first()
         HRUsers = list(User.objects.filter(groups__name = 'HR').values_list('email',flat=True))
 
+<<<<<<< HEAD:apps/job/admin.py
+=======
+
+        form = super(jobadmin, self).get_form(request, obj, **kwargs)
+
+        #Each user apply for his group and disable fields if not HR
+        if not(dep=='HR'):
+            form.base_fields["department"].queryset =  request.user.groups
+            form.base_fields["title"].queryset = Title.objects.filter(department__name = dep)
+            form.base_fields["status"].disabled = True
+            form.base_fields["expiration_date"].disabled = True
+        return form
+
+    def get_queryset(self, request):
+
+        qs = super(jobadmin, self).get_queryset(request)
+        dep = request.user.groups.values_list('name',flat = True).first()
+        depid = request.user.groups.values_list('id',flat = True).first()
+
+        if dep == 'HR':
+            return qs
+        else:
+            return qs.filter(department = depid)
+
+
+
+
+    def save_form(self, request, form, change):
+        user = (User.objects.filter(id=request.user.id).values_list('username',flat=True)).first()
+        dep = request.user.groups.values_list('name',flat = True).first()
+        HRUsers = list(User.objects.filter(groups__name = 'HR').values_list('email',flat=True))
+>>>>>>> 6d1e5612c55e23af9fe877b39e477031198ffd69:job/admin.py
         # send email for HR if not HR and on insert
         if (not (dep=='HR') ):
             subject = 'New Job'

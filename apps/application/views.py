@@ -14,8 +14,11 @@ from django.template import RequestContext
 from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
 from .emailmessages import Emessage
+<<<<<<< HEAD:apps/application/views.py
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+=======
+>>>>>>> 6d1e5612c55e23af9fe877b39e477031198ffd69:application/views.py
 # Create your views here.
 
 # send success email for applicatent
@@ -60,15 +63,23 @@ class ApplicationCreateView(LoginRequiredMixin,CreateView):
      form.instance.department =Group.objects.get(id=self.Job_App.department.id)
      form.instance.UserProfile_App = self.UserProfile_App
      messages.add_message(self.request, messages.SUCCESS,'لقد تم تقديم الطلب بنجاح')
+<<<<<<< HEAD:apps/application/views.py
      username = self.UserProfile_App.user.username
      message = Emessage(username,'',"","","")
+=======
+     message = Emessage('aref','alhamad',"","","")
+>>>>>>> 6d1e5612c55e23af9fe877b39e477031198ffd69:application/views.py
      m2 = message.welcomemessage()
      # get email from the form
      email = [self.UserProfile_App.user.email]
 
+<<<<<<< HEAD:apps/application/views.py
      msg = EmailMultiAlternatives( subject,m2, my_username, email, connection=connection )
      msg.attach_alternative(m2, "text/html")
      msg.send()
+=======
+     send_mail( subject,m2, my_username, email, connection=connection )
+>>>>>>> 6d1e5612c55e23af9fe877b39e477031198ffd69:application/views.py
      
 
      return super().form_valid(form)
